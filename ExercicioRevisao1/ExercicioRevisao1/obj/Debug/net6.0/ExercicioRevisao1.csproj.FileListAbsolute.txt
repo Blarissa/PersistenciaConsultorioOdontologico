@@ -1,0 +1,15 @@
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\bin\Debug\net6.0\ExercicioRevisao1.exe
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\bin\Debug\net6.0\ExercicioRevisao1.deps.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\bin\Debug\net6.0\ExercicioRevisao1.runtimeconfig.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\bin\Debug\net6.0\ExercicioRevisao1.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\bin\Debug\net6.0\ExercicioRevisao1.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\ExercicioRevisao1.csproj.AssemblyReference.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\ExercicioRevisao1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\ExercicioRevisao1.AssemblyInfoInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\ExercicioRevisao1.AssemblyInfo.cs
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\ExercicioRevisao1.csproj.CoreCompileInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\ExercicioRevisao1.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\refint\ExercicioRevisao1.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\ExercicioRevisao1.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\ExercicioRevisao1.genruntimeconfig.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\ExercicioRevisao1\obj\Debug\net6.0\ref\ExercicioRevisao1.dll
