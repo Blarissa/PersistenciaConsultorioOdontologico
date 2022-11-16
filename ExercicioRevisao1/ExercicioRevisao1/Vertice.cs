@@ -15,6 +15,7 @@ namespace ExercicioRevisao1
             Y = y;
         }
         
+        public Vertice() { }
         //calcula distancia entre 2 vertices
         public double Distancia(Vertice v)
         {
