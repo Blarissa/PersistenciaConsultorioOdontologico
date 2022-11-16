@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Globalization;
-using System.Net.Http.Headers;
 
 namespace ExercicioRevisao1
 {
@@ -68,16 +65,13 @@ namespace ExercicioRevisao1
         {   
             //inicializa vertices dos triangulos
             Vertices = new Vertice[3];
-            for(int i = 0; i < v.Length; i++)
-            {
-                Vertices[i] = v[i];
-            }
+            Vertices = v;
 
             //define valor dos lados do triangulo
             Lados = new double[3];
-            for (int i = 0,j = i + 1; i < v.Length; i++, j++)
+            for (int i = 0,j = i + 1; i < Vertices.Length; i++, j++)
             {
-                if(j == 3)
+                if(j == Vertices.Length)
                     j = 0;
                 
                 Lados[i] = Vertices[i].Distancia(Vertices[j]);

@@ -1,11 +1,15 @@
-﻿namespace ExercicioRevisao1
+﻿using System.ComponentModel;
+
+namespace ExercicioRevisao1
 {
     internal class Program
     {
         static void Main()
         {
 
-            /*
+            /*TESTANDO FUNCIONALIDADES DAS CLASSES
+             * 
+             * 
              * Questão 1
             Piramide piramide = new(4);
             Console.WriteLine("Piramide tamanho 4");
@@ -38,7 +42,7 @@
 
             /*Questão 3
              * 
-             */
+             
             Vertice[] v1 = new Vertice[3];
 
             v1[0] = new Vertice(1, 1);
@@ -77,6 +81,50 @@
                 Console.WriteLine("Os triângulos são iguais!");
             else
                 Console.WriteLine("Os triângulos são diferentes!");
+            */
+
+            /*
+             * Questão 4
+             */
+            List<Vertice> v1 = new()
+            {
+                new Vertice(1, 2),
+                new Vertice(2, 2),
+                new Vertice(-2, 2)
+            };
+
+            List<Vertice> v2 = new()
+            {
+                new Vertice(-2, 2),
+                new Vertice(-1, 1),
+                new Vertice(-2, 1)
+            };
+
+            Poligono p1 = new(v1);
+           
+            Console.WriteLine("Poligono 1"
+                + "\nLado 1: " + p1.Lados[0]
+                + "\nLado 2: " + p1.Lados[1]
+                + "\nLado 3: " + p1.Lados[2]
+                + "\nN lados: " + p1.Qtd
+                + "\nPerimetro: " + p1.Perimetro()
+                + "\n");
+
+            Poligono p2 = new(v2);
+
+            v2.Add(new(6, 7));
+            p1.Remove(v1[1]);
+            
+            if(p2.AddVertice(v2.Last()))
+                Console.WriteLine("Adicionou um vertice");
+
+            Console.WriteLine("Poligono 2"
+                + "\nLado 1: " + p2.Lados[0]
+                + "\nLado 2: " + p2.Lados[1]
+                + "\nLado 3: " + p2.Lados[2]
+                + "\nLado 4: " + p2.Lados[3]
+                + "\nPerimetro: " + p2.Perimetro()
+                + "\n");
         }
     }
 }
