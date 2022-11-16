@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExercicioRevisao1
 {
@@ -10,37 +6,38 @@ namespace ExercicioRevisao1
     {
         public double X { get; private set; }
         public double Y { get; private set; }
-
-        public Vertice() { }
-
+        
+        //inicializa vertice
         public Vertice(double x, double y)
         {
+            
             X = x;
             Y = y;
         }
         
-        public double Distancia(Vertice v1)
+        //calcula distancia entre 2 vertices
+        public double Distancia(Vertice v)
         {
-            if(Diferente(v1))
-            {
-                double dist = Math.Pow((v1.X - X),2) + Math.Pow((v1.Y - Y), 2);
-                return Math.Sqrt(dist);
-            }
-            return 0;
-            
+            //precisção de 2 casas
+            return Math.Round(
+                   Math.Sqrt(
+                       Math.Pow((X - v.X),2) + Math.Pow((Y - v.Y), 2)),
+                   2);
         }
 
-        public Vertice Move(double x, double y)
+        //move um vertice para uma cordenada diferente
+        public void Move(double x, double y)
         {
-            return new Vertice(x,y);
+            X = x;
+            Y = y;
         }
 
-        public bool Diferente(Vertice v1)
+        //verifica se dois vertices são diferentes
+        public bool Diferente(Vertice v)
         {
-            if (X != v1.X || Y != v1.X)
-                return true;
-            return false;
+            if (X == v.X && Y == v.X)
+                return false;
+            return true;
         }
-
     }
 }

@@ -8,23 +8,37 @@ namespace ExercicioRevisao1
 {
     internal class Piramide
     {
-        public int N { get; set; }
+        private int n;
+        public int N
+        {
+            get {
+                if (n < 1)
+                    throw new ArgumentException("Numero < 1");
+                return n; 
+            }
+            set { 
+                n = value;
+                if(n < 1)
+                    throw new ArgumentException("Numero < 1");
+            }
+        }
 
-        public Piramide(int n) {
+        public Piramide(int num)
+        {
             try
             {
-                N = n;
+                N = num;
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e);
             }
         }
 
         public void Desenha(){ 
-            for (int i = 1; i <= N; i++)
+            for (int i = 1; i <= n ; i++)
             {
-                for (int j = 1; j <= N - i; j++)
+                for (int j = 1; j <= n - i; j++)
                     Console.Write(" ");
                 
                 for (int k = 1; k <= i; k++)
