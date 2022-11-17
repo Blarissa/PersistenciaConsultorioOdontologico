@@ -85,7 +85,7 @@ namespace ExercicioRevisao1
 
             /*
              * Questão 4
-             */
+             
             List<Vertice> v1 = new()
             {
                 new Vertice(1, 2),
@@ -125,6 +125,13 @@ namespace ExercicioRevisao1
                 + "\nLado 4: " + p2.Lados[3]
                 + "\nPerimetro: " + p2.Perimetro()
                 + "\n");
+            */
+            DateTime inicial = new (2022, 11, 16, 23, 25, 0);
+            DateTime final = new(2022, 11, 20, 23, 0, 0);
+
+            Intervalo i = new(inicial, final);
+
+            Console.WriteLine("Intervalo: "+ i.Duracao.Duration());
         }
     }
 }
