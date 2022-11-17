@@ -1,0 +1,15 @@
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\bin\Debug\net6.0\Piramide.exe
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\bin\Debug\net6.0\Piramide.deps.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\bin\Debug\net6.0\Piramide.runtimeconfig.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\bin\Debug\net6.0\Piramide.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\bin\Debug\net6.0\Piramide.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\Piramide.csproj.AssemblyReference.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\Piramide.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\Piramide.AssemblyInfoInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\Piramide.AssemblyInfo.cs
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\Piramide.csproj.CoreCompileInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\Piramide.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\refint\Piramide.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\Piramide.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\Piramide.genruntimeconfig.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Piramide\obj\Debug\net6.0\ref\Piramide.dll

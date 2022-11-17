@@ -1,0 +1,15 @@
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\bin\Debug\net6.0\Formas.exe
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\bin\Debug\net6.0\Formas.deps.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\bin\Debug\net6.0\Formas.runtimeconfig.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\bin\Debug\net6.0\Formas.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\bin\Debug\net6.0\Formas.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\Formas.csproj.AssemblyReference.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\Formas.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\Formas.AssemblyInfoInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\Formas.AssemblyInfo.cs
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\Formas.csproj.CoreCompileInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\Formas.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\refint\Formas.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\Formas.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\Formas.genruntimeconfig.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao1\Vertice\obj\Debug\net6.0\ref\Formas.dll

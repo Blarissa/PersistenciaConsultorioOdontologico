@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\laris\\source\\repos\\Blarissa\\ResidenciaIUUL\\ExercicioRevisao1\\ExercicioRevisao1\\ExercicioRevisao1.csproj",
-      "projectName": "ExercicioRevisao1",
-      "projectPath": "C:\\Users\\laris\\source\\repos\\Blarissa\\ResidenciaIUUL\\ExercicioRevisao1\\ExercicioRevisao1\\ExercicioRevisao1.csproj",
+      "projectUniqueName": "C:\\Users\\laris\\source\\repos\\Blarissa\\ResidenciaIUUL\\ExercicioRevisao1\\ExercicioRevisao1\\Intervalo.csproj",
+      "projectName": "Intervalo",
+      "projectPath": "C:\\Users\\laris\\source\\repos\\Blarissa\\ResidenciaIUUL\\ExercicioRevisao1\\ExercicioRevisao1\\Intervalo.csproj",
       "packagesPath": "C:\\Users\\laris\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\laris\\source\\repos\\Blarissa\\ResidenciaIUUL\\ExercicioRevisao1\\ExercicioRevisao1\\obj\\",
       "projectStyle": "PackageReference",

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Intervalo": {
+      "commandName": "Project"
+    },
+    "Perfil 1": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\laris\\source\\repos\\Blarissa\\ResidenciaIUUL\\ExercicioRevisao1\\Cliente"
+    }
+  }
+}
