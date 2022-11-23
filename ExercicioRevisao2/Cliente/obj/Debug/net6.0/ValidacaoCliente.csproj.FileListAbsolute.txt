@@ -1,0 +1,15 @@
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\bin\Debug\net6.0\ValidacaoCliente.exe
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\bin\Debug\net6.0\ValidacaoCliente.deps.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\bin\Debug\net6.0\ValidacaoCliente.runtimeconfig.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\bin\Debug\net6.0\ValidacaoCliente.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\bin\Debug\net6.0\ValidacaoCliente.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\ValidacaoCliente.csproj.AssemblyReference.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\ValidacaoCliente.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\ValidacaoCliente.AssemblyInfoInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\ValidacaoCliente.AssemblyInfo.cs
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\ValidacaoCliente.csproj.CoreCompileInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\ValidacaoCliente.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\refint\ValidacaoCliente.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\ValidacaoCliente.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\ValidacaoCliente.genruntimeconfig.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao2\Cliente\obj\Debug\net6.0\ref\ValidacaoCliente.dll
