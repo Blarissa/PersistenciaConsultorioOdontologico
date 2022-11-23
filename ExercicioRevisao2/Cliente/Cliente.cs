@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ValidaCliente
 {
@@ -14,7 +10,9 @@ namespace ValidaCliente
         private DateTime dataNascimento;
         private float renda;
         private char estadoCivil;
-        private int? dependentes;
+        private int dependentes;
+
+        private ValidaCliente valida = new();
 
         public string Nome
         {
@@ -22,12 +20,14 @@ namespace ValidaCliente
             {
                 return nome;
             }
-            set
+            private set
             {
-                if (value.Length >= 5)
+                if (valida.Nome(value))
                     nome = value;
                 else
-                    throw new ArgumentException("\nNome precisa ter pelo menos 5 caracteres!");
+                    throw new ArgumentException("\nCampo inválido: " + nameof(value)
+                                             + "\nValor: " + value
+                                              + "\nNome deve ter pelo menos 5 caracteres!");
             }
 
         }
@@ -37,15 +37,14 @@ namespace ValidaCliente
             {
                 return cpf;
             }
-            set
+            private set
             {
-
-                int tamanho = value.ToString().Length;
-
-                if (tamanho == 11 || tamanho == 10)
+                if (valida.CPF(value))
                     cpf = value;
                 else
-                    throw new ArgumentException("\nCPF com tamanho inválido!");
+                    throw new ArgumentException("\nCampo inválido: " + nameof(value)
+                                              + "\nValor: " + value
+                                              + "\nCPF com tamanho diferente de 11!");
             }
 
         }
@@ -55,14 +54,14 @@ namespace ValidaCliente
             {
                 return dataNascimento;
             }
-            set
+            private set
             {
-                int dias = DateTime.Now.Subtract(dataNascimento).Days;
-
-                if (dias / 365 >= 18)
+                if (valida.DataDeNascimento(value))
                     dataNascimento = value;
                 else
-                    throw new ArgumentException("\nMenor de 18 anos!");
+                    throw new ArgumentException("\nCampo inválido: " + nameof(dataNascimento)
+                                              + "\nValor: " + dataNascimento
+                                              + "\nMenor de 18 anos!");
             }
         }
         public float Renda
@@ -71,17 +70,14 @@ namespace ValidaCliente
             {
                 return renda;
             }
-            set
+            private set
             {
-                //retorna true se tiver virgula no numero
-                bool virgula = value.ToString().Contains(",");
-                //retorna true se tiver 2 casas decimais
-                bool casas = value.ToString().Split(",").Length == 2;
-
-                if (virgula && casas)
+                if (valida.Renda(value))
                     renda = value;
                 else
-                    throw new ArgumentException("\nValor diferente do exigido!");
+                    throw new ArgumentException("\nCampo inválido: " + nameof(renda)
+                                              + "\nValor: " + renda
+                                              + "\nValor diferente do exigido!");
             }
         }
         public char EstadoCivil
@@ -90,44 +86,93 @@ namespace ValidaCliente
             {
                 return estadoCivil;
             }
-            set
+            private set
             {
-                string valores = "CSVD";
-
-                if (valores.Contains(value))
+                if (valida.EstadoCivil(value))
                     estadoCivil = value;
                 else
-                    throw new ArgumentException("\nEstado civil inválido!");
-
+                    throw new ArgumentException("\nCampo inválido: " + nameof(value)
+                                              + "\nValor: " + value);
             }
         }
-        public int? Dependentes
+        public int Dependentes
         {
             get
             {
                 return dependentes;
             }
-            set
+            private set
             {
-                if (value >= 0 && value <= 10)
+                if (valida.Dependentes(value))
                     dependentes = value;
                 else
-                    throw new ArgumentException("\nNumero de dependentes inválidos!");
+                    throw new ArgumentException("\nCampo inválido: " + nameof(value)
+                                              + "\nValor: " + value
+                                              + "\nNumero de dependentes deve ser entre 0 e 10!");
             }
         }
 
-        public Cliente() { }
+        
 
-        public Cliente(string nome, long cpf, DateTime dataNascimento,
-            float renda, char estadoCivil, int? dependentes)
+        public Cliente(string nome, long cpf, DateTime data, float renda,
+            char estadoCivil, int dependentes)
         {
-            this.nome = nome;
-            this.cpf = cpf;
-            this.dataNascimento = dataNascimento;
-            this.renda = renda;
-            this.estadoCivil = estadoCivil;
-            this.dependentes = dependentes;
+            try
+            {
+                this.nome = nome;
+            } catch (Exception) {
+                throw;
+            }
 
+            try
+            {
+                this.cpf = cpf;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            try
+            {
+                this.dataNascimento = data;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            try
+            {
+                this.renda = renda;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            try
+            {
+                this.estadoCivil = estadoCivil;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            try
+            {
+                this.dependentes = dependentes;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public override string ToString()
