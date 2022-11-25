@@ -12,6 +12,8 @@ namespace ValidaCliente
         private char estadoCivil;
         private int dependentes;
 
+        private ValidaCliente valida = new();
+
         public string Nome
         {
             get
