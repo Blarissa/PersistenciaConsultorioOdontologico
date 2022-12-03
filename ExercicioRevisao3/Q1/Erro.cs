@@ -7,19 +7,15 @@ using System.Threading.Tasks;
 
 namespace Q1
 {
-    internal class Erro 
+    internal class Erro
     {
-        public Hashtable Dados { get; private set; }
+        public ClienteJson Dados { get; private set; }
         public Hashtable Erros { get; private set; }
 
-        public Erro() {
-            Dados = new Hashtable();
-            Erros = new Hashtable();
-        }
-
-        public bool IsNull()
+        public Erro()
         {
-            return Dados.Count.Equals(0) && Erros.Count.Equals(0);
+            Dados = new ClienteJson();
+            Erros = new Hashtable();
         }
     }
 }

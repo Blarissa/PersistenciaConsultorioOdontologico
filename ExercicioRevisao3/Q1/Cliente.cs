@@ -12,7 +12,15 @@ namespace Q1
         public char EstadoCivil { get; private set; }
         public int Dependentes { get; private set; }
 
-        public Cliente() { }
+        public Cliente(string nome, long cpf, DateTime dataNascimento, float renda, char estadoCivil, int dependentes)
+        {
+            Nome = nome;
+            Cpf = cpf;
+            DataNascimento = dataNascimento;
+            Renda = renda;
+            EstadoCivil = estadoCivil;
+            Dependentes = dependentes;
+        }
 
         public override string ToString()
         {

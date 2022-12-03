@@ -11,8 +11,9 @@ namespace Q1
 
         static void Main(string[] args)
         {
-            Controller c = new Controller();
-            c.Adiciona();
+            //adicionando dados a partir do arquivo JSON
+            Controller.AddErros();
+            
         }
     }
 }

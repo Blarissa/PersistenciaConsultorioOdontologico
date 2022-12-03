@@ -1,75 +1,60 @@
 ﻿using System;
-using System.Collections;
-using System.Globalization;
+
 
 namespace Q1
 
 {
     internal class Valida
     {
-        public String Nome { get; private set; }
-        public long Cpf { get; private set; }
-        public DateTime DataNascimento { get; private set; }
-        public float Renda { get; private set; }
-        public char EstadoCivil { get; private set; }
-        public int Dependentes { get; private set; }
         public Erro E { get; private set; }
 
-        public Valida(string nome, string cpf, string dt_nascimento,
-            string renda_mensal, string estado_civil, string dependentes)
-        {
+        public Valida(string nome, string cpf, string dt_nascimento, string renda_mensal,
+                      string estado_civil, string dependentes){
             E = new Erro();
 
-            if (ValidaNome(nome))
-                Nome = nome;
-            else
-                E.Erros.Add("Nome", "Deve ter pelo menos 5 caracteres!");
+            //validando dados
+            if (!ValidaNome(nome))
+                E.Erros.Add("Nome", 
+                    "Deve ter pelo menos 5 caracteres!");
 
-            if (ValidaCPF(long.Parse(cpf)))
-                Cpf = long.Parse(cpf);
-            else
-                E.Erros.Add("CPF", "Deve ter 11 dígitos e ser válido!");
+            if (!ValidaCPF(cpf))
+                E.Erros.Add("CPF",
+                    "CPF inválido");
+            
+            if (!ValidaDataDeNascimento(dt_nascimento))              
+                E.Erros.Add("Data de Nascimento",
+                    "Data de nascimento inválida");
 
-            
-            if (ValidaDataDeNascimento(dt_nascimento))
-                DataNascimento = Convert.ToDateTime(dt_nascimento);
-            else
-                E.Erros.Add("Data de Nascimento", "Não pode ter menos que 18 anos!");
-            
-            if (ValidaRenda(float.Parse(renda_mensal)))
-                Renda = float.Parse(renda_mensal);
-            else                
+            if (!ValidaRenda(renda_mensal))                               
                 E.Erros.Add("Renda mensal",
-                    "Deve ser maior que 0 e conter 2 casas decimais com virgula!");            
+                    "Renda mensal inválida");            
 
-            if (ValidaEstadoCivil(char.Parse(estado_civil.ToUpper())))
-                EstadoCivil = char.Parse(estado_civil.ToUpper());
-            else               
+            if (!ValidaEstadoCivil(estado_civil.ToUpper()))               
                 E.Erros.Add("Estado civil",
-                    "Deve ser C(casado), S(solteiro), V(viúvo) ou D(divorciado)!");            
+                    "Estado civil inválido");            
 
-            if (ValidaDependentes(int.Parse(dependentes)))
-                Dependentes = int.Parse(dependentes);
-            else
+            if (!ValidaDependentes(dependentes))               
                 E.Erros.Add("Dependentes",
-                    "Deve estar entre 0 e 10!");          
-
+                    "Número de dependentes inválido");        
+            
+            //se existir erros adicionando dados a lista de erros
             if(E.Erros.Count > 0)
             {
-                E.Dados.Add(nameof(nome), nome);
-                E.Dados.Add(nameof(cpf), cpf);
-                E.Dados.Add(nameof(dt_nascimento), dt_nascimento);
-                E.Dados.Add(nameof(renda_mensal), renda_mensal);
-                E.Dados.Add(nameof(estado_civil), estado_civil.ToUpper());
-                E.Dados.Add(nameof(dependentes), dependentes);
+                E.Dados.nome = nome;
+                E.Dados.cpf = cpf;
+                E.Dados.renda_mensal = renda_mensal;
+                E.Dados.dt_nascimento = dt_nascimento;
+                E.Dados.estado_civil = estado_civil.ToUpper();
+                E.Dados.dependentes = dependentes;                 
             }
         }
-
+        
+        //validações dos dados
         public static bool ValidaNome(string nome)
         {
             return nome.Length >= 5;
         }
-        public static bool ValidaCPF(long cpf)
+        public static bool ValidaCPF(string cpf)
         {
             if (cpf.ToString().Length == 11)
             {
@@ -108,28 +93,32 @@ namespace Q1
 
             return false;
         }
-        public static bool ValidaDataDeNascimento(String dataNascimento)
+        public static bool ValidaDataDeNascimento(string dataNascimento)
         {
-            DateTime data;
-            return DateTime.TryParse(dataNascimento, out data) && 
-                (DateTime.Now.Subtract(data).Days/ 365) >= 18;
+            
+            return DateTime.TryParse(dataNascimento, out DateTime dt) && 
+                   DateTime.Now.Subtract(dt).Days/ 365 >= 18;
         }
-        public static bool ValidaRenda(float renda)
+        public static bool ValidaRenda(string renda)
         {
-            bool formato = renda.ToString("F").Equals(renda.ToString());
+            float.TryParse(renda, out float val);
+            bool formato = val.ToString("F").Equals(renda);
 
-            return (renda > 0 && formato);
+            return (val > 0 && formato);
         }
-        public static bool ValidaEstadoCivil(char estadoCivil)
+        public static bool ValidaEstadoCivil(string estadoCivil)
         {
-            return estadoCivil == 'C' ||
-                   estadoCivil == 'S' ||
-                   estadoCivil == 'V' ||
-                   estadoCivil == 'D';
+            char.TryParse(estadoCivil, out char val);
+
+            return val == 'C' ||
+                   val == 'S' ||
+                   val == 'V' ||
+                   val == 'D';
         }
-        public static bool ValidaDependentes(int dependentes)
+        public static bool ValidaDependentes(string dependentes)
         {
-            return dependentes >= 0 && dependentes <= 10;
+            int.TryParse(dependentes, out int val);
+            return val >= 0 && val <= 10;
         }  
     }
 }
