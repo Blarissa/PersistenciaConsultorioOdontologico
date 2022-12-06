@@ -4,6 +4,8 @@ using Nancy.ViewEngines;
 using Newtonsoft.Json;
 using System.Collections;
 using System.ComponentModel;
+using System.Drawing;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
@@ -15,14 +17,14 @@ namespace Q1
     {
 
         //ler dados do cliente arquivo JSON
-        public static List<ClienteJson> LerDados()
+        public static List<ClienteAuxiliar>? LerDados()
         {
             //lendo dados do arquivo JSON
-            String dados = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory
+            String? dados = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory
                                           + @"\clientes.json");
             
             //retornando lista de clientesJson
-            return JsonConvert.DeserializeObject<List<ClienteJson>>(dados);
+            return JsonConvert.DeserializeObject<List<ClienteAuxiliar>>(dados);
         }
         
         // grava erros em um arquivo JSON
@@ -37,14 +39,14 @@ namespace Q1
         public static void AddErros()
         {
             //Lendo dados do arquivo
-            List<ClienteJson> clienteJson = LerDados();
+            List<ClienteAuxiliar> clienteJson = LerDados();
 
             //criando lista de erro 
             List<Erro> erros = new();
-            Valida valida;
+            Valida? valida;
 
             //valida dados do arquivo
-            foreach (ClienteJson cliente in clienteJson){
+            foreach (ClienteAuxiliar cliente in clienteJson){
                 valida = new(cliente.nome,
                                 cliente.cpf,
                                 cliente.dt_nascimento,
@@ -53,27 +55,28 @@ namespace Q1
                                 cliente.dependentes);
                
                 //se existe erros nos dadosdo arquivo adiciona na lista
-                if (valida.E.Erros.Count > 0)
-                    erros.Add(valida.E);              
+                if (!Equals(valida.Erros, null))
+                    erros.Add(valida.Erros);              
             }
             //gravando erros em um arquivo
             GravaErros(erros);            
         }            
-        /*
-        public void AddComConsole()
+        
+        public static ClienteAuxiliar? LerConsole()
         {
+            ClienteAuxiliar? clienteAuxiliar = new ClienteAuxiliar();
             Console.WriteLine("Insira seus dados");
             Console.WriteLine("Nome (pelo menos 5 caracteres): ");
-            string nome = Console.ReadLine();
+            clienteAuxiliar.nome = Console.ReadLine();
 
             Console.WriteLine("Cpf (11 digitos): ");
-            string cpf = Console.ReadLine();
+            clienteAuxiliar.cpf = Console.ReadLine();
 
             Console.WriteLine("Data de Nascimento (não pode ser menor que 18 anos): ");
-            string dataNascimento = Console.ReadLine();
+            clienteAuxiliar.dt_nascimento = Console.ReadLine();
 
             Console.WriteLine("Renda (maior que 0 e com 2 casa decimais): ");
-            string renda = Console.ReadLine();
+            clienteAuxiliar.renda_mensal = Console.ReadLine();
 
             Console.WriteLine(
                 "\nC - Casado" +
@@ -81,29 +84,84 @@ namespace Q1
                 "\nV - Viuvo" +
                 "\nD - Divorciado\n" +
                 "\nEstado civil: ");
-            string estadoCivil = Console.ReadLine();
+            clienteAuxiliar.estado_civil = Console.ReadLine();
 
             Console.WriteLine("Dependentes (entre 0 e 10): ");
-            string dependentes = Console.ReadLine();
+            clienteAuxiliar.dependentes = Console.ReadLine();
 
-            Valida valida = new(nome, cpf, dataNascimento, renda, estadoCivil, dependentes);
+
+            return clienteAuxiliar;
         }
 
-        public Hashtable AddNovamente(Valida valida)
+        public static void AddComConsole(ClienteAuxiliar cli)
         {
-            Hashtable campos = new Hashtable();
-            campos.Add("nome","");
-            campos.Add("cpf", "");
-            campos.Add("dt_nascimento", "");
-            campos.Add("renda_mensal", "");
-            campos.Add("estado_civil", "");
-            campos.Add("dependentes", "");
-            foreach (string campo in valida.E.Erros.Keys)
+            ClienteAuxiliar dados = cli;
+            Console.WriteLine();
+            Valida? valida = new(dados.nome, dados.cpf, dados.dt_nascimento, dados.renda_mensal,
+                    dados.estado_civil, dados.dependentes); ;
+
+            while (!Equals(valida.Erros, null)){
+                ImprimeErros(valida.Erros);
+                dados = LerNovamente(valida.Erros, dados);
+
+                valida = new(dados.nome, dados.cpf, dados.dt_nascimento, dados.renda_mensal, 
+                    dados.estado_civil, dados.dependentes);
+   
+            }
+
+            //criando objeto cliente com valores válidos
+            Cliente? cliente = new(dados.nome, long.Parse(dados.cpf), 
+                                  DateTime.Parse(dados.dt_nascimento),
+                                  float.Parse(dados.renda_mensal), 
+                                  char.Parse(dados.estado_civil.ToUpper()),
+                                  int.Parse(dados.dependentes));
+            //Imprimindo dados
+            Console.WriteLine(cliente.ToString());
+        }
+
+        public static ClienteAuxiliar LerNovamente(Erro erro, ClienteAuxiliar clienteAux)
+        {
+            //ler novamente somente os dados que foram invalidados
+            foreach (string campo in erro.Erros.Keys)
             {
                 Console.WriteLine("Insira novamente "+ campo + ": ");
-                campos[campo] = Console.ReadLine();
+                string valor =  Console.ReadLine();
+
+                //atualizando valida.E.Dados para o valor que foi inserido acima
+                //se campo (uma chave de valida.E.Erros) tem o valor igual ao nome
+                //da propiedade valida.E.Dados a propriedade recebe o dado lido
+                Console.WriteLine(campo, nameof(clienteAux.nome));
+
+                switch (campo)
+                {
+                    case nameof(clienteAux.nome):
+                        clienteAux.nome = valor; break;
+                    case nameof(clienteAux.cpf):
+                        clienteAux.cpf = valor; break;
+                    case nameof(clienteAux.dt_nascimento):
+                        clienteAux.dt_nascimento = valor; break;
+                    case nameof(clienteAux.renda_mensal):
+                        clienteAux.renda_mensal = valor; break;
+                    case nameof(clienteAux.estado_civil):
+                        clienteAux.estado_civil = valor; break;
+                    case nameof(clienteAux.dependentes):
+                        clienteAux.dependentes = valor; break;
+                }
             }
-            return campos;
-        }*/
+            return clienteAux;
+        }
+
+        public static void ImprimeErros (Erro erro)
+        {
+            IDictionaryEnumerator? erros = erro.Erros.GetEnumerator();
+
+            //imprime erros na inserção de dados
+            while (erros.MoveNext())
+            {
+                Console.WriteLine(erros.Key + ": " + erros.Value);
+            }
+
+            Console.WriteLine();
+        }
     }
 }

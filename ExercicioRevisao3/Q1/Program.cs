@@ -3,6 +3,7 @@ using System;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Collections;
 
 namespace Q1
 {
@@ -13,6 +14,7 @@ namespace Q1
         {
             //adicionando dados a partir do arquivo JSON
             Controller.AddErros();
+
             
         }
     }

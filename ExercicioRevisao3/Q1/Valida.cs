@@ -1,51 +1,56 @@
 ﻿using System;
-
+using System.Collections;
+using System.ComponentModel;
 
 namespace Q1
 
 {
     internal class Valida
     {
-        public Erro E { get; private set; }
+        public Erro Erros { get; private set; }
 
         public Valida(string nome, string cpf, string dt_nascimento, string renda_mensal,
                       string estado_civil, string dependentes){
-            E = new Erro();
 
+            Hashtable erros = new ();
+            
             //validando dados
             if (!ValidaNome(nome))
-                E.Erros.Add("Nome", 
+                erros.Add("nome", 
                     "Deve ter pelo menos 5 caracteres!");
 
             if (!ValidaCPF(cpf))
-                E.Erros.Add("CPF",
+               erros.Add("cpf",
                     "CPF inválido");
             
             if (!ValidaDataDeNascimento(dt_nascimento))              
-                E.Erros.Add("Data de Nascimento",
+               erros.Add("dt_nascimento",
                     "Data de nascimento inválida");
 
             if (!ValidaRenda(renda_mensal))                               
-                E.Erros.Add("Renda mensal",
+                erros.Add("renda_mensal",
                     "Renda mensal inválida");            
 
             if (!ValidaEstadoCivil(estado_civil.ToUpper()))               
-                E.Erros.Add("Estado civil",
+                erros.Add("estado_civil",
                     "Estado civil inválido");            
 
             if (!ValidaDependentes(dependentes))               
-                E.Erros.Add("Dependentes",
-                    "Número de dependentes inválido");        
-            
-            //se existir erros adicionando dados a lista de erros
-            if(E.Erros.Count > 0)
+                erros.Add("dependentes",
+                    "Número de dependentes inválido");
+
+            if (!Equals(erros, null))
             {
-                E.Dados.nome = nome;
-                E.Dados.cpf = cpf;
-                E.Dados.renda_mensal = renda_mensal;
-                E.Dados.dt_nascimento = dt_nascimento;
-                E.Dados.estado_civil = estado_civil.ToUpper();
-                E.Dados.dependentes = dependentes;                 
+                ClienteAuxiliar clienteAux = new ClienteAuxiliar();
+
+                clienteAux.nome = nome;
+                clienteAux.cpf = cpf;
+                clienteAux.renda_mensal = renda_mensal;
+                clienteAux.dt_nascimento = dt_nascimento;
+                clienteAux.estado_civil = estado_civil.ToUpper();
+                clienteAux.dependentes = dependentes;
+
+                Erros = new Erro(clienteAux, erros);
             }
         }
         
