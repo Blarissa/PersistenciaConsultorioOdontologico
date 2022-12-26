@@ -1,0 +1,15 @@
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\bin\Debug\net6.0\Q2.exe
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\bin\Debug\net6.0\Q2.deps.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\bin\Debug\net6.0\Q2.runtimeconfig.json
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\bin\Debug\net6.0\Q2.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\bin\Debug\net6.0\Q2.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\Q2.csproj.AssemblyReference.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\Q2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\Q2.AssemblyInfoInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\Q2.AssemblyInfo.cs
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\Q2.csproj.CoreCompileInputs.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\Q2.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\refint\Q2.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\Q2.pdb
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\Q2.genruntimeconfig.cache
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\ExercicioRevisao3\Q2\obj\Debug\net6.0\ref\Q2.dll
