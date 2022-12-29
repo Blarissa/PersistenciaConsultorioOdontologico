@@ -1,10 +1,23 @@
-﻿namespace Desafio1
+﻿using NUnit.Framework;
+using System.Globalization;
+
+namespace Desafio1
 {
     internal class Program
     {
         static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
+        {/*
+            while (true)
+            {
+                Menu.Principal();
+            }*/
+
+            string hora = DateTime.Now.ToString("HHmm");
+
+            Console.WriteLine(hora);
+
+
+
         }
     }
 }

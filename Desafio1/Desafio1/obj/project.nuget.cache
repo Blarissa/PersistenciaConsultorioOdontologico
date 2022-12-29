@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "BrWRePtL/RsLZjgSJEoArpAo0xJUw3fgoiquu/4j+rYVW74Et53Fp9zCUS0dD/zPWugDi3f9MoSCsECLJSlqAQ==",
+  "dgSpecHash": "ENood29ev4hv+6zY1dC66JWIAswd25mgPLpxO7WWLBnqZyTXx8JukrLwY4f+hvlheYqcc7aLt7o4YT5LQoCQkg==",
   "success": true,
   "projectFilePath": "C:\\Users\\laris\\source\\repos\\Blarissa\\ResidenciaIUUL\\Desafio1\\Desafio1\\Desafio1.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\laris\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\laris\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
+    "C:\\Users\\laris\\.nuget\\packages\\nunit\\3.13.3\\nunit.3.13.3.nupkg.sha512"
+  ],
   "logs": []
 }
