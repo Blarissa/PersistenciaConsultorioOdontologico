@@ -6,18 +6,11 @@ namespace Desafio1
     internal class Program
     {
         static void Main(string[] args)
-        {/*
-            while (true)
+        {
+            while (Menu.Principal() >= 0)
             {
-                Menu.Principal();
-            }*/
-
-            string hora = DateTime.Now.ToString("HHmm");
-
-            Console.WriteLine(hora);
-
-
-
+                continue;
+            }
         }
     }
 }

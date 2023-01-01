@@ -16,13 +16,13 @@ namespace Desafio1
 
             //CPF inválido ler novamente
             if (!Valida.ValidaCpf(CPF))
-                LerCPF();
+                return LerCPF();
 
             //Verifica se já existe um CPF igual
             if (new PacienteController().PacienteExiste(long.Parse(CPF)))
             {
                 Console.WriteLine(Menssagens.CpfExistente);
-                LerCPF();
+                return LerCPF();
             }
 
             return long.Parse(CPF);
@@ -35,7 +35,7 @@ namespace Desafio1
 
             //nome inválido ler dados novamente
             if (!Valida.ValidaNome(nome))
-                LerNome();
+                return LerNome();
 
             return nome;
         }
@@ -47,7 +47,7 @@ namespace Desafio1
 
             //Data de nascimento inválido ler dados novamente
             if (!Valida.ValidaDataNascimento(dtNasc))
-                LerDtNascimento();
+                return LerDtNascimento();
 
             return DateTime.Parse(dtNasc);
         }

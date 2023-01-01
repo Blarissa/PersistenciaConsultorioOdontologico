@@ -9,7 +9,7 @@ namespace Desafio1
     internal class Menu
     {
         //Chama menu principal
-        public static void Principal()
+        public static int Principal()
         {
             Console.WriteLine("Menu Principal" +
                    "\n1-Cadastro de pacientes" +
@@ -22,28 +22,24 @@ namespace Desafio1
             {
                 //Chama menu de pacientes
                 case 1:
-                    Menu.Pacientes();
-                    break;
-
+                    return Pacientes();
+                    
                 //Chama menu da agenda
                 case 2:
-                    Menu.Agenda();
-                    break;
+                    return Agenda();                    
 
                 //Finaliza programa
-                case 3:
-                    break;
+                case 3: return -1;
 
                 //Ler opção novamente
                 default:
                     Console.WriteLine("Opção inválida!");
-                    Menu.Principal();
-                    break;
+                    return Principal();                    
             }
         }
         
         //Chama menu de pacientes
-        public static void Pacientes()
+        public static int Pacientes()
         {
             Console.WriteLine("Menu do Cadastro de Pacientes" +
                    "\n1-Cadastrar novo paciente" +
@@ -62,31 +58,31 @@ namespace Desafio1
                     break;
 
                 //Excluir paciente
-                case 2:
+                case 2: new PacienteController().Remove();
                     break;
 
                 //Listar pacientes (ordenado por CPF)
                 case 3:
+                    new PacienteController().Adddnskl();
                     break;
 
                 //Listar pacientes (ordenado por nome)
-                case 4:
+                case 4: Console.WriteLine(new PacienteController().PacientesOrdemNome());
                     break;
 
                 //Voltar para o menu principal
-                case 5:
-                    break;
+                case 5: return Principal();
 
                 //Ler opção novamente
                 default:
                     Console.WriteLine("Opção inválida!");
-                    Menu.Pacientes();
-                    break;
+                    return Pacientes();                    
             }
+            return Pacientes();
         }
 
         //Chama menu da agenda
-        public static void Agenda()
+        public static int Agenda()
         {
             Console.WriteLine("Agenda" +
                    "\n1-Agendar consulta" +
@@ -111,15 +107,14 @@ namespace Desafio1
                     break;
 
                 //Voltar para o menu principal
-                case 4:
-                    break;
+                case 4: return Principal();
 
                 //Ler opção novamente
                 default:
                     Console.WriteLine("Opção inválida!");
-                    Menu.Agenda();
-                    break;
+                    return Agenda();
             }
+            return Agenda();
         }
     }
 }
