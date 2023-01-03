@@ -7,9 +7,8 @@ namespace Desafio1
     {
         static void Main(string[] args)
         {
-            while (Menu.Principal() >= 0)
-            {
-                continue;
+            while (Menu.Principal() >= 0){
+                continue;            
             }
         }
     }

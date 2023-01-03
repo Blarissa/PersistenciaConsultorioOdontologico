@@ -9,6 +9,7 @@ namespace Desafio1
 {
     internal class EntradaDeDados
     {
+        //Ler CPF
         public static long LerCPF()
         {
             Console.WriteLine("CPF:");
@@ -27,7 +28,8 @@ namespace Desafio1
 
             return long.Parse(CPF);
         }
-        
+
+        //Ler Nome
         public static string LerNome()
         {
             Console.WriteLine("Nome:");
@@ -40,6 +42,7 @@ namespace Desafio1
             return nome;
         }
 
+        //Ler Data de nascimento
         public static DateTime LerDtNascimento()
         {
             Console.WriteLine("Data de nascimento:");
@@ -52,6 +55,7 @@ namespace Desafio1
             return DateTime.Parse(dtNasc);
         }
 
+        //Ler Data da consulta
         public static DateTime LerDtConsulta()
         {
             Console.WriteLine("Data da consulta:");
@@ -64,6 +68,7 @@ namespace Desafio1
             return DateTime.Parse(data);
         }
 
+        //Ler Hora inicial da consulta
         public static DateTime LerHrInicial()
         {
             Console.WriteLine("Hora inicial:");
@@ -76,6 +81,7 @@ namespace Desafio1
             return DateTime.ParseExact(hrInicial, "HHmm", new CultureInfo("pt-BR"));
         }
 
+        //Ler Hora final da consulta
         public static DateTime LerHrFinal(string hrInicial)
         {
             Console.WriteLine("Hora final:");
@@ -86,6 +92,46 @@ namespace Desafio1
                 LerHrFinal(hrInicial);
 
             return DateTime.ParseExact(hrFinal, "HHmm", new CultureInfo("pt-BR"));
+        }
+
+        //Ler período para listar agenda
+        public static DateTime LerDataInicial() {
+            Console.WriteLine("Data inicial: ");
+            var data = Console.ReadLine();
+            
+            if (Valida.ValidaDataInicial(data)){
+                Console.WriteLine(Menssagens.DtInicialInvalida);
+                LerDataInicial();
+            }
+
+            return DateTime.Parse(data);
+        }
+
+        //Ler período para listar agenda
+        public static DateTime LerDataFinal()
+        {
+            Console.WriteLine("Data final: ");
+            var data = Console.ReadLine();
+
+            if (Valida.ValidaDataFinal(data))
+            {
+                Console.WriteLine(Menssagens.DtFinalInvalida);
+                LerDataFinal();
+            }
+
+            return DateTime.Parse(data);
+        }
+
+        //Ler 
+        public static Char LerChar()
+        {
+            Console.WriteLine("Apresentar a agenda T-Toda ou P-Periodo: ");
+            var periodo = char.Parse(Console.ReadLine().ToUpper());
+
+            if(!Valida.ValidaChar(periodo))
+                return LerChar();
+
+            return periodo;
         }
     }
 }

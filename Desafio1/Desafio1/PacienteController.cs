@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace Desafio1
@@ -17,6 +18,7 @@ namespace Desafio1
                                      EntradaDeDados.LerDtNascimento());
 
             Pacientes.Add(paciente);
+            Console.WriteLine(PacientesOrdemNome());
             Console.WriteLine(Menssagens.PacienteCadastrado);
         }       
         
@@ -68,41 +70,37 @@ namespace Desafio1
 
             
         }
+        
+        public override string? ToString()
+        {
+            string str = ("").PadRight(60, '-') + "\n"
+                       + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
+                       + ("").PadRight(60, '-') + "\n";
+
+            Pacientes.ForEach(p =>
+                str += $"{p.CPF,-11} " +
+                       $"{p.Nome,-33} " +
+                       $"{p.DtNascimento.ToShortDateString()} " +
+                       $"{p.Idade}\n");
+                //+$"{"",-12}{str1}\n"
+                //+ $"{"",-12}{str2}\n");
+
+            return str;
+        }
 
         //Listar pacientes(ordenado por nome)
         public string? PacientesOrdemNome()
-        {
-            string listar = ("").PadRight(60, '-') + "\n"
-                          + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
-                          + ("").PadRight(60, '-') + "\n";
+        {            
+            Pacientes = Pacientes.OrderBy(p => p.Nome).ToList();                
 
-            Pacientes.OrderBy(p => p.Nome).ToList().ForEach(
-                p => {
-                    listar +=
-                    $"{p.CPF,-11} {p.Nome,-33} {p.DtNascimento.ToShortDateString()} {p.Idade}\n";
-                    //+$"{"",-12}{str1}\n"
-                    //+ $"{"",-12}{str2}\n";
-                });
-
-            return listar;
+            return ToString();
         }
 
         //Listar pacientes(ordenado por CPF)
         public string? PacientesOrdemCPF()
         {
-            string listar = ("").PadRight(60, '-') + "\n"
-                          + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
-                          + ("").PadRight(60, '-') + "\n";
-
-            Pacientes.OrderBy(p => p.CPF).ToList().ForEach(
-                p => {
-                    listar +=
-                    $"{p.CPF,-11} {p.Nome,-33} {p.DtNascimento.ToShortDateString()} {p.Idade}\n";
-                    //+$"{"",-12}{str1}\n"
-                    //+ $"{"",-12}{str2}\n";
-                });
-
-            return listar;
+            Pacientes = Pacientes.OrderBy(p => p.CPF).ToList();
+            return ToString();
         }
     }
 }

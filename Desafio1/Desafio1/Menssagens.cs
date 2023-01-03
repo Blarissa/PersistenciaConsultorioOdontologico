@@ -3,8 +3,10 @@
 namespace Desafio1
 {
     internal class Menssagens
-    { 
+    {
         //Mensagens de erro
+        //opção
+        public static string opcaoInvalida { get => "Erro: opção inválida!"; }
         //CPF
         public static string CpfIvalido { get => "Erro: CPF inválido!"; }
         public static string CpfExistente { get => "Erro: CPF já cadastrado!"; }
@@ -14,6 +16,8 @@ namespace Desafio1
         public static string DtInvalida { get => "Erro: data inválida!"; }
         public static string DtInvalidaFormato { get => "Erro: data deve ser fornecida no formato DD/MM/AAAA!"; }
         public static string DtConsultaInvalida { get => "Erro: agendamento deve ser para um período futuro!"; }
+        public static string DtInicialInvalida { get => "Erro: data inicial deve ser maior que a data atual!"; }
+        public static string DtFinalInvalida { get => "Erro: data final deve ser maior que a data inicial!"; }
         //Hora
         public static string HrInvalida { get => "Erro: hora deve ser fornecida no formato HHMM!"; }
         public static string HrInvalidaFuncionamento { get => "Erro: horário de atendimento é das 8:00h às 19:00h!"; }
