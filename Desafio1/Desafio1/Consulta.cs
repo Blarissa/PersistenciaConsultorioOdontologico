@@ -20,7 +20,7 @@ namespace Desafio1
         {
             this.CPF = CPF;
             this.DtConsulta = DtConsulta;
-            this.HrInicial = HrFinal;
+            this.HrInicial = HrInicial;
             this.HrFinal = HrFinal;
         }
     }

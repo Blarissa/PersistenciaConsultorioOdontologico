@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace Desafio1
@@ -12,11 +13,16 @@ namespace Desafio1
 
         //Adionando paciente
         public void Adiciona() {
-            Paciente paciente = new (EntradaDeDados.LerCPF(),
-                                     EntradaDeDados.LerNome(),
-                                     EntradaDeDados.LerDtNascimento());
+            long CPF = EntradaDeDados.LerCPF();
+            if(PacienteExiste(CPF)){
+                Console.WriteLine(Menssagens.CpfExistente);
+                CPF = EntradaDeDados.LerCPF();
+            }
 
-            Pacientes.Add(paciente);
+            string nome = EntradaDeDados.LerNome();
+            DateTime dtNasc = EntradaDeDados.LerDtNascimento();            
+
+            Pacientes.Add(new(CPF, nome, dtNasc));
             Console.WriteLine(Menssagens.PacienteCadastrado);
         }       
         
@@ -47,62 +53,38 @@ namespace Desafio1
 
             Pacientes.Remove(PesquisaCPF(CPF));
             Console.WriteLine(Menssagens.PacienteExcluido);          
-        }
-
-        public void Adddnskl()
+        }       
+        
+        public override string? ToString()
         {
-            Pacientes.Add(new Paciente(
-                long.Parse("05956347376"),
-                "Larissa dos Santos Brasil",
-                DateTime.Parse("21/09/2001")));
+            string str = ("").PadRight(60, '-') + "\n"
+                       + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
+                       + ("").PadRight(60, '-') + "\n";
 
-            Pacientes.Add(new Paciente(
-                88107612353,
-                "Jordânia Sampaio Santos",
-                DateTime.Parse("01/04/1980")));
+            Pacientes.ForEach(p =>
+                str += $"{p.CPF,-11} " +
+                       $"{p.Nome,-33} " +
+                       $"{p.DtNascimento.ToShortDateString()} " +
+                       $"{p.Idade}\n");
+                //+$"{"",-12}{str1}\n"
+                //+ $"{"",-12}{str2}\n");
 
-            Pacientes.Add(new Paciente(
-                47361883320,
-                "Mauro Cesar Brasil Silva",
-                DateTime.Parse("09/12/1970")));
-
-            
+            return str;
         }
 
         //Listar pacientes(ordenado por nome)
         public string? PacientesOrdemNome()
-        {
-            string listar = ("").PadRight(60, '-') + "\n"
-                          + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
-                          + ("").PadRight(60, '-') + "\n";
+        {            
+            Pacientes = Pacientes.OrderBy(p => p.Nome).ToList();                
 
-            Pacientes.OrderBy(p => p.Nome).ToList().ForEach(
-                p => {
-                    listar +=
-                    $"{p.CPF,-11} {p.Nome,-33} {p.DtNascimento.ToShortDateString()} {p.Idade}\n";
-                    //+$"{"",-12}{str1}\n"
-                    //+ $"{"",-12}{str2}\n";
-                });
-
-            return listar;
+            return ToString();
         }
 
         //Listar pacientes(ordenado por CPF)
         public string? PacientesOrdemCPF()
         {
-            string listar = ("").PadRight(60, '-') + "\n"
-                          + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
-                          + ("").PadRight(60, '-') + "\n";
-
-            Pacientes.OrderBy(p => p.CPF).ToList().ForEach(
-                p => {
-                    listar +=
-                    $"{p.CPF,-11} {p.Nome,-33} {p.DtNascimento.ToShortDateString()} {p.Idade}\n";
-                    //+$"{"",-12}{str1}\n"
-                    //+ $"{"",-12}{str2}\n";
-                });
-
-            return listar;
+            Pacientes = Pacientes.OrderBy(p => p.CPF).ToList();
+            return ToString();
         }
     }
 }
