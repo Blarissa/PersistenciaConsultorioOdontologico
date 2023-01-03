@@ -6,11 +6,8 @@ namespace Desafio1
 {
     internal class PacienteController
     {
-        List<Paciente> Pacientes = new List<Paciente>();
-
-        public PacienteController() {
-        }
-
+        List<Paciente> Pacientes = new();
+        
         //Adionando paciente
         public void Adiciona() {
             long CPF = EntradaDeDados.LerCPF();
@@ -86,5 +83,6 @@ namespace Desafio1
             Pacientes = Pacientes.OrderBy(p => p.CPF).ToList();
             return ToString();
         }
+        */
     }
 }

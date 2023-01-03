@@ -12,7 +12,7 @@ namespace Desafio1
         Agenda agenda = new ();
 
         //Chama menu principal
-        public static int Principal()
+        public static void Principal()
         {
             Console.WriteLine("Menu Principal" +
                    "\n1-Cadastro de pacientes" +
@@ -32,7 +32,8 @@ namespace Desafio1
                     return new Menu().Agenda();                    
 
                 //Finaliza programa
-                case 3: return -1;
+                case 3:
+                    break;
 
                 //Ler opção novamente
                 default:
@@ -75,14 +76,14 @@ namespace Desafio1
                     break;
 
                 //Voltar para o menu principal
-                case 5: return Principal();
+                case 5:
+                    break;
 
                 //Ler opção novamente
                 default:
                     Console.WriteLine(Menssagens.opcaoInvalida);
                     return Pacientes();                    
             }
-            return Pacientes();
         }
 
         //Chama menu da agenda
@@ -111,14 +112,14 @@ namespace Desafio1
                     break;
 
                 //Voltar para o menu principal
-                case 4: return Principal();
+                case 4:
+                    break;
 
                 //Ler opção novamente
                 default:
                     Console.WriteLine(Menssagens.opcaoInvalida);
                     return Agenda();
             }
-            return Agenda();
         }
     }
 }

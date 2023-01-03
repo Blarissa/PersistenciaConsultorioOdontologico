@@ -30,7 +30,7 @@ namespace Desafio1
 
             //nome inválido ler dados novamente
             if (!Valida.ValidaNome(nome))
-                return LerNome();
+                LerNome();
 
             return nome;
         }
@@ -43,7 +43,7 @@ namespace Desafio1
 
             //Data de nascimento inválido ler dados novamente
             if (!Valida.ValidaDataNascimento(dtNasc))
-                return LerDtNascimento();
+                LerDtNascimento();
 
             return DateTime.Parse(dtNasc);
         }
