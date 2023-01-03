@@ -1,10 +1,15 @@
-﻿namespace Desafio1
+﻿using NUnit.Framework;
+using System.Globalization;
+
+namespace Desafio1
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            while (Menu.Principal() >= 0){
+                continue;            
+            }
         }
     }
 }
