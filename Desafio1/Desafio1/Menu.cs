@@ -12,7 +12,7 @@ namespace Desafio1
         Agenda agenda = new ();
 
         //Chama menu principal
-        public static void Principal()
+        public static int Principal()
         {
             Console.WriteLine("Menu Principal" +
                    "\n1-Cadastro de pacientes" +
@@ -32,7 +32,7 @@ namespace Desafio1
                     return new Menu().Agenda();                    
 
                 //Finaliza programa
-                case 3:
+                case 3: return -1;
                     break;
 
                 //Ler opção novamente
@@ -67,8 +67,7 @@ namespace Desafio1
                     break;
 
                 //Listar pacientes (ordenado por CPF)
-                case 3:
-                    Console.WriteLine(pacienteController.PacientesOrdemCPF());
+                case 3: Console.WriteLine(pacienteController.PacientesOrdemCPF());
                     break;
 
                 //Listar pacientes (ordenado por nome)
@@ -76,14 +75,14 @@ namespace Desafio1
                     break;
 
                 //Voltar para o menu principal
-                case 5:
-                    break;
+                case 5: return Menu.Principal();
 
                 //Ler opção novamente
                 default:
                     Console.WriteLine(Menssagens.opcaoInvalida);
                     return Pacientes();                    
             }
+            return Pacientes();
         }
 
         //Chama menu da agenda
@@ -108,18 +107,18 @@ namespace Desafio1
                     break;
 
                 //Listar agenda
-                case 3: 
+                case 3: agenda.Listagem();
                     break;
 
                 //Voltar para o menu principal
-                case 4:
-                    break;
+                case 4: return Menu.Principal();
 
                 //Ler opção novamente
                 default:
-                    Console.WriteLine(Menssagens.opcaoInvalida);
-                    return Agenda();
+                Console.WriteLine(Menssagens.opcaoInvalida);
+                return Agenda();
             }
+            return Agenda();
         }
     }
 }

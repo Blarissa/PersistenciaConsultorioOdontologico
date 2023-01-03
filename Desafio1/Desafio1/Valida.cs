@@ -198,6 +198,7 @@ namespace Desafio1
         {
             if(nome.Length < 5){
                 Console.WriteLine(Menssagens.NomeIvalido);
+                return false;
             }
             return true;
         }

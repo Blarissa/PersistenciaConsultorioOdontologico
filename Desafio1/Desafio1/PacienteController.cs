@@ -83,6 +83,6 @@ namespace Desafio1
             Pacientes = Pacientes.OrderBy(p => p.CPF).ToList();
             return ToString();
         }
-        */
+        
     }
 }
