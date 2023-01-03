@@ -8,8 +8,8 @@ namespace Desafio1
 {
     internal class Menu
     {
-        PacienteController pacienteController = new();
-        Agenda agenda = new ();
+        readonly PacienteController pacienteController = new();
+        readonly Agenda agenda = new ();
 
         //Chama menu principal
         public static int Principal()
@@ -33,11 +33,10 @@ namespace Desafio1
 
                 //Finaliza programa
                 case 3: return -1;
-                    break;
 
                 //Ler opção novamente
                 default:
-                    Console.WriteLine(Menssagens.opcaoInvalida);
+                    Console.WriteLine(Menssagens.OpcaoInvalida);
                     return Principal();                    
             }
         }
@@ -79,7 +78,7 @@ namespace Desafio1
 
                 //Ler opção novamente
                 default:
-                    Console.WriteLine(Menssagens.opcaoInvalida);
+                    Console.WriteLine(Menssagens.OpcaoInvalida);
                     return Pacientes();                    
             }
             return Pacientes();
@@ -115,7 +114,7 @@ namespace Desafio1
 
                 //Ler opção novamente
                 default:
-                Console.WriteLine(Menssagens.opcaoInvalida);
+                Console.WriteLine(Menssagens.OpcaoInvalida);
                 return Agenda();
             }
             return Agenda();

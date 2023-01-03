@@ -123,7 +123,7 @@ namespace Desafio1
 
             if (!Valida.ValidaOpcaoListAgenda(opcao))
             {
-                Console.WriteLine(Menssagens.opcaoInvalida);
+                Console.WriteLine(Menssagens.OpcaoInvalida);
                 return LerOpcaoListAgenda();
             }                
 

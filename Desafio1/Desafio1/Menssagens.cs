@@ -6,7 +6,7 @@ namespace Desafio1
     {
         //Mensagens de erro
         //opção
-        public static string opcaoInvalida { get => "\nErro: opção inválida!\n"; }
+        public static string OpcaoInvalida { get => "\nErro: opção inválida!\n"; }
         //CPF
         public static string CpfIvalido { get => "\nErro: CPF inválido!\n"; }
         public static string CpfExistente { get => "\nErro: CPF já cadastrado!\n"; }

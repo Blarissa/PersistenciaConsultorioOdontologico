@@ -42,16 +42,26 @@ namespace Desafio1
         public void Remove()
         {
             long CPF = EntradaDeDados.LerCPF();
+            
             //Se não encontrar o paciente na lista imprime a mensagem de erro
             while (!PacienteExiste(CPF)){
                 Console.WriteLine(Menssagens.PacienteInixistente);
                 CPF = EntradaDeDados.LerCPF();
             }
-            //se existe consultas fulturas
-            //se tiver mais de uma consulta passada pode excluir, excluir agendamentos tambem
-
-            Pacientes.Remove(PesquisaCPF(CPF));
-            Console.WriteLine(Menssagens.PacienteExcluido);          
+            
+            List<Consulta> consultas = new Agenda().PesquisaConsultasPorCPF(CPF);
+            
+            if (consultas.Exists(c => c.DtConsulta >= DateTime.Now))
+                Console.WriteLine(Menssagens.PacienteAgendado);
+            
+            else if(consultas.Count >= 1)
+            {
+                //removendo consultas
+                new Agenda().Consultas.RemoveAll(c => c.CPF.Equals(CPF));
+                //removendo paciente
+                Pacientes.Remove(PesquisaCPF(CPF));                
+                Console.WriteLine(Menssagens.PacienteExcluido);
+            }
         }       
         
         public override string? ToString()
@@ -60,12 +70,17 @@ namespace Desafio1
                        + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
                        + ("").PadRight(60, '-') + "\n";
 
-            Pacientes.ForEach(p =>
-                str += $"{p.CPF,-11} " +
-                       $"{p.Nome,-33} " +
-                       $"{p.DtNascimento.ToShortDateString()} " +
-                       $"{p.Idade}\n");
+            Pacientes.ForEach(p => {
+                str += $"{p.CPF,-11} {p.Nome,-33} " +
+                       $"{p.DtNascimento.ToShortDateString()} {p.Idade}\n";
 
+                List<Consulta> consultas = new Agenda().PesquisaConsultasPorCPF(p.CPF);
+
+                if (consultas.Exists(c => c.DtConsulta >= DateTime.Now))
+                    consultas.ForEach(c => str += $"{"",-11} " +
+                           $"Agendado para: {c.DtConsulta:d}\n" +
+                           $"{"",-11} {c.HrInicial:t} às {c.HrFinal:t}\n");
+            });
             return str;
         }
 

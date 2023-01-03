@@ -63,6 +63,12 @@ namespace Desafio1
                                     consulta.HrInicial.TimeOfDay.Equals(hrInicial.TimeOfDay));
         }
         
+        //Retorna consultas de um paciente
+        public List<Consulta> PesquisaConsultasPorCPF(long CPF)
+        {
+            return Consultas.FindAll(c => c.CPF.Equals(CPF));
+        }
+
         //Cancelando consulta
         public void Cancelar()
         {
