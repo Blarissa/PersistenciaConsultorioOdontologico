@@ -6,36 +6,36 @@ namespace Desafio1
     {
         //Mensagens de erro
         //opção
-        public static string opcaoInvalida { get => "Erro: opção inválida!"; }
+        public static string opcaoInvalida { get => "\nErro: opção inválida!\n"; }
         //CPF
-        public static string CpfIvalido { get => "Erro: CPF inválido!"; }
-        public static string CpfExistente { get => "Erro: CPF já cadastrado!"; }
+        public static string CpfIvalido { get => "\nErro: CPF inválido!\n"; }
+        public static string CpfExistente { get => "\nErro: CPF já cadastrado!\n"; }
         //Nome
-        public static string NomeIvalido { get => "Erro: nome deve ter pelo menos 5 caracteres!"; }
+        public static string NomeIvalido { get => "\nErro: nome deve ter pelo menos 5 caracteres!\n"; }
         //Data
-        public static string DtInvalida { get => "Erro: data inválida!"; }
-        public static string DtInvalidaFormato { get => "Erro: data deve ser fornecida no formato DD/MM/AAAA!"; }
-        public static string DtConsultaInvalida { get => "Erro: agendamento deve ser para um período futuro!"; }
-        public static string DtInicialInvalida { get => "Erro: data inicial deve ser maior que a data atual!"; }
-        public static string DtFinalInvalida { get => "Erro: data final deve ser maior que a data inicial!"; }
+        public static string DtInvalida { get => "\nErro: data inválida!\n"; }
+        public static string DtInvalidaFormato { get => "\nErro: data deve ser fornecida no formato DD/MM/AAAA!\n"; }
+        public static string DtConsultaInvalida { get => "\nErro: agendamento deve ser para um período futuro!\n"; }
+        public static string DtInicialInvalida { get => "\nErro: data inicial deve ser maior que a data atual!\n"; }
+        public static string DtFinalInvalida { get => "\nErro: data final deve ser maior que a data inicial!\n"; }
         //Hora
-        public static string HrInvalida { get => "Erro: hora deve ser fornecida no formato HHMM!"; }
-        public static string HrInvalidaFuncionamento { get => "Erro: horário de atendimento é das 8:00h às 19:00h!"; }
-        public static string HrFinalInvalida { get => "Erro: hora final deve ser maior que a hora inicial!"; }
+        public static string HrInvalida { get => "\nErro: hora deve ser fornecida no formato HHMM!\n"; }
+        public static string HrInvalidaFuncionamento { get => "\nErro: horário de atendimento é das 8:00h às 19:00h!\n"; }
+        public static string HrFinalInvalida { get => "\nErro: hora final deve ser maior que a hora inicial!\n"; }
         //Consulta
-        public static string ConsultExistente { get => "Erro: já existe uma consulta agendada nesse horário!"; }
+        public static string ConsultExistente { get => "\nErro: já existe uma consulta agendada nesse horário!\n"; }
         //Agendamento
-        public static string AgendInexistente { get => "Erro: agendamento não encontrado!"; }
+        public static string AgendInexistente { get => "\nErro: agendamento não encontrado!\n"; }
         //Paciente
-        public static string IdadeInvalida { get => "Erro: paciente deve ter pelo menos 13 anos!"; }
-        public static string PacienteInixistente { get => "Erro: paciente não cadastrado!"; }
-        public static string PacienteAgendado { get => "Erro: paciente está agendado!"; }
+        public static string IdadeInvalida { get => "\nErro: paciente deve ter pelo menos 13 anos!\n"; }
+        public static string PacienteInixistente { get => "\nErro: paciente não cadastrado!\n"; }
+        public static string PacienteAgendado { get => "\nErro: paciente está agendado!\n"; }
 
         //Mensagens de sucesso
-        public static string PacienteCadastrado { get => "Paciente cadastrado com sucesso!"; }
-        public static string PacienteExcluido { get => "Paciente excluído com sucesso!"; }
-        public static string AgendamentoRealizado { get => "Agendamento realizado com sucesso!"; }
-        public static string AgendamentoCancelado { get => "Agendamento cancelado com sucesso!"; }
+        public static string PacienteCadastrado { get => "\nPaciente cadastrado com sucesso!\n"; }
+        public static string PacienteExcluido { get => "\nPaciente excluído com sucesso!\n"; }
+        public static string AgendamentoRealizado { get => "\nAgendamento realizado com sucesso!\n"; }
+        public static string AgendamentoCancelado { get => "\nAgendamento cancelado com sucesso!\n"; }
 
     }
 }

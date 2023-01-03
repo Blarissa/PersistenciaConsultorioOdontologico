@@ -17,7 +17,7 @@ namespace Desafio1
             Console.WriteLine("Menu Principal" +
                    "\n1-Cadastro de pacientes" +
                    "\n2-Agenda" +
-                   "\n3-Fim");
+                   "\n3-Fim\n");
 
             int opcao = int.Parse(Console.ReadLine());
 
@@ -50,7 +50,7 @@ namespace Desafio1
                    "\n2-Excluir paciente" +
                    "\n3-Listar pacientes (ordenado por CPF)" +
                    "\n4-Listar pacientes (ordenado por nome)" +
-                   "\n5-Voltar p/ menu principal");
+                   "\n5-Voltar p/ menu principal\n");
 
             int opcao = int.Parse(Console.ReadLine());
 
@@ -92,7 +92,7 @@ namespace Desafio1
                    "\n1-Agendar consulta" +
                    "\n2-Cancelar agendamento" +
                    "\n3-Listar agenda" +
-                   "\n4-Voltar p/ menu principal");
+                   "\n4-Voltar p/ menu principal\n");
 
             int opcao = int.Parse(Console.ReadLine());
 

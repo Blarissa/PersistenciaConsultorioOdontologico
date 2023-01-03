@@ -56,7 +56,7 @@ namespace Desafio1
 
             //Data inválida ler dados novamente
             if (!Valida.ValidaDataConsulta(new Agenda().Agendamentos, data))
-                LerDtConsulta();
+                return LerDtConsulta();
             
             return DateTime.Parse(data);
         }

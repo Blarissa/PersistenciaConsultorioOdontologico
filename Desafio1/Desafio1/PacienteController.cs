@@ -47,6 +47,8 @@ namespace Desafio1
                 Console.WriteLine(Menssagens.PacienteInixistente);
                 CPF = EntradaDeDados.LerCPF();
             }
+            //se existe consultas fulturas
+            //se tiver mais de uma consulta passada pode excluir, excluir agendamentos tambem
 
             Pacientes.Remove(PesquisaCPF(CPF));
             Console.WriteLine(Menssagens.PacienteExcluido);          
@@ -63,8 +65,6 @@ namespace Desafio1
                        $"{p.Nome,-33} " +
                        $"{p.DtNascimento.ToShortDateString()} " +
                        $"{p.Idade}\n");
-                //+$"{"",-12}{str1}\n"
-                //+ $"{"",-12}{str2}\n");
 
             return str;
         }

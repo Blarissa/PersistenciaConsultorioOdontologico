@@ -25,9 +25,15 @@ namespace Desafio1
         public void Agendar() {
 
             long CPF = EntradaDeDados.LerCPF();
+            //verifica se paciente está cadastrado
+            if (!new PacienteController().PacienteExiste(CPF)){
+                Console.WriteLine(Menssagens.PacienteInixistente);
+                CPF = EntradaDeDados.LerCPF();
+            }
+                
             DateTime data = EntradaDeDados.LerDtConsulta();
             DateTime hrInicial = EntradaDeDados.LerHrInicial();
-            DateTime hrFinal = EntradaDeDados.LerHrFinal(hrInicial.TimeOfDay.ToString("HHmm"));
+            DateTime hrFinal = EntradaDeDados.LerHrFinal(hrInicial.ToString("HHmm"));
 
             Consultas.Add(new Consulta (CPF, data, hrInicial, hrFinal));
             Console.WriteLine(Menssagens.AgendamentoRealizado);

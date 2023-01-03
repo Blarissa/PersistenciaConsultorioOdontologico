@@ -65,8 +65,7 @@ namespace Desafio1
             }
            return true;
         }
-        
-        
+                
         //Valida do formato de data
         public static bool ValidaDataFormato(String? data)
         {
