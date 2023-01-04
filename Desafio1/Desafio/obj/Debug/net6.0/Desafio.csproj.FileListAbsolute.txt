@@ -13,3 +13,9 @@ C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\obj\Debug\n
 C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\obj\Debug\net6.0\Desafio.pdb
 C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\obj\Debug\net6.0\Desafio.genruntimeconfig.cache
 C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\obj\Debug\net6.0\ref\Desafio.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\bin\Debug\net6.0\Microsoft.IdentityModel.Xml.dll
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\obj\Debug\net6.0\Desafio.csproj.CopyComplete
+C:\Users\laris\source\repos\Blarissa\ResidenciaIUUL\Desafio1\Desafio\bin\Debug\net6.0\Desafio.xml
