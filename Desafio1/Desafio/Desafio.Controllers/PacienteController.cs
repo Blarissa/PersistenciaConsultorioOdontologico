@@ -74,7 +74,7 @@ namespace Desafio.Desafio.Controllers
 
             Pacientes.ForEach(p =>
             {
-                str += $"{p.CPF, -11: 00000000000} {p.Nome,-33} " +
+                str += $"{p.CPF, -11:00000000000} {p.Nome,-33} " +
                        $"{p.DtNascimento.ToShortDateString()} {p.Idade}\n";
 
                 List<Consulta> consultas = new Agenda().PesquisaConsultasPorCPF(p.CPF);
