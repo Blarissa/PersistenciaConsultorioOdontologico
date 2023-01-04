@@ -1,11 +1,31 @@
 ﻿using Desafio.Desafio.View;
+using Desafio.Desafio.Models;
 using System.Globalization;
 
 namespace Desafio.Desafio.Controllers
-{
+{    /// <summary>
+     /// Define a validadação de todos dados do <see cref="Paciente"/> e da <see cref="Agenda"/>.
+     /// </summary>
     public class Valida
-    {        
-        //Valida CPF
+    {
+        /// <summary>
+        /// Validação do <see cref="Paciente.CPF"/>.
+        /// </summary>
+        ///<param name = "CPF">Representa o valor de um <see langword="CPF"/> que deve ser validado.</param>        
+        ///<returns>
+        ///<list type="bullet">
+        ///<item>
+        ///Retorna <see langword="false"/>:
+        ///<list type="bullet">
+        ///<item>Se o valor do <see langword="CPF"/> for nulo ou vazio;</item>
+        ///<item>Se o <see langword="CPF"/> não tiver 11 dígitos;</item>
+        ///<item>Se o valor de todos os dígitos do <see langword="CPF"/> forem iguais;Ou</item>
+        ///<item>Se o valor <see langword="CPF"/> for um <see langword="CPF"/> de valor inexistente.</item>
+        ///</list>
+        ///</item>
+        ///<item>Retorna <see langword="true"/> se o valor do <see langword="CPF"/> for um <see langword="CPF"/> de valor que existente.</item>
+        ///</list>
+        ///</returns>
         public static bool ValidaCpf(string? CPF){            
             if (string.IsNullOrEmpty(CPF) && !CPF.Length.Equals(11) ||
                 CPF.All(c => CPF[0].Equals(c))){
@@ -48,8 +68,24 @@ namespace Desafio.Desafio.Controllers
             }
             return true;           
         }
-        
-        //Valida a data da consulta
+
+        /// <summary>
+        /// Validação da <see cref="Consulta.DtConsulta"/>.
+        /// </summary>
+        ///<param name = "datas">Representa o valor de todas as <see langword="datas"/> na qual exitem pelo menos uma <see cref="Consulta"/> agentada.</param>        
+        ///<param name = "data">Representa o valor de uma <see langword="data da consulta"/> que deve ser validada.</param>        
+        ///<returns>
+        ///<list type="bullet">
+        ///<item>
+        ///Retorna <see langword="false"/> e exibe menssagem de erro:
+        ///<list type="bullet">
+        ///<item>Se o valor da <see langword="data"/> não estiver no formato DD/MM/AAAA;Ou</item>
+        ///<item>Se o valor da <see langword="data"/> não estiver em um período futuro;</item>        
+        ///</list>
+        ///</item>
+        ///<item>Retorna <see langword="true"/> se não retornar <see langword="false"/>.</item>
+        ///</list>
+        ///</returns>
         public static bool ValidaDataConsulta(List<DateTime> datas, string? data)
         {
             if (!ValidaDataFormato(data)){

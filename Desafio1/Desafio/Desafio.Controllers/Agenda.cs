@@ -4,7 +4,7 @@ using Desafio.Desafio.View;
 namespace Desafio.Desafio.Controllers
 {
     /// <summary>
-    /// Define uma <see cref="Agenda"/> com <see cref="Consulta"> de um consultório odontológico.
+    /// Define uma <see cref="Agenda"/> com <see cref="Consulta"/> de um consultório odontológico.
     /// </summary>
     public class Agenda
     {
