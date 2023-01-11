@@ -1,4 +1,6 @@
-﻿namespace Desafio.Desafio.Models
+﻿using Desafio.Desafio.Controllers;
+
+namespace Desafio.Desafio.Models
 {
     /// <summary>
     /// Define um <see cref="Paciente"/> de um consultório odontológico.
@@ -9,6 +11,8 @@
         public string Nome { get; private set; }
         public DateTime DtNascimento { get; private set; }
         public int Idade { get => DateTime.Now.Subtract(DtNascimento).Days / 365; }
+
+        public Paciente() { }
 
         /// <summary>
         /// Cria uma instância de <see cref="Paciente"/> com os argumentos utilizados.
@@ -21,6 +25,22 @@
             this.CPF = CPF;
             this.Nome = Nome;
             this.DtNascimento = DtNascimento;
+        }
+
+        public bool PacienteExiste(long CPF)
+        {            
+            return new PacienteController().Pacientes.Exists(paciente => paciente.CPF.Equals(CPF));
+        }
+
+        /// <summary>
+        /// Pesquisa um <see cref="Paciente"/> na <see cref="Consultas"/>.
+        /// </summary>
+        ///<returns>
+        ///Retorna <see cref="List{Consulta}"/> com todas as <see cref="Consulta"/> do <see cref="Paciente"/> que tem <see cref="Paciente.CPF"/> igual ao passado por parâmetro.
+        ///</returns>
+        public List<Consulta> PacienteAgendado(long CPF)
+        {
+            return new Agenda().Consultas.FindAll(c => c.CPF.Equals(CPF));
         }
     }
 }

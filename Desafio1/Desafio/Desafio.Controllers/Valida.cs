@@ -103,8 +103,17 @@ namespace Desafio.Desafio.Controllers
             }
            return true;
         }
-                
-        //Valida do formato de data
+
+        /// <summary>
+        /// Validação do formato da <see langword ="data"/>.
+        /// </summary>
+        ///<param name = "data">Representa o valor da <see langword="data"/> que deve estar no formato correto.</param>                
+        ///<returns>
+        ///<list type="bullet">
+        ///<item>Retorna <see langword="false"/> e exibe menssagem de erro.</item>        
+        ///<item>Retorna <see langword="true"/> e exibe menssagem de erro.</item>        
+        ///</list>
+        ///</returns>
         public static bool ValidaDataFormato(String? data)
         {
             return DateTime.TryParse(data, out DateTime dt);

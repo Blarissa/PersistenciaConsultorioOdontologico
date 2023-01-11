@@ -8,8 +8,17 @@ namespace Desafio.Desafio.Controllers
     /// </summary>
     public class Agenda
     {
+        /// <summary>
+        /// The consultas.
+        /// </summary>
         public List<Consulta> Consultas = new();
+        /// <summary>
+        /// The agendamentos.
+        /// </summary>
         List<DateTime> agendamentos = new();
+        /// <summary>
+        /// Gets the agendamentos.
+        /// </summary>
         public List<DateTime> Agendamentos
         {
             get {
