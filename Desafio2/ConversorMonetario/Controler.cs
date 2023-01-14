@@ -13,7 +13,6 @@
                 Console.WriteLine("Moeda de origem deve ter exatamante 3 caracteres!");
                 return MoedaDeOrigemValida();
             }
-
             return moeda;
         }
 
@@ -38,7 +37,7 @@
 
         public double ValorEntradaValido()
         {
-            var valor = EntradaDeDados.Valor();
+            var valor = EntradaDeDados.ValorDeEntrada();
 
             if (!valor.HasValue)
             {
@@ -57,10 +56,6 @@
             }
             return valor.Value;
         }
-
-
-
-
     }
 }
 
