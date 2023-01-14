@@ -3,7 +3,7 @@ using System.Text.Json;
 
 internal class Program
 {
-    private static async Task Main(string[] args)
+    private static async Task Main()
     {
         using HttpClient client = new();
         await ConverteMoeda(client);
