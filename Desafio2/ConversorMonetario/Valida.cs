@@ -43,7 +43,7 @@
         /// <item>Retorna <see langword="true"/> se o <see cref="EntradaDeDados.Valor"/>for maior que 0</item>
         /// <item>Retorna <see langword="false"/> se não for.</item>
         /// </list></returns>
-        public static bool Valor(double valor)
+        public static bool Valor(decimal valor)
         {
             return valor > 0;
         }
@@ -57,9 +57,9 @@
         /// <item>Retorna <see langword="true"/> se o <see cref="EntradaDeDados.Valor"/> tiver 2 casas decimais.</item>
         /// <item>Retorna <see langword="false"/> se não tiver.</item>
         /// </list></returns>        
-        public static bool ValorFormato(double valor)
+        public static bool ValorFormato(decimal valor)
         {
-            return valor.ToString("F").Equals(valor.ToString());
+            return valor.Scale.Equals(2);
         }
     }
 }

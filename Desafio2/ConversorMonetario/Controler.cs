@@ -18,7 +18,7 @@
 
         public string MoedaDeDestinoValida(string moedaDeOrigem)
         {
-            var moedaDeDestino = EntradaDeDados.MoedaDeOrigem();
+            var moedaDeDestino = EntradaDeDados.MoedaDeDestino();
 
             if (!Valida.MoedaFormato(moedaDeDestino) ||
                 string.IsNullOrEmpty(moedaDeDestino))
@@ -26,7 +26,7 @@
                 Console.WriteLine("Moeda de destino deve ter exatamante 3 caracteres!");
                 return MoedaDeDestinoValida(moedaDeOrigem);
             }
-            else if (!Valida.MoedasIguais(moedaDeOrigem, moedaDeDestino))
+            else if (Valida.MoedasIguais(moedaDeOrigem, moedaDeDestino))
             {
                 Console.WriteLine("Moeda de destino deve ser diferente da moeda de origem!");
                 return MoedaDeDestinoValida(moedaDeOrigem);
@@ -35,7 +35,7 @@
             return moedaDeDestino;
         }
 
-        public double ValorEntradaValido()
+        public decimal ValorEntradaValido()
         {
             var valor = EntradaDeDados.ValorDeEntrada();
 

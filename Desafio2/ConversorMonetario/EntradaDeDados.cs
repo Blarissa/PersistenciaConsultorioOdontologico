@@ -29,10 +29,10 @@
         /// Realiza a leitura do <see cref="ValorDeEntrada"/>.
         /// </summary>
         /// <returns>Retorna um <see langword="double"/> inserido no console.</returns>
-        public static double? ValorDeEntrada()
+        public static decimal? ValorDeEntrada()
         {
             Console.WriteLine("Valor: ");
-            return double.Parse(Console.ReadLine());
+            return decimal.Parse(Console.ReadLine());
         }
     }
 }
