@@ -1,4 +1,7 @@
-﻿namespace ConversorMonetario
+﻿using System;
+using System.Globalization;
+
+namespace ConversorMonetario
 {
     internal class Controler
     {
@@ -55,6 +58,15 @@
                 return ValorEntradaValido();
             }
             return valor.Value;
+        }
+
+        public string URIParaConversao()
+        {
+            var origem = new Controler().MoedaDeOrigemValida();
+            var destino = new Controler().MoedaDeDestinoValida(origem);
+            var valor = new Controler().ValorEntradaValido();
+
+            return $"https://api.exchangerate.host/convert?from={origem}&to={destino}&amount={valor}";
         }
     }
 }

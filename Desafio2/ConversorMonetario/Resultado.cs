@@ -1,10 +1,15 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel;
+using System.Globalization;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text.Json.Serialization;
+using System.Transactions;
 
 public record class Resultado(
-    [property: JsonPropertyName("info")] Dictionary<string, double> Info,
-    [property: JsonPropertyName("result")] double ValorConvertido
+    [property: JsonPropertyName("info")] Dictionary<string, decimal> Info,
+    [property: JsonPropertyName("result")] decimal ValorConvertido
     )
 {
-    public double Taxa = Math.Round(Info["rate"], 6);
-    public double Convertido => Math.Round(ValorConvertido, 2);
+    public decimal Taxa = decimal.Round(Info["rate"], 6);
+    public decimal Convertido = decimal.Round(ValorConvertido, 2);
 }
