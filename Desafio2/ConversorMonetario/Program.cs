@@ -18,10 +18,10 @@ static async Task ConverteMoeda(HttpClient cliente)
 {
     var simbolosPermitidos = await SimbolosPermitidos(cliente);
     
-    var uri = new Controller().URIParaConversao(simbolosPermitidos);
+    var uri = Controller.URIParaConversao(simbolosPermitidos);
 
     HttpResponseMessage response = await cliente.GetAsync(uri);
-    new Controller().Status(response);
+    Controller.Status(response);
 
     if (!response.IsSuccessStatusCode) 
         await ConverteMoeda(cliente);
@@ -29,6 +29,6 @@ static async Task ConverteMoeda(HttpClient cliente)
     Console.WriteLine("\nConvertendo...\n");
     Resultado resultado = await cliente.GetFromJsonAsync<Resultado>(uri);
   
-    new Controller().MostrarResultados(resultado);
+    Controller.MostrarResultados(resultado);
     await ConverteMoeda(cliente);
 }
