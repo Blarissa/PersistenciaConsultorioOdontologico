@@ -6,9 +6,9 @@
     internal class EntradaDeDados
     {
         /// <summary>
-        /// Realiza a leitura da <see cref="MoedaDeOrigem"/>.
+        /// Realiza a leitura do valor da <see cref="MoedaDeOrigem"/>.
         /// </summary>
-        /// <returns>Retorna uma <see langword="string"/> inserida no console.</returns>
+        /// <returns>Retorna uma <see langword="string"/> que foi inserida no console.</returns>
         public static string MoedaDeOrigem()
         {
             Console.WriteLine("Moeda de origem: ");
@@ -16,9 +16,9 @@
         }
 
         /// <summary>
-        /// Realiza a leitura da <see cref="MoedaDeDestino"/>.
+        /// Realiza a leitura do valor da <see cref="MoedaDeDestino"/>.
         /// </summary>
-        /// <returns>Retorna uma <see langword="string"/> inserida no console.</returns>
+        /// <returns>Retorna uma <see langword="string"/> que foi inserida no console.</returns>
         public static string MoedaDeDestino()
         {
             Console.WriteLine("Moeda de destino: ");
@@ -28,7 +28,7 @@
         /// <summary>
         /// Realiza a leitura do <see cref="ValorDeEntrada"/>.
         /// </summary>
-        /// <returns>Retorna um <see langword="double"/> inserido no console.</returns>
+        /// <returns>Retorna um <see langword="decimal"/> que foi inserido no console.</returns>
         public static decimal? ValorDeEntrada()
         {
             Console.WriteLine("Valor: ");
