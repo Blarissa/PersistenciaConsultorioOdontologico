@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace ConversorMonetario
+﻿namespace ConversorMonetario
 {
     /// <summary>
     /// Define a validação dos dados.
@@ -8,10 +6,10 @@ namespace ConversorMonetario
     internal class Valida
     {
         /// <summary>
-        /// Compara se duas moedas são iguais.
+        /// Determina se o símbolo da <see cref="EntradaDeDados.MoedaDeOrigem"/> e da <see cref="EntradaDeDados.MoedaDeDestino"/> são iguais.
         /// </summary>
         /// <param name="moeda1"> Representa o valor da <see cref="EntradaDeDados.MoedaDeOrigem"/>.</param>
-        /// <param name="moeda2">Representa o valor da <see cref="EntradaDeDados.MoedaDeDestino"/>.</param>
+        /// <param name="moeda2"> Representa o valor da <see cref="EntradaDeDados.MoedaDeDestino"/>.</param>
         /// <returns>
         /// <list type="bullet">
         /// <item>Retorna <see langword="true"/> se as duas moedas forem iguais.</item>
@@ -23,9 +21,9 @@ namespace ConversorMonetario
         }
 
         /// <summary>
-        /// Valida o formato da moeda
+        /// Determina se o símbolo da <see langword="moeda"/> está no formato correto.
         /// </summary>
-        /// <param name="moeda"> Representa uma <see langword="moeda"/> que deve ter exatamente 3 caracteres.</param>
+        /// <param name="moeda"> Representa o valor de uma <see langword="moeda"/> a ser inserida.</param>
         /// <returns>
         /// <list type="bullet">
         /// <item>Retorna <see langword="true"/> se a moeda tiver exatamente 3 caracteres.</item>
@@ -37,9 +35,9 @@ namespace ConversorMonetario
         }
 
         /// <summary>
-        /// Determina se o <see cref="EntradaDeDados.Valor"/> é maior que 0.
+        /// Determina se a <see cref="EntradaDeDados.Valor"/> tem valor maior que 0.
         /// </summary>
-        /// <param name="valor">Representa o <see cref="EntradaDeDados.Valor"/>.</param>
+        /// <param name="valor">Representa o <see cref="EntradaDeDados.Valor"/> a ser avaliada.</param>
         /// <returns>
         /// <list type="bullet">
         /// <item>Retorna <see langword="true"/> se o <see cref="EntradaDeDados.Valor"/>for maior que 0</item>
@@ -51,9 +49,9 @@ namespace ConversorMonetario
         }
 
         /// <summary>
-        /// Determina se o <see cref="EntradaDeDados.Valor"/> tem 2 casa decimais.
+        /// Determina se a <see cref="EntradaDeDados.Valor"/> tem o formato esperado,<br>ou seja, se tem 2 casa decimais.</br>
         /// </summary>
-        /// <param name="valor">Representa o <see cref="EntradaDeDados.Valor"/>.</param>
+        /// <param name="valor">Representa o <see cref="EntradaDeDados.Valor"/> a ser avaliada.</param>
         /// <returns>
         /// <list type="bullet">
         /// <item>Retorna <see langword="true"/> se o <see cref="EntradaDeDados.Valor"/> tiver 2 casas decimais.</item>
@@ -64,6 +62,16 @@ namespace ConversorMonetario
             return valor.Scale.Equals(2);
         }
 
+        /// <summary>
+        /// Determina se o símbolo da <see langword="Moeda"/> existe na lista de <see cref="Simbolos"/>.
+        /// </summary>
+        /// <param name="permitidos">Representa o valor de uma lista com os <see cref="Simbolos.Permitidos"/>.</param>
+        /// <param name="moeda">Representa o valor do símbolo de uma moeda <see langword="Moeda"/>, <br>que será buscado na lista de <see cref="Simbolos.Permitidos"/></br>.</param>
+        /// <returns>
+        /// <list type="bullet">
+        /// <item>Retorna <see langword="true"/> se a <see langword="Moeda"/> existir na lista de <see cref="Simbolos.Permitidos"/>.</item>
+        /// <item>Retorna <see langword="false"/> se não existir.</item>
+        /// </list></returns>  
         public static bool MoedaExiste(List<String> permitidos, string moeda)
         {
             return permitidos.Contains(moeda.ToUpper()) ;

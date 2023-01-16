@@ -1,12 +1,5 @@
 ﻿using ConversorMonetario;
-using System.Collections;
-using System.IO;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 using HttpClient cliente = new();
 
