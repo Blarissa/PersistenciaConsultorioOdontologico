@@ -1,4 +1,4 @@
-﻿namespace ConversorMonetario
+﻿namespace ConversorMonetario.ConversorMonetario.Views
 {
     /// <summary>
     /// Define a <see langword="Entrada de dados"/> da aplicação.

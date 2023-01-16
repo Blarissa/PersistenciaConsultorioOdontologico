@@ -1,4 +1,6 @@
-﻿namespace ConversorMonetario
+﻿using ConversorMonetario.ConversorMonetario.Views;
+
+namespace ConversorMonetario.ConversorMonetario.Controllers
 {
     /// <summary>
     /// Define a validação dos dados.
@@ -72,9 +74,9 @@
         /// <item>Retorna <see langword="true"/> se a <see langword="Moeda"/> existir na lista de <see cref="Simbolos.Permitidos"/>.</item>
         /// <item>Retorna <see langword="false"/> se não existir.</item>
         /// </list></returns>  
-        public static bool MoedaExiste(List<String> permitidos, string moeda)
+        public static bool MoedaExiste(List<string> permitidos, string moeda)
         {
-            return permitidos.Contains(moeda.ToUpper()) ;
-        }        
+            return permitidos.Contains(moeda.ToUpper());
+        }
     }
 }
