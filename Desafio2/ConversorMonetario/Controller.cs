@@ -78,9 +78,16 @@ namespace ConversorMonetario
         }
 
         public void MostrarResultados(Resultado resultado)
-        {
-            Console.WriteLine($"\nTaxa: {resultado.Taxa}" +
-                $"\nValor convertido: {resultado.Convertido}\n");
+        {            
+            var valorDeEntrada = Convert.ToDecimal(resultado.Query["amount"].ToString());
+
+            Console.WriteLine("\n"
+                + $"{"De| ",11} {resultado.Query["from"]}\n" 
+                + $"{"Valor| ",11} {valorDeEntrada:N2}\n" 
+                + $"{"Para| ",11} {resultado.Query["to"]}\n" 
+                + $"{"Resultado| "} {resultado.Convertido}\n" 
+                + $"{"Taxa| ",11} {resultado.Taxa}\n"
+                );
         }
 
         public string URIParaConversao(List<string> permitidos)

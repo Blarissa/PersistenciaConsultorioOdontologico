@@ -33,8 +33,9 @@ static async Task ConverteMoeda(HttpClient cliente)
     if (!response.IsSuccessStatusCode) 
         await ConverteMoeda(cliente);
 
+    Console.WriteLine("\nConvertendo...\n");
     Resultado resultado = await cliente.GetFromJsonAsync<Resultado>(uri);
-    
+  
     new Controller().MostrarResultados(resultado);
     await ConverteMoeda(cliente);
 }
