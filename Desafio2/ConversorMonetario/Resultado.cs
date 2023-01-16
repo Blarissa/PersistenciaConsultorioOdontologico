@@ -1,9 +1,5 @@
-﻿using System.ComponentModel;
-using System.Globalization;
-using System.Reflection;
-using System.Runtime.InteropServices;
+﻿using System.Collections;
 using System.Text.Json.Serialization;
-using System.Transactions;
 
 public record class Resultado(
     [property: JsonPropertyName("info")] Dictionary<string, decimal> Info,
@@ -12,4 +8,8 @@ public record class Resultado(
 {
     public decimal Taxa = decimal.Round(Info["rate"], 6);
     public decimal Convertido = decimal.Round(ValorConvertido, 2);
+}
+
+public record class Simbolos([property: JsonPropertyName("symbols")] Hashtable Simbolo) { 
+    public List<string> Permitidos = Simbolo.Keys.Cast<String>().ToList();
 }

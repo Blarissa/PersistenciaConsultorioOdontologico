@@ -1,4 +1,6 @@
-﻿namespace ConversorMonetario
+﻿using System.Collections;
+
+namespace ConversorMonetario
 {
     /// <summary>
     /// Define a validação dos dados.
@@ -61,5 +63,10 @@
         {
             return valor.Scale.Equals(2);
         }
+
+        public static bool MoedaExiste(List<String> permitidos, string moeda)
+        {
+            return permitidos.Contains(moeda.ToUpper()) ;
+        }        
     }
 }
