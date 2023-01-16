@@ -1,6 +1,8 @@
-﻿namespace ConversorMonetario
+﻿using ConversorMonetario.ConversorMonetario.Views;
+
+namespace ConversorMonetario.ConversorMonetario.Controllers
 {
-    internal class Controller 
+    internal class Controller
     {
 
         /// <summary>
@@ -25,7 +27,8 @@
             {
                 Console.WriteLine("\nMoeda de origem deve ter exatamante 3 caracteres!\n");
                 return MoedaDeOrigemValida(permitidos);
-            }else if(!Valida.MoedaExiste(permitidos, moeda))
+            }
+            else if (!Valida.MoedaExiste(permitidos, moeda))
             {
                 Console.WriteLine("\nMoeda de origem não existe!\n");
                 return MoedaDeOrigemValida(permitidos);
@@ -65,7 +68,7 @@
             else if (!Valida.MoedaExiste(permitidos, moedaDeDestino))
             {
                 Console.WriteLine("\nMoeda de destino não existe!\n");
-                return MoedaDeDestinoValida(permitidos,moedaDeOrigem);
+                return MoedaDeDestinoValida(permitidos, moedaDeOrigem);
             }
 
             return moedaDeDestino;
@@ -118,14 +121,14 @@
         /// </summary>
         /// <param name="resultado">Representa o <see cref="Resultado"/> recebido da requsição realizada.</param>
         public static void MostrarResultados(Resultado resultado)
-        {            
+        {
             var valorDeEntrada = Convert.ToDecimal(resultado.Query["amount"].ToString());
 
             Console.WriteLine("\n"
-                + $"{"De| ",11} {resultado.Query["from"]}\n" 
-                + $"{"Valor| ",11} {valorDeEntrada:N2}\n" 
-                + $"{"Para| ",11} {resultado.Query["to"]}\n" 
-                + $"{"Resultado| "} {resultado.Convertido}\n" 
+                + $"{"De| ",11} {resultado.Query["from"]}\n"
+                + $"{"Valor| ",11} {valorDeEntrada:N2}\n"
+                + $"{"Para| ",11} {resultado.Query["to"]}\n"
+                + $"{"Resultado| "} {resultado.Convertido}\n"
                 + $"{"Taxa| ",11} {resultado.Taxa}\n"
                 );
         }
@@ -142,7 +145,7 @@
             var valor = new Controller().ValorEntradaValido();
 
             return $"https://api.exchangerate.host/convert?from={origem}&to={destino}&amount={valor}";
-        }        
+        }
     }
 }
 
