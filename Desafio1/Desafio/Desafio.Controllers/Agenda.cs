@@ -194,12 +194,12 @@ namespace Desafio.Desafio.Controllers
 
                 foreach (Consulta c in result)
                 {                    
-                    Paciente paciente = new PacienteController().PesquisaCPF(c.CPF);
+                    Paciente? paciente = new PacienteController().PesquisaCPF(c.CPF);
 
-                    str += $"{c.HrInicial.ToShortTimeString()} "
-                     + $"{c.HrFinal.ToShortTimeString()} "
+                    str += $"{c.HrInicial:t} "
+                     + $"{c.HrFinal:t} "
                      + $"{c.Tempo:hh\\:mm} {paciente.Nome} "
-                     + $"{paciente.DtNascimento.ToShortDateString()}\n";
+                     + $"{paciente.DtNascimento:d}\n";
                 }
             }
             return str;
@@ -217,8 +217,8 @@ namespace Desafio.Desafio.Controllers
             DateTime inicial = EntradaDeDados.LerDataInicial();
             DateTime final = EntradaDeDados.LerDataFinal();
 
-            string str = $"Data inicial: {inicial.ToShortDateString()}\n"
-                       + $"Data final: {final.ToShortDateString()}\n";
+            string str = $"Data inicial: {inicial:d}\n"
+                       + $"Data final: {final:d}\n";
 
             str = "".PadRight(61, '-') + "\n" + "".PadLeft(3)
                 + $"{"Data"} " + "".PadRight(3) + $"{"H.Ini"} "

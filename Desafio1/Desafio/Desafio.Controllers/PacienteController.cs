@@ -11,7 +11,7 @@ namespace Desafio.Desafio.Controllers
         public void Adiciona()
         {
             long CPF = EntradaDeDados.LerCPF();
-            if (new Paciente().PacienteExiste(CPF))
+            if (PacienteExiste(CPF))
             {
                 Console.WriteLine(Menssagens.CpfExistente);
                 CPF = EntradaDeDados.LerCPF();
@@ -27,7 +27,7 @@ namespace Desafio.Desafio.Controllers
         //Retorna o paciente de determinado CPF 
         public Paciente? PesquisaCPF(long CPF)
         {
-            if (new Paciente().PacienteExiste(CPF))
+            if (PacienteExiste(CPF))
                 return Pacientes.Find(paciente => paciente.CPF.Equals(CPF));
 
             return null;
@@ -41,7 +41,7 @@ namespace Desafio.Desafio.Controllers
             long CPF = EntradaDeDados.LerCPF();
 
             //Se não encontrar o paciente na lista imprime a mensagem de erro
-            while (!new Paciente().PacienteExiste(CPF))
+            while (!PacienteExiste(CPF))
             {
                 Console.WriteLine(Menssagens.PacienteInixistente);
                 CPF = EntradaDeDados.LerCPF();
@@ -81,6 +81,11 @@ namespace Desafio.Desafio.Controllers
                            $"{"",-11} {c.HrInicial:t} às {c.HrFinal:t}\n");
             });
             return str;
+        }
+
+        public bool PacienteExiste(long cpf)
+        {
+            return Pacientes.Exists(p => p.CPF.Equals(cpf));
         }
 
         //Listar pacientes(ordenado por nome)

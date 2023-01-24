@@ -26,11 +26,7 @@ namespace Desafio.Desafio.Models
             this.Nome = Nome;
             this.DtNascimento = DtNascimento;
         }
-
-        public bool PacienteExiste(long CPF)
-        {            
-            return new PacienteController().Pacientes.Exists(paciente => paciente.CPF.Equals(CPF));
-        }
+      
 
         /// <summary>
         /// Pesquisa um <see cref="Paciente"/> na <see cref="Consultas"/>.

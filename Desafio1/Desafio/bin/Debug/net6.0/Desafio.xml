@@ -9,6 +9,21 @@
             Define uma <see cref="T:Desafio.Desafio.Controllers.Agenda"/> com <see cref="T:Desafio.Desafio.Models.Consulta"/> de um consultório odontológico.
             </summary>
         </member>
+        <member name="F:Desafio.Desafio.Controllers.Agenda.Consultas">
+            <summary>
+            The consultas.
+            </summary>
+        </member>
+        <member name="F:Desafio.Desafio.Controllers.Agenda.agendamentos">
+            <summary>
+            The agendamentos.
+            </summary>
+        </member>
+        <member name="P:Desafio.Desafio.Controllers.Agenda.Agendamentos">
+            <summary>
+            Gets the agendamentos.
+            </summary>
+        </member>
         <member name="M:Desafio.Desafio.Controllers.Agenda.#ctor">
             <summary>
             Ordena <see cref="F:Desafio.Desafio.Controllers.Agenda.Consultas"/> pela <c>data de consulta</c>
@@ -159,6 +174,18 @@
             </list>
             </returns>
         </member>
+        <member name="M:Desafio.Desafio.Controllers.Valida.ValidaDataFormato(System.String)">
+             <summary>
+             Validação do formato da <see langword ="data"/>.
+             </summary>
+            <param name = "data">Representa o valor da <see langword="data"/> que deve estar no formato correto.</param>                
+            <returns>
+            <list type="bullet">
+            <item>Retorna <see langword="false"/> e exibe menssagem de erro.</item>        
+            <item>Retorna <see langword="true"/> e exibe menssagem de erro.</item>        
+            </list>
+            </returns>
+        </member>
         <member name="T:Desafio.Desafio.Models.Consulta">
             <summary>
             Define uma <see cref="T:Desafio.Desafio.Models.Consulta"/> de um consultório odontológico.
@@ -185,6 +212,14 @@
             <param name = "CPF">Representa o valor da propriedade <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/>, deve possuir o valor de um <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/> válido e não existir outro <see cref="T:Desafio.Desafio.Models.Paciente"/> com o mesmo <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/>.</param>
             <param name = "Nome">Representa o valor da propriedade <paramref name="Nome"/>, deve possuir pelo menos 5 caracteres. </param>
             <param name = "DtNascimento">Representa o valor da propriedade <paramref name="DtNascimento"/>, deve possuir o formato DD/MM/AAAA e o <see cref="T:Desafio.Desafio.Models.Paciente"/> deve ter 13 anos ou mais no momento do cadastro(<see cref="P:System.DateTime.Now"/>).</param>        
+        </member>
+        <member name="M:Desafio.Desafio.Models.Paciente.PacienteAgendado(System.Int64)">
+             <summary>
+             Pesquisa um <see cref="T:Desafio.Desafio.Models.Paciente"/> na <see cref="!:Consultas"/>.
+             </summary>
+            <returns>
+            Retorna <see cref="T:System.Collections.Generic.List`1"/> com todas as <see cref="T:Desafio.Desafio.Models.Consulta"/> do <see cref="T:Desafio.Desafio.Models.Paciente"/> que tem <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/> igual ao passado por parâmetro.
+            </returns>
         </member>
     </members>
 </doc>
