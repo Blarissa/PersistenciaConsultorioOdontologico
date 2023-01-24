@@ -1,21 +1,3 @@
-<!--TOC-->
-- [Curso de Residência em Software – Formação Back-end C#](#curso-de-residencia-em-software-formacao-back-end-c)
-  - [Desafio 1 - Administração da Agenda de um Consultório Odontológico](#desafio-1-administracao-da-agenda-de-um-consultorio-odontologico)
-    - [Instruções](#instrucoes)
-    - [Descrição](#descricao)
-    - [Regras](#regras)
-  - [Desafio 2 - Conversor de Moedas com acesso a API REST](#desafio-2-conversor-de-moedas-com-acesso-a-api-rest)
-    - [Instruções](#instrucoes)
-    - [Descrição](#descricao)
-      - [Serviço exchangerate](#servico-exchangerate)
-    - [Regras](#regras)
-  - [Desafio 3 - Persistência dos Dados da Clínica Odontológica](#desafio-3-persistencia-dos-dados-da-clinica-odontologica)
-    - [Instruções](#instrucoes)
-    - [Descrição](#descricao)
-    - [Regras](#regras)
-    - [Dicas](#dicas)
-<!--/TOC-->
-
 # Curso de Residência em Software – Formação Back-end C#
 
 ## Desafio 1 - Administração da Agenda de um Consultório Odontológico
