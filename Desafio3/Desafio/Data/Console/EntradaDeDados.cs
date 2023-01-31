@@ -1,7 +1,8 @@
 ﻿using Desafio.Desafio.Controllers;
+using Desafio.Desafio.View;
 using System.Globalization;
 
-namespace Desafio.Desafio.View
+namespace Desafio.Data.Console
 {
     public class EntradaDeDados
     {
@@ -13,7 +14,7 @@ namespace Desafio.Desafio.View
 
             //CPF inválido ler novamente
             if (!Valida.ValidaCpf(CPF))
-                return LerCPF();            
+                return LerCPF();
 
             return long.Parse(CPF);
         }
@@ -55,7 +56,7 @@ namespace Desafio.Desafio.View
             //Data inválida ler dados novamente
             if (!Valida.ValidaDataConsulta(datas, data))
                 return LerDtConsulta();
-            
+
             return DateTime.Parse(data);
         }
 
@@ -68,7 +69,7 @@ namespace Desafio.Desafio.View
             //Hora inicial inválida ler dados novamente
             if (!Valida.ValidaHrInicial(new Agenda().Agendamentos, hrInicial))
                 return LerHrInicial();
-            
+
             return DateTime.ParseExact(hrInicial, "HHmm", new CultureInfo("pt-BR"));
         }
 
@@ -86,11 +87,13 @@ namespace Desafio.Desafio.View
         }
 
         //Ler período para listar agenda
-        public static DateTime LerDataInicial() {
+        public static DateTime LerDataInicial()
+        {
             Console.WriteLine("Data inicial: ");
             var data = Console.ReadLine();
-            
-            if (Valida.ValidaDataInicial(data)){
+
+            if (Valida.ValidaDataInicial(data))
+            {
                 Console.WriteLine(Menssagens.DtInicialInvalida);
                 return LerDataInicial();
             }
@@ -114,7 +117,7 @@ namespace Desafio.Desafio.View
         }
 
         //Ler 
-        public static Char LerOpcaoListAgenda()
+        public static char LerOpcaoListAgenda()
         {
             Console.WriteLine("Apresentar a agenda T-Toda ou P-Periodo: ");
             char opcao = char.Parse(Console.ReadLine().ToUpper());
@@ -123,7 +126,7 @@ namespace Desafio.Desafio.View
             {
                 Console.WriteLine(Menssagens.OpcaoInvalida);
                 return LerOpcaoListAgenda();
-            }                
+            }
 
             return opcao;
         }

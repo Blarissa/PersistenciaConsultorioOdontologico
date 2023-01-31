@@ -1,5 +1,6 @@
-﻿using Desafio.Desafio.Models;
-using Desafio.Desafio.View;
+﻿using Desafio.Data.Console;
+using Desafio.Desafio.Models;
+using Desafio.View.Mensagens;
 
 namespace Desafio.Desafio.Controllers
 {
@@ -13,7 +14,7 @@ namespace Desafio.Desafio.Controllers
             long CPF = EntradaDeDados.LerCPF();
             if (PacienteExiste(CPF))
             {
-                Console.WriteLine(Menssagens.CpfExistente);
+                Console.WriteLine(MenssagemDeErro.CpfExistente);
                 CPF = EntradaDeDados.LerCPF();
             }
 
@@ -21,7 +22,7 @@ namespace Desafio.Desafio.Controllers
             DateTime dtNasc = EntradaDeDados.LerDtNascimento();
 
             Pacientes.Add(new(CPF, nome, dtNasc));
-            Console.WriteLine(Menssagens.PacienteCadastrado);
+            Console.WriteLine(MenssagemDeErro.PacienteCadastrado);
         }
 
         //Retorna o paciente de determinado CPF 
@@ -43,22 +44,22 @@ namespace Desafio.Desafio.Controllers
             //Se não encontrar o paciente na lista imprime a mensagem de erro
             while (!PacienteExiste(CPF))
             {
-                Console.WriteLine(Menssagens.PacienteInixistente);
+                Console.WriteLine(MenssagemDeErro.PacienteInixistente);
                 CPF = EntradaDeDados.LerCPF();
             }
 
-            List<Consulta> consultas = new Agenda().PesquisaConsultasPorCPF(CPF);
+            List<Consulta> consultas = new ConsultaController().PesquisaConsultasPorCPF(CPF);
 
             if (consultas.Exists(c => c.DtConsulta >= DateTime.Now))
-                Console.WriteLine(Menssagens.PacienteAgendado);
+                Console.WriteLine(MenssagemDeErro.PacienteAgendado);
 
             else if (consultas.Count >= 1)
             {
                 //removendo consultas
-                new Agenda().Consultas.RemoveAll(c => c.CPF.Equals(CPF));
+                new ConsultaController().Consultas.RemoveAll(c => c.CPF.Equals(CPF));
                 //removendo paciente
                 Pacientes.Remove(PesquisaCPF(CPF));
-                Console.WriteLine(Menssagens.PacienteExcluido);
+                Console.WriteLine(MenssagemDeErro.PacienteExcluido);
             }
         }
 
@@ -73,7 +74,7 @@ namespace Desafio.Desafio.Controllers
                 str += $"{p.CPF, -11:00000000000} {p.Nome,-33} " +
                        $"{p.DtNascimento.ToShortDateString()} {p.Idade}\n";
 
-                List<Consulta> consultas = new Agenda().PesquisaConsultasPorCPF(p.CPF);
+                List<Consulta> consultas = new ConsultaController().PesquisaConsultasPorCPF(p.CPF);
 
                 if (consultas.Exists(c => c.DtConsulta >= DateTime.Now))
                     consultas.ForEach(c => str += $"{"",-11} " +
