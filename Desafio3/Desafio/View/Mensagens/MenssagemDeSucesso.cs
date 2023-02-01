@@ -1,6 +1,6 @@
-﻿namespace Desafio.Desafio.View
+﻿namespace Desafio.View.Mensagens
 {
-    public class Menssagens
+    public class MenssagemDeSucesso
     {
         //Mensagens de erro
         //opção

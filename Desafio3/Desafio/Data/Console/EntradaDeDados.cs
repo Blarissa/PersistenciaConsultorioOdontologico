@@ -1,7 +1,8 @@
 ﻿using Desafio.Desafio.Controllers;
+using Desafio.View.Mensagens;
 using System.Globalization;
 
-namespace Desafio.Desafio.View
+namespace Desafio.Data.Console
 {
     public class EntradaDeDados
     {
@@ -12,8 +13,8 @@ namespace Desafio.Desafio.View
             var CPF = Console.ReadLine();
 
             //CPF inválido ler novamente
-            if (!Valida.ValidaCpf(CPF))
-                return LerCPF();            
+            if (!ValidacaoController.ValidaCpf(CPF))
+                return LerCPF();
 
             return long.Parse(CPF);
         }
@@ -25,7 +26,7 @@ namespace Desafio.Desafio.View
             var nome = Console.ReadLine();
 
             //nome inválido ler dados novamente
-            if (!Valida.ValidaNome(nome))
+            if (!ValidacaoController.ValidaNome(nome))
                 return LerNome();
 
             return nome;
@@ -38,7 +39,7 @@ namespace Desafio.Desafio.View
             var dtNasc = Console.ReadLine();
 
             //Data de nascimento inválido ler dados novamente
-            if (!Valida.ValidaDataNascimento(dtNasc))
+            if (!ValidacaoController.ValidaDataNascimento(dtNasc))
                 return LerDtNascimento();
 
             return DateTime.Parse(dtNasc);
@@ -50,12 +51,12 @@ namespace Desafio.Desafio.View
             Console.WriteLine("Data da consulta:");
             var data = Console.ReadLine();
 
-            var datas = new Agenda().Agendamentos;
+            var datas = new ConsultaController().Agendamentos;
 
             //Data inválida ler dados novamente
-            if (!Valida.ValidaDataConsulta(datas, data))
+            if (!ValidacaoController.ValidaDataConsulta(datas, data))
                 return LerDtConsulta();
-            
+
             return DateTime.Parse(data);
         }
 
@@ -66,9 +67,9 @@ namespace Desafio.Desafio.View
             var hrInicial = Console.ReadLine();
 
             //Hora inicial inválida ler dados novamente
-            if (!Valida.ValidaHrInicial(new Agenda().Agendamentos, hrInicial))
+            if (!ValidacaoController.ValidaHrInicial(new ConsultaController().Agendamentos, hrInicial))
                 return LerHrInicial();
-            
+
             return DateTime.ParseExact(hrInicial, "HHmm", new CultureInfo("pt-BR"));
         }
 
@@ -79,19 +80,21 @@ namespace Desafio.Desafio.View
             var hrFinal = Console.ReadLine();
 
             //Hora Final inválida ler dados novamente
-            if (!Valida.ValidaHrFinal(new Agenda().Agendamentos, hrFinal, hrInicial))
+            if (!ValidacaoController.ValidaHrFinal(new ConsultaController().Agendamentos, hrFinal, hrInicial))
                 return LerHrFinal(hrInicial);
 
             return DateTime.ParseExact(hrFinal, "HHmm", new CultureInfo("pt-BR"));
         }
 
         //Ler período para listar agenda
-        public static DateTime LerDataInicial() {
+        public static DateTime LerDataInicial()
+        {
             Console.WriteLine("Data inicial: ");
             var data = Console.ReadLine();
-            
-            if (Valida.ValidaDataInicial(data)){
-                Console.WriteLine(Menssagens.DtInicialInvalida);
+
+            if (ValidacaoController.ValidaDataInicial(data))
+            {
+                Console.WriteLine(MenssagemDeErro.DtInicialInvalida);
                 return LerDataInicial();
             }
 
@@ -104,9 +107,9 @@ namespace Desafio.Desafio.View
             Console.WriteLine("Data final: ");
             var data = Console.ReadLine();
 
-            if (Valida.ValidaDataFinal(data))
+            if (ValidacaoController.ValidaDataFinal(data))
             {
-                Console.WriteLine(Menssagens.DtFinalInvalida);
+                Console.WriteLine(MenssagemDeErro.DtFinalInvalida);
                 return LerDataFinal();
             }
 
@@ -114,16 +117,16 @@ namespace Desafio.Desafio.View
         }
 
         //Ler 
-        public static Char LerOpcaoListAgenda()
+        public static char LerOpcaoListAgenda()
         {
             Console.WriteLine("Apresentar a agenda T-Toda ou P-Periodo: ");
             char opcao = char.Parse(Console.ReadLine().ToUpper());
 
-            if (!Valida.ValidaOpcaoListAgenda(opcao))
+            if (!ValidacaoController.ValidaOpcaoListAgenda(opcao))
             {
-                Console.WriteLine(Menssagens.OpcaoInvalida);
+                Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
                 return LerOpcaoListAgenda();
-            }                
+            }
 
             return opcao;
         }
