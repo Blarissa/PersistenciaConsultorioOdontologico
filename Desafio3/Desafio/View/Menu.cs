@@ -1,11 +1,12 @@
 ﻿using Desafio.Desafio.Controllers;
+using Desafio.View.Mensagens;
 
 namespace Desafio.Desafio.View
 {
     internal class Menu
     {
         readonly PacienteController pacienteController = new();
-        readonly Agenda agenda = new ();
+        readonly ConsultaController agenda = new ();
 
         //Chama menu principal
         public static int Principal()
@@ -32,7 +33,7 @@ namespace Desafio.Desafio.View
 
                 //Ler opção novamente
                 default:
-                    Console.WriteLine(Menssagens.OpcaoInvalida);
+                    Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
                     return Principal();                    
             }
         }
@@ -74,7 +75,7 @@ namespace Desafio.Desafio.View
 
                 //Ler opção novamente
                 default:
-                    Console.WriteLine(Menssagens.OpcaoInvalida);
+                    Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
                     return Pacientes();                    
             }
             return Pacientes();
@@ -110,7 +111,7 @@ namespace Desafio.Desafio.View
 
                 //Ler opção novamente
                 default:
-                Console.WriteLine(Menssagens.OpcaoInvalida);
+                Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
                 return Agenda();
             }
             return Agenda();

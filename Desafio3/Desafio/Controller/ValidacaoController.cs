@@ -1,14 +1,13 @@
-﻿using Desafio.Desafio.View;
-using Desafio.Desafio.Models;
+﻿using Desafio.Model;
 using System.Globalization;
-using System.Runtime.InteropServices;
-using Desafio.Dasafio.Dados;
+using Desafio.Data;
+using Desafio.View.Mensagens;
 
-namespace Desafio.Desafio.Controllers
+namespace Desafio.Controllers
 {    /// <summary>
-     /// Define a validadação de todos dados do <see cref="Paciente"/> e da <see cref="Agenda"/>.
+     /// Define a validadação de todos dados do <see cref="Paciente"/> e da <see cref="ConsultaController"/>.
      /// </summary>
-    public class Valida
+    public class ValidacaoController
     {
         /// <summary>
         /// Validação do <see cref="Paciente.CPF"/>.
@@ -31,7 +30,7 @@ namespace Desafio.Desafio.Controllers
         public static bool ValidaCpf(string? CPF){            
             if (string.IsNullOrEmpty(CPF) && !CPF.Length.Equals(11) ||
                 CPF.All(c => CPF[0].Equals(c))){
-                Console.WriteLine(Menssagens.CpfIvalido);
+                Console.WriteLine(MenssagemDeErro.CpfIvalido);
                 return false;
             }
             
@@ -65,7 +64,7 @@ namespace Desafio.Desafio.Controllers
                 valorK = (int)Char.GetNumericValue(CPF[10]) == (11 - restoK);               
                
             if(!(valorJ || valorK)){
-                Console.WriteLine(Menssagens.CpfIvalido);
+                Console.WriteLine(MenssagemDeErro.CpfIvalido);
                 return false;
             }
             return true;           
@@ -91,7 +90,7 @@ namespace Desafio.Desafio.Controllers
         public static bool ValidaDataConsulta(List<DateTime> datas, string? data)
         {
             if (!ValidaDataFormato(data)){
-                Console.WriteLine(Menssagens.DtInvalidaFormato);
+                Console.WriteLine(MenssagemDeErro.DtInvalidaFormato);
                 return false;
             }
 
@@ -100,7 +99,7 @@ namespace Desafio.Desafio.Controllers
             if(!(dataConsulta.Date.Equals(DateTime.Now.Date) &&
                    ValidaHrConsulta(datas, DateTime.Now.ToString("HHmm")) ||
                    dataConsulta.Date > DateTime.Now.Date)){
-                Console.WriteLine(Menssagens.DtConsultaInvalida);
+                Console.WriteLine(MenssagemDeErro.DtConsultaInvalida);
                 return false;
             }
            return true;
@@ -125,7 +124,7 @@ namespace Desafio.Desafio.Controllers
         public static bool ValidaDataInicial(string? data)
         {
             if (!ValidaDataFormato(data)){
-                Console.WriteLine(Menssagens.DtInvalidaFormato);
+                Console.WriteLine(MenssagemDeErro.DtInvalidaFormato);
                 return false;
             }
 
@@ -136,12 +135,12 @@ namespace Desafio.Desafio.Controllers
         public static bool ValidaDataFinal(string? data)
         {
             if (!ValidaDataFormato(data)){
-                Console.WriteLine(Menssagens.DtInvalidaFormato);
+                Console.WriteLine(MenssagemDeErro.DtInvalidaFormato);
                 return false;
             }
 
             if (DateTime.Parse(data) >= DateTime.Now){
-                Console.WriteLine(Menssagens.DtFinalInvalida);
+                Console.WriteLine(MenssagemDeErro.DtFinalInvalida);
                 return false;
             }
 
@@ -153,12 +152,12 @@ namespace Desafio.Desafio.Controllers
         {
             if (!ValidaDataFormato(data))
             {
-                Console.WriteLine(Menssagens.DtInvalidaFormato);
+                Console.WriteLine(MenssagemDeErro.DtInvalidaFormato);
                 return false;
             }
             if(!(DateTime.Now.Subtract(DateTime.Parse(data)).Days / 365 >= 13))
             {
-                Console.WriteLine(Menssagens.IdadeInvalida);
+                Console.WriteLine(MenssagemDeErro.IdadeInvalida);
                 return false;
             }           
             return true;
@@ -170,7 +169,7 @@ namespace Desafio.Desafio.Controllers
             //Se o formato é válido
             if (!ValidaHoraFormato(hora))
             {
-                Console.WriteLine(Menssagens.HrInvalidaFormato);                
+                Console.WriteLine(MenssagemDeErro.HrInvalidaFormato);                
                 return false;
             } 
             
@@ -179,14 +178,14 @@ namespace Desafio.Desafio.Controllers
             //Se existes data e hora iguais agendadas
             if (datas.Exists(dataEhora => dataEhora.Equals(dtHr)))
             {
-                Console.WriteLine(Menssagens.ConsultExistente);
+                Console.WriteLine(MenssagemDeErro.ConsultExistente);
                 return false;
             }
 
             //Se o horário é definido de 15 em 15 minutos
             if(dtHr.TimeOfDay.Minutes % 15 != 0)
             {
-                Console.WriteLine(Menssagens.HrInvalidaFormato);
+                Console.WriteLine(MenssagemDeErro.HrInvalidaFormato);
                 return false;
             }
             return true;
@@ -204,13 +203,13 @@ namespace Desafio.Desafio.Controllers
 
             //Valida a Hora final de acordo com as regras de agendamento
             if (horaFinal.TimeOfDay <= horaInicial.TimeOfDay){
-                Console.WriteLine(Menssagens.HrFinalInvalida);
+                Console.WriteLine(MenssagemDeErro.HrFinalInvalida);
                 return false;
             }
 
             if (horaFinal.Hour == 8 && horaFinal.Minute < 15 ||
                horaFinal.Hour < 8 || horaFinal.Hour > 19){
-                Console.WriteLine(Menssagens.HrInvalidaFuncionamento);
+                Console.WriteLine(MenssagemDeErro.HrInvalidaFuncionamento);
                 return false;
             }
             return true;
@@ -235,7 +234,7 @@ namespace Desafio.Desafio.Controllers
             //Valida a Hora inicial de acordo com as regras de agendamento
             if(hrInicial.Hour < 8 || hrInicial.Hour > 18 ||
                hrInicial.Hour == 18 && hrInicial.Minute > 45){
-                Console.WriteLine(Menssagens.HrInvalidaFuncionamento);
+                Console.WriteLine(MenssagemDeErro.HrInvalidaFuncionamento);
                 return false;
             }
             return true;
@@ -245,7 +244,7 @@ namespace Desafio.Desafio.Controllers
         public static bool ValidaNome(string? nome)
         {
             if(nome.Length < 5){
-                Console.WriteLine(Menssagens.NomeIvalido);
+                Console.WriteLine(MenssagemDeErro.NomeIvalido);
                 return false;
             }
             return true;
