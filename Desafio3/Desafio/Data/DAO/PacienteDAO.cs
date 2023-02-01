@@ -1,5 +1,6 @@
 using Desafio.Model;
 using Desafio.View;
+using Desafio.View.Mensagens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,8 +45,8 @@ namespace Desafio.Data.DAO
         //Adicionar
         public void AdicionarPaciente(long cpf, string nome, DateTime dtNasc)
         {
-            Pacientes.Add(new(cpf, nome, dtNasc));
-            Console.WriteLine(Menssagens.PacienteCadastrado);
+            //Pacientes.Add(new(cpf, nome, dtNasc));
+            Console.WriteLine(MenssagemDeSucesso.PacienteCadastrado);
         }
 
         //Remover

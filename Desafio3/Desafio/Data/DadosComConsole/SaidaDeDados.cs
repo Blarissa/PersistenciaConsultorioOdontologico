@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Desafio.Data.Console
+namespace Desafio.Data.DadosComConsole
 {
     internal class SaidaDeDados
     {

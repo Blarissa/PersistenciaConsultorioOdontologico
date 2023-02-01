@@ -2,7 +2,7 @@ using Desafio.Controller;
 using Desafio.View.Mensagens;
 using System.Globalization;
 
-namespace Desafio.Data.Console
+namespace Desafio.Data.DadosComConsole
 {
     public class EntradaDeDados
     {
