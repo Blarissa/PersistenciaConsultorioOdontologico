@@ -7,3 +7,4 @@ bin/
 obj/
 *.suo
 *.wsuo
+/Desafio3/Desafio/Data/DAO/IPacienteDAO.cs

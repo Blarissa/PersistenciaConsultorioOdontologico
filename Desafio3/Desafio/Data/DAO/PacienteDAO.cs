@@ -1,12 +1,11 @@
-﻿using Desafio.Desafio.Models;
-using Desafio.Desafio.View;
+﻿using Desafio.Models;
+using Desafio.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Desafio.Dasafio.Dados
 {
     internal class PacienteDAO
     {
