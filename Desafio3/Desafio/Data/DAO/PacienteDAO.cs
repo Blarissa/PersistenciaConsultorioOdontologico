@@ -1,4 +1,4 @@
-﻿using Desafio.Models;
+﻿using Desafio.Model;
 using Desafio.View;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-{
+namespace Desafio.Data.DAO
+{ 
+
     internal class PacienteDAO
     {
         private List<Paciente> Pacientes { get; set; }

@@ -1,14 +1,13 @@
+﻿using Desafio.Data;
 using Desafio.Model;
 using Desafio.View;
-using Desafio.Data.Console;
-using Desafio.View.Mensagens;
 
-namespace Desafio.Controllers
+namespace Desafio.Controller
 {
     /// <summary>
-    /// Define uma <see cref="Agenda"/> com <see cref="Consulta"/> de um consultório odontológico.
+    /// Define uma <see cref="ConsultaController"/> com <see cref="Consulta"/> de um consultório odontológico.
     /// </summary>
-    public class Agenda
+    public class ConsultaController
     {
         /// <summary>
         /// The consultas.
@@ -24,7 +23,7 @@ namespace Desafio.Controllers
         public List<DateTime> Agendamentos
         {
             get {
-                Consultas.ForEach(c => agendamentos.Add(c.DtConsulta));
+                Consultas.ForEach(c => agendamentos.Add(c.DataHoraInicial));
                 return agendamentos;
             }
         }
@@ -32,9 +31,9 @@ namespace Desafio.Controllers
         /// <summary>
         /// Ordena <see cref="Consultas"/> pela <c>data de consulta</c>
         /// </summary>        
-        public Agenda()
+        public ConsultaController()
         {
-            Consultas = Consultas.OrderBy(c => c.DtConsulta).ToList();
+            Consultas = Consultas.OrderBy(c => c.DataHoraInicial).ToList();
         }
 
         /// <summary>
@@ -52,17 +51,23 @@ namespace Desafio.Controllers
         {
             long CPF = EntradaDeDados.LerCPF();
             //verifica se paciente está cadastrado
-            if (!new PacienteController().PacienteExiste(CPF))
+            if (!new Valida().PacienteExiste(CPF))
             {
                 Console.WriteLine(Menssagens.PacienteInixistente);
                 CPF = EntradaDeDados.LerCPF();
             }
 
+            Paciente p = new PacienteDAO().PacientesPorCpf(CPF);
+
             DateTime data = EntradaDeDados.LerDtConsulta();
             DateTime hrInicial = EntradaDeDados.LerHrInicial();
             DateTime hrFinal = EntradaDeDados.LerHrFinal(hrInicial.ToString("HHmm"));
 
-            Consultas.Add(new Consulta(CPF, data, hrInicial, hrFinal));
+            hrInicial = new DateTime(data.Year, data.Month, data.Day, hrInicial.Hour, hrInicial.Minute, hrInicial.Second);
+            hrFinal = new DateTime(data.Year, data.Month, data.Day, hrFinal.Hour, hrFinal.Minute, hrFinal.Second);
+
+
+            Consultas.Add(new Consulta(p, hrInicial, hrFinal));
             Console.WriteLine(Menssagens.AgendamentoRealizado);
         }
 
@@ -158,9 +163,7 @@ namespace Desafio.Controllers
             Consulta consulta = PesquisaConsulta(CPF, dtConsulta, hrInicial);
             
             //Se consulta agendada for de um período futuro pode cancelar
-            if (consulta.DtConsulta > DateTime.Now ||
-                consulta.DtConsulta.Equals(DateTime.Now) &&
-                consulta.HrInicial.TimeOfDay > DateTime.Now.TimeOfDay)
+            if (consulta.DataHoraInicial > DateTime.Now)
             {
                 Consultas.Remove(PesquisaConsulta(CPF, dtConsulta, hrInicial));
                 Console.WriteLine(Menssagens.AgendamentoCancelado);
@@ -168,16 +171,16 @@ namespace Desafio.Controllers
                 Console.WriteLine(Menssagens.DtConsultaInvalida);
         }
         ///<summary>
-        ///Sobrescreve o método <see cref="string.ToString()"/> para a listagem da <see cref="Agenda"/>. 
+        ///Sobrescreve o método <see cref="string.ToString()"/> para a listagem da <see cref="ConsultaController"/>. 
         ///</summary>        
         /// <remarks>
-        /// É criada uma <see cref="string"/> que recebe o cabeçalho padrão da <see cref="Agenda"/>.               
+        /// É criada uma <see cref="string"/> que recebe o cabeçalho padrão da <see cref="ConsultaController"/>.               
         ///<br>
         ///Após o cabeçalho são listadas as <see cref="Consultas"/> agrupadas pela <see cref="Consulta.DtConsulta"/>.
         ///</br>
         /// </remarks>
         /// <returns>
-        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="Agenda"/> completa.
+        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="ConsultaController"/> completa.
         /// </returns>
         public override string? ToString()
         {
@@ -187,7 +190,7 @@ namespace Desafio.Controllers
                 + "".PadRight(61, '-') + "\n";
 
             //Agrupando consultas por data
-            var query = Consultas.GroupBy(consulta => consulta.DtConsulta);
+            var query = Consultas.GroupBy(consulta => consulta.DataHoraInicial.Date);
 
             //Listando consultas agrupadas por data
             foreach (var result in query)
@@ -196,22 +199,21 @@ namespace Desafio.Controllers
 
                 foreach (Consulta c in result)
                 {                    
-                    Paciente? paciente = new PacienteController().PesquisaCPF(c.CPF);
 
-                    str += $"{c.HrInicial:t} "
-                     + $"{c.HrFinal:t} "
-                     + $"{c.Tempo:hh\\:mm} {paciente.Nome} "
-                     + $"{paciente.DtNascimento:d}\n";
+                    str += $"{c.DataHoraInicial:t} "
+                     + $"{c.DataHoraFinal:t} "
+                     + $"{c.Tempo:hh\\:mm} {c.Paciente.Nome} "
+                     + $"{c.Paciente.DtNascimento:d}\n";
                 }
             }
             return str;
         }
 
         ///<summary>
-        ///Lista a <see cref="Agenda"/> do consultório odontológico de um perído de tempo da <see langword="dtInicial"/> até a <see langword="dtFinal"/>. 
+        ///Lista a <see cref="ConsultaController"/> do consultório odontológico de um perído de tempo da <see langword="dtInicial"/> até a <see langword="dtFinal"/>. 
         ///</summary> 
         /// <returns>
-        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="Agenda"/> por um período de tempo.
+        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="ConsultaController"/> por um período de tempo.
         /// </returns>
         public string AgendamentosPorPeriodo()
         {
@@ -231,10 +233,10 @@ namespace Desafio.Controllers
         }
 
         ///<summary>
-        ///Determina se a listagem da <see cref="Agenda"/> vai ser completa ou por um período.
+        ///Determina se a listagem da <see cref="ConsultaController"/> vai ser completa ou por um período.
         ///</summary> 
         /// <returns>
-        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="Agenda"/>.
+        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="ConsultaController"/>.
         /// </returns>
         public string Listagem()
         {
