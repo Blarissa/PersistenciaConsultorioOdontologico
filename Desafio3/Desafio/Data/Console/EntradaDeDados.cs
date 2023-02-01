@@ -1,4 +1,4 @@
-﻿using Desafio.Controller;
+using Desafio.Controller;
 using Desafio.View.Mensagens;
 using System.Globalization;
 

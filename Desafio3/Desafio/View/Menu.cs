@@ -1,7 +1,7 @@
-﻿using Desafio.Controller;
+using Desafio.Controller;
 using Desafio.View.Mensagens;
 
-namespace Desafio.View
+namespace Desafio.Desafio.View
 {
     internal class Menu
     {

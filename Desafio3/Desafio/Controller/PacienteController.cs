@@ -1,6 +1,5 @@
-﻿using Desafio.Data.Console;
+using Desafio.Data.Console;
 using Desafio.Data.DAO;
-
 namespace Desafio.Controller
 {
     public class PacienteController
@@ -34,7 +33,7 @@ namespace Desafio.Controller
                 CPF = EntradaDeDados.LerCPF();
             }
 
-            List<Consulta> consultas = new ConsultaController().PesquisaConsultasPorCPF(CPF);
+            List<Consulta> consultas = new Agenda().PesquisaConsultasPorCPF(CPF);
 
             if (consultas.Exists(c => c.DataHoraInicial >= DateTime.Now))
                 Console.WriteLine(Menssagens.PacienteAgendado);
@@ -42,7 +41,7 @@ namespace Desafio.Controller
             else if (consultas.Count >= 1)
             {
                 //removendo consultas
-                new ConsultaController().Consultas.RemoveAll(c => c.Paciente.Equals(new Paciente(CPF, "", new DateTime(0001,01,01))));
+                new Agenda().Consultas.RemoveAll(c => c.Paciente.Equals(new Paciente(CPF, "", new DateTime(0001,01,01))));
                 //removendo paciente
                 DBConnection.RemoverPaciente(CPF);
                 Console.WriteLine(Menssagens.PacienteExcluido);
@@ -59,7 +58,7 @@ namespace Desafio.Controller
                 str += $"{p.CPF,-11:00000000000} {p.Nome,-33} " +
                        $"{p.DtNascimento.ToShortDateString()} {p.Idade}\n";
 
-                List<Consulta> consultas = new ConsultaController().PesquisaConsultasPorCPF(p.CPF);
+                List<Consulta> consultas = new Agenda().PesquisaConsultasPorCPF(p.CPF);
 
                 if (consultas.Exists(c => c.DataHoraInicial >= DateTime.Now))
                     consultas.ForEach(c => str += $"{"",-11} " +
@@ -83,6 +82,5 @@ namespace Desafio.Controller
             List<Paciente> pacientes = DBConnection.TodosPacientes().OrderBy(p => p.CPF).ToList();
             return FormatarSaida(pacientes);
         }
-
-    }
+  }
 }

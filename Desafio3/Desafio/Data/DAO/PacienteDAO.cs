@@ -1,4 +1,4 @@
-﻿using Desafio.Model;
+using Desafio.Model;
 using Desafio.View;
 using System;
 using System.Collections.Generic;
@@ -58,6 +58,5 @@ namespace Desafio.Data.DAO
         }
 
         //Atualizar
-
     }
 }

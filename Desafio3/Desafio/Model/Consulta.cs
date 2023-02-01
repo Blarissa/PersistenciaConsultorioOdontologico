@@ -1,4 +1,4 @@
-﻿namespace Desafio.Model
+namespace Desafio.Model
 {
 
     /// <summary>

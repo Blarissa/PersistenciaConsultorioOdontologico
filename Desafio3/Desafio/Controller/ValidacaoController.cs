@@ -1,9 +1,10 @@
-﻿using Desafio.Model;
+using Desafio.Model;
 using System.Globalization;
 using Desafio.Data;
 using Desafio.View.Mensagens;
 
 namespace Desafio.Controller
+
 {    /// <summary>
      /// Define a validadação de todos dados do <see cref="Paciente"/> e da <see cref="ConsultaController"/>.
      /// </summary>

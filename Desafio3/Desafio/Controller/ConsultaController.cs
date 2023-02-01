@@ -1,6 +1,8 @@
-﻿using Desafio.Data;
+using Desafio.Data;
 using Desafio.Model;
 using Desafio.View;
+using Desafio.Data.Console;
+using Desafio.View.Mensagens;
 
 namespace Desafio.Controller
 {
@@ -8,7 +10,7 @@ namespace Desafio.Controller
     /// Define uma <see cref="ConsultaController"/> com <see cref="Consulta"/> de um consultório odontológico.
     /// </summary>
     public class ConsultaController
-    {
+
         /// <summary>
         /// The consultas.
         /// </summary>
@@ -31,7 +33,7 @@ namespace Desafio.Controller
         /// <summary>
         /// Ordena <see cref="Consultas"/> pela <c>data de consulta</c>
         /// </summary>        
-        public ConsultaController()
+        public Agenda()
         {
             Consultas = Consultas.OrderBy(c => c.DataHoraInicial).ToList();
         }
@@ -171,16 +173,16 @@ namespace Desafio.Controller
                 Console.WriteLine(Menssagens.DtConsultaInvalida);
         }
         ///<summary>
-        ///Sobrescreve o método <see cref="string.ToString()"/> para a listagem da <see cref="ConsultaController"/>. 
+        ///Sobrescreve o método <see cref="string.ToString()"/> para a listagem da <see cref="Agenda"/>. 
         ///</summary>        
         /// <remarks>
-        /// É criada uma <see cref="string"/> que recebe o cabeçalho padrão da <see cref="ConsultaController"/>.               
+        /// É criada uma <see cref="string"/> que recebe o cabeçalho padrão da <see cref="Agenda"/>.               
         ///<br>
         ///Após o cabeçalho são listadas as <see cref="Consultas"/> agrupadas pela <see cref="Consulta.DtConsulta"/>.
         ///</br>
         /// </remarks>
         /// <returns>
-        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="ConsultaController"/> completa.
+        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="Agenda"/> completa.
         /// </returns>
         public override string? ToString()
         {
@@ -210,10 +212,10 @@ namespace Desafio.Controller
         }
 
         ///<summary>
-        ///Lista a <see cref="ConsultaController"/> do consultório odontológico de um perído de tempo da <see langword="dtInicial"/> até a <see langword="dtFinal"/>. 
+        ///Lista a <see cref="Agenda"/> do consultório odontológico de um perído de tempo da <see langword="dtInicial"/> até a <see langword="dtFinal"/>. 
         ///</summary> 
         /// <returns>
-        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="ConsultaController"/> por um período de tempo.
+        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="Agenda"/> por um período de tempo.
         /// </returns>
         public string AgendamentosPorPeriodo()
         {
@@ -233,10 +235,10 @@ namespace Desafio.Controller
         }
 
         ///<summary>
-        ///Determina se a listagem da <see cref="ConsultaController"/> vai ser completa ou por um período.
+        ///Determina se a listagem da <see cref="Agenda"/> vai ser completa ou por um período.
         ///</summary> 
         /// <returns>
-        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="ConsultaController"/>.
+        /// Retorna uma <see cref="string"/> contendo a listagem da <see cref="Agenda"/>.
         /// </returns>
         public string Listagem()
         {
@@ -246,6 +248,9 @@ namespace Desafio.Controller
                 return ToString();
             else
                 return AgendamentosPorPeriodo();
-        }
-    }
+        }    
+
+  }
+
 }
+
