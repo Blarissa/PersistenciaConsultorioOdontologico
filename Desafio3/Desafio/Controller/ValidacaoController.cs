@@ -1,5 +1,7 @@
 ﻿using Desafio.Desafio.Models;
 using System.Globalization;
+using System.Runtime.InteropServices;
+using Desafio.Dasafio.Dados;
 using Desafio.View.Mensagens;
 
 namespace Desafio.Desafio.Controllers
@@ -253,6 +255,14 @@ namespace Desafio.Desafio.Controllers
         public static bool ValidaOpcaoListAgenda(char? opcao)
         {
             return opcao.HasValue && (opcao.Equals('T') || opcao.Equals('P'));
+        }
+
+        public bool PacienteExiste(long cpf)
+        {
+            Paciente? p = new PacienteDAO().PacientesPorCpf(cpf);
+            if(p == null) return false;
+
+            return true;
         }
     }
 }
