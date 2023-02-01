@@ -1,15 +1,16 @@
-using Desafio.Models;
+using Desafio.Data;
+using Desafio.Model;
 using Desafio.View;
 using Desafio.Data.Console;
 using Desafio.View.Mensagens;
 
-namespace Desafio.Desafio.Controllers
+namespace Desafio.Controller
 {
     /// <summary>
-    /// Define uma <see cref="Agenda"/> com <see cref="Consulta"/> de um consultório odontológico.
+    /// Define uma <see cref="ConsultaController"/> com <see cref="Consulta"/> de um consultório odontológico.
     /// </summary>
-    public class Agenda
-    {
+    public class ConsultaController
+
         /// <summary>
         /// The consultas.
         /// </summary>
@@ -24,7 +25,7 @@ namespace Desafio.Desafio.Controllers
         public List<DateTime> Agendamentos
         {
             get {
-                Consultas.ForEach(c => agendamentos.Add(c.DtConsulta));
+                Consultas.ForEach(c => agendamentos.Add(c.DataHoraInicial));
                 return agendamentos;
             }
         }
@@ -34,7 +35,7 @@ namespace Desafio.Desafio.Controllers
         /// </summary>        
         public Agenda()
         {
-            Consultas = Consultas.OrderBy(c => c.DtConsulta).ToList();
+            Consultas = Consultas.OrderBy(c => c.DataHoraInicial).ToList();
         }
 
         /// <summary>
@@ -52,17 +53,23 @@ namespace Desafio.Desafio.Controllers
         {
             long CPF = EntradaDeDados.LerCPF();
             //verifica se paciente está cadastrado
-            if (!new PacienteController().PacienteExiste(CPF))
+            if (!new Valida().PacienteExiste(CPF))
             {
                 Console.WriteLine(Menssagens.PacienteInixistente);
                 CPF = EntradaDeDados.LerCPF();
             }
 
+            Paciente p = new PacienteDAO().PacientesPorCpf(CPF);
+
             DateTime data = EntradaDeDados.LerDtConsulta();
             DateTime hrInicial = EntradaDeDados.LerHrInicial();
             DateTime hrFinal = EntradaDeDados.LerHrFinal(hrInicial.ToString("HHmm"));
 
-            Consultas.Add(new Consulta(CPF, data, hrInicial, hrFinal));
+            hrInicial = new DateTime(data.Year, data.Month, data.Day, hrInicial.Hour, hrInicial.Minute, hrInicial.Second);
+            hrFinal = new DateTime(data.Year, data.Month, data.Day, hrFinal.Hour, hrFinal.Minute, hrFinal.Second);
+
+
+            Consultas.Add(new Consulta(p, hrInicial, hrFinal));
             Console.WriteLine(Menssagens.AgendamentoRealizado);
         }
 
@@ -158,9 +165,7 @@ namespace Desafio.Desafio.Controllers
             Consulta consulta = PesquisaConsulta(CPF, dtConsulta, hrInicial);
             
             //Se consulta agendada for de um período futuro pode cancelar
-            if (consulta.DtConsulta > DateTime.Now ||
-                consulta.DtConsulta.Equals(DateTime.Now) &&
-                consulta.HrInicial.TimeOfDay > DateTime.Now.TimeOfDay)
+            if (consulta.DataHoraInicial > DateTime.Now)
             {
                 Consultas.Remove(PesquisaConsulta(CPF, dtConsulta, hrInicial));
                 Console.WriteLine(Menssagens.AgendamentoCancelado);
@@ -187,7 +192,7 @@ namespace Desafio.Desafio.Controllers
                 + "".PadRight(61, '-') + "\n";
 
             //Agrupando consultas por data
-            var query = Consultas.GroupBy(consulta => consulta.DtConsulta);
+            var query = Consultas.GroupBy(consulta => consulta.DataHoraInicial.Date);
 
             //Listando consultas agrupadas por data
             foreach (var result in query)
@@ -196,12 +201,11 @@ namespace Desafio.Desafio.Controllers
 
                 foreach (Consulta c in result)
                 {                    
-                    Paciente? paciente = new PacienteController().PesquisaCPF(c.CPF);
 
-                    str += $"{c.HrInicial:t} "
-                     + $"{c.HrFinal:t} "
-                     + $"{c.Tempo:hh\\:mm} {paciente.Nome} "
-                     + $"{paciente.DtNascimento:d}\n";
+                    str += $"{c.DataHoraInicial:t} "
+                     + $"{c.DataHoraFinal:t} "
+                     + $"{c.Tempo:hh\\:mm} {c.Paciente.Nome} "
+                     + $"{c.Paciente.DtNascimento:d}\n";
                 }
             }
             return str;
@@ -244,6 +248,9 @@ namespace Desafio.Desafio.Controllers
                 return ToString();
             else
                 return AgendamentosPorPeriodo();
-        }
-    }
+        }    
+
+  }
+
 }
+

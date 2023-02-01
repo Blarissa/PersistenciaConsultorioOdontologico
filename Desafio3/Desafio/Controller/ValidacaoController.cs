@@ -1,10 +1,10 @@
-﻿using Desafio.Desafio.Models;
+using Desafio.Model;
 using System.Globalization;
-using System.Runtime.InteropServices;
-using Desafio.Dasafio.Dados;
+using Desafio.Data;
 using Desafio.View.Mensagens;
 
-namespace Desafio.Desafio.Controllers
+namespace Desafio.Controller
+
 {    /// <summary>
      /// Define a validadação de todos dados do <see cref="Paciente"/> e da <see cref="ConsultaController"/>.
      /// </summary>

@@ -1,6 +1,7 @@
-﻿using Desafio.Desafio.Controllers;
+using Desafio.Controller;
 
-namespace Desafio.Desafio.Models
+namespace Desafio.Model
+
 {
     /// <summary>
     /// Define um <see cref="Paciente"/> de um consultório odontológico.
