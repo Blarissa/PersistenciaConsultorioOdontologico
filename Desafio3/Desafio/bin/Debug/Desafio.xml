@@ -4,222 +4,141 @@
         <name>Desafio</name>
     </assembly>
     <members>
-        <member name="T:Desafio.Desafio.Controllers.Agenda">
+        <member name="T:Desafio.Controller.ConsultaController">
             <summary>
-            Define uma <see cref="T:Desafio.Desafio.Controllers.Agenda"/> com <see cref="T:Desafio.Desafio.Models.Consulta"/> de um consultório odontológico.
+            Define uma <see cref="T:Desafio.Controller.ConsultaController"/> com <see cref="T:Desafio.Model.Consulta"/> de um consultório odontológico.
             </summary>
         </member>
-        <member name="F:Desafio.Desafio.Controllers.Agenda.Consultas">
+        <member name="T:Desafio.Controller.ValidacaoController">
             <summary>
-            The consultas.
+            Define a validadação de todos dados do <see cref="T:Desafio.Model.Paciente"/> e da <see cref="T:Desafio.Controller.ConsultaController"/>.
             </summary>
         </member>
-        <member name="F:Desafio.Desafio.Controllers.Agenda.agendamentos">
+        <member name="M:Desafio.Data.DAO.PacienteDAO.PacientesPorCpf(System.Int64)">
             <summary>
-            The agendamentos.
+            Busca nos dados armazenados pacientes com o cpf informado
+            </summary>
+            <param name="cpf">Cpf a ser buscado</param>
+            <returns>
+            Retorna o primeiro paciente com o cpf encontrado
+            </returns>
+        </member>
+        <member name="M:Desafio.Data.DAO.PacienteDAO.TodosPacientes">
+            <returns>
+            Retorna uma lista com todos os pacientes armazenados no storage
+            </returns>
+        </member>
+        <member name="T:Desafio.Migrations.consultorio">
+            <inheritdoc />
+        </member>
+        <member name="M:Desafio.Migrations.consultorio.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Desafio.Migrations.consultorio.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Desafio.Migrations.consultorio.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Desafio.Model.Consulta">
+            <summary>
+            Define uma <see cref="T:Desafio.Model.Consulta"/> de um consultório odontológico.
             </summary>
         </member>
-        <member name="P:Desafio.Desafio.Controllers.Agenda.Agendamentos">
+        <member name="P:Desafio.Model.Consulta.Id">
             <summary>
-            Gets the agendamentos.
+            Recebe um identificador para uma <see cref="T:Desafio.Model.Consulta"/>.
             </summary>
         </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.#ctor">
+        <member name="P:Desafio.Model.Consulta.Paciente">
             <summary>
-            Ordena <see cref="F:Desafio.Desafio.Controllers.Agenda.Consultas"/> pela <c>data de consulta</c>
-            </summary>        
-        </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.Agendar">
-            <summary>
-            Realiza o agendamento de uma consulta.
+            Recebe um <see cref="P:Desafio.Model.Consulta.Paciente"/> para a <see cref="T:Desafio.Model.Consulta"/>.
             </summary>
-            <remarks>
-            A classe <see cref="T:Desafio.Desafio.View.EntradaDeDados"/> é chamada e realiza a leitura dos 
-            dados necessários para realizar o agendamento de uma consulta.
-            <para>
-            Caso algum dado seja inválido, aparecerá uma mensagem de erro e o dado 
-            será solicitado novamente.
-            </para>
-            </remarks>
         </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.PesquisaConsulta(System.Int64,System.DateTime,System.DateTime)">
-             <summary>
-             Pesquisa uma <see cref="T:Desafio.Desafio.Models.Consulta"/> em <see cref="F:Desafio.Desafio.Controllers.Agenda.Consultas"/>.
-             </summary>
-            <param name = "CPF">Representa o valor da propriedade <see cref="P:Desafio.Desafio.Models.Consulta.CPF"/>, deve possuir o valor de um CPF cadastrado na lista de Pacientes.</param>
-            <param name = "dtConsulta">Representa o valor da propriedade <see cref="P:Desafio.Desafio.Models.Consulta.DtConsulta" />, deve possuir o formato DD/MM/AAAA.</param>
-            <param name = "hrInicial">Representa o valor da propriedade <see cref="P:Desafio.Desafio.Models.Consulta.HrInicial" />, deve possuir o formato HHMM, estar no limite do horário de funcionamento do consultório, 8:00h às 19:00h, e ser definida sempre de 15 em 15 minutos(Ex. 1400, 1730, 1615).</param>
+        <member name="P:Desafio.Model.Consulta.DataHoraInicial">
+            <summary>
+            Recebe a data e hora inicial da <see cref="T:Desafio.Model.Consulta"/>.
+            </summary>
+        </member>
+        <member name="P:Desafio.Model.Consulta.DataHoraFinal">
+            <summary>
+            Recebe a data e hora final da <see cref="T:Desafio.Model.Consulta"/>.
+            </summary>
+        </member>
+        <member name="M:Desafio.Model.Consulta.ToString">
+            <summary>
+            Sobreescreve método <see langword="ToString"/>.
+            </summary>
+            <returns>Uma <see langword="string"/> contendo dados do <see cref="T:Desafio.Model.Consulta"/>.</returns>
+        </member>
+        <member name="M:Desafio.Model.Consulta.Equals(System.Object)">
+            <summary>
+            Sobreescreve método <see langword="Equals"/>.        
+            </summary>
+            <param name="obj">Representa um objeto de <see cref="T:Desafio.Model.Consulta"/>.</param>
             <returns>
             <list type="bullet">
             <item>
-            Retorna <see langword="null"/> caso a <see cref="T:Desafio.Desafio.Models.Consulta"/> pesquisada não exista.
+            Retorna <see langword="true"/> 
+            <list type="bullet">
+            <item>se a <see cref="T:Desafio.Model.Consulta"/> tiver o mesmo <see cref="P:Desafio.Model.Consulta.Paciente"/>.</item>
+            <item>se a <see cref="T:Desafio.Model.Consulta"/> tiver a mesma <see cref="P:Desafio.Model.Consulta.DataHoraInicial"/>.</item>       
+            </list>
             </item>
             <item>
-            Retorna a <see cref="T:Desafio.Desafio.Models.Consulta"/> que tem <see cref="P:Desafio.Desafio.Models.Consulta.CPF"/>, <see cref="P:Desafio.Desafio.Models.Consulta.DtConsulta"/>, <see cref= "P:Desafio.Desafio.Models.Consulta.HrInicial"/> iguais aos passados nos parâmetros do método.
+            Retorna <see langword="false"/> caso contrário.
             </item>
             </list>
             </returns>
         </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.PesquisaConsultasPeriodo(System.DateTime,System.DateTime)">
-             <summary>
-             Pesquisa uma <see cref="T:Desafio.Desafio.Models.Consulta"/> na <see cref="F:Desafio.Desafio.Controllers.Agenda.Consultas"/> que estão em um determinado intervalo de tempo.
-             </summary>
-            <param name = "dtInicial">Representa o valor da <see langword="dtInicial"/> do intervalo de tempo e deve possuir deve possuir o formato DD/MM/AAAA.</param>
-            <param name = "dtFinal">Representa o valor da <see langword="dtFinal"/> do intervalo de tempo, deve possuir deve possuir o formato DD/MM/AAAA e ser maior que <see langword="dtInicial"/></param>       
-            <returns>
-            Retorna <see cref="T:System.Collections.Generic.List`1"/> com todas as consultas agendadas entre <see langword="dtInicial"/> e <see langword="dtFinal"/>
-            </returns>
+        <member name="M:Desafio.Model.Consulta.GetHashCode">
+            <inheritdoc/>
         </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.ConsultaExiste(System.Int64,System.DateTime,System.DateTime)">
+        <member name="T:Desafio.Model.Paciente">
             <summary>
-            Determina se existe uma <see cref="T:Desafio.Desafio.Models.Consulta"/> na <see cref="F:Desafio.Desafio.Controllers.Agenda.Consultas"/>.
-            </summary>
-            <returns>
-            Retorna <see langword="true"/> se existir alguma <see cref="T:Desafio.Desafio.Models.Consulta"/> onde <see cref="P:Desafio.Desafio.Models.Consulta.CPF"/>, <see cref="P:Desafio.Desafio.Models.Consulta.DtConsulta"/>, 
-            <br><see cref= "P:Desafio.Desafio.Models.Consulta.HrInicial"/> iguais aos passados nos parâmetros do método.</br>
-            </returns>
-        </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.PesquisaConsultasPorCPF(System.Int64)">
-             <summary>
-             Pesquisa um <see cref="T:Desafio.Desafio.Models.Paciente"/> na <see cref="F:Desafio.Desafio.Controllers.Agenda.Consultas"/>.
-             </summary>
-            <returns>
-            Retorna <see cref="T:System.Collections.Generic.List`1"/> com todas as <see cref="T:Desafio.Desafio.Models.Consulta"/> do <see cref="T:Desafio.Desafio.Models.Paciente"/> que tem <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/> igual ao passado por parâmetro.
-            </returns>
-        </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.Cancelar">
-            <summary>
-            Cancela uma <see cref="T:Desafio.Desafio.Models.Consulta"/> da <see cref="F:Desafio.Desafio.Controllers.Agenda.Consultas"/>.
-            </summary>
-            <remarks>
-            A classe <see cref="T:Desafio.Desafio.View.EntradaDeDados"/> é chamada e realiza a leitura dos 
-            dados necessários para realizar o cancelamento de uma consulta.
-            <para>
-            Caso algum dado seja inválido, aparecerá uma mensagem de erro e o dado 
-            será solicitado novamente.
-            </para>
-            </remarks>       
-        </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.ToString">
-            <summary>
-            Sobrescreve o método <see cref="M:System.String.ToString"/> para a listagem da <see cref="T:Desafio.Desafio.Controllers.Agenda"/>. 
-            </summary>        
-             <remarks>
-             É criada uma <see cref="T:System.String"/> que recebe o cabeçalho padrão da <see cref="T:Desafio.Desafio.Controllers.Agenda"/>.               
-            <br>
-            Após o cabeçalho são listadas as <see cref="F:Desafio.Desafio.Controllers.Agenda.Consultas"/> agrupadas pela <see cref="P:Desafio.Desafio.Models.Consulta.DtConsulta"/>.
-            </br>
-             </remarks>
-             <returns>
-             Retorna uma <see cref="T:System.String"/> contendo a listagem da <see cref="T:Desafio.Desafio.Controllers.Agenda"/> completa.
-             </returns>
-        </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.AgendamentosPorPeriodo">
-            <summary>
-            Lista a <see cref="T:Desafio.Desafio.Controllers.Agenda"/> do consultório odontológico de um perído de tempo da <see langword="dtInicial"/> até a <see langword="dtFinal"/>. 
-            </summary> 
-             <returns>
-             Retorna uma <see cref="T:System.String"/> contendo a listagem da <see cref="T:Desafio.Desafio.Controllers.Agenda"/> por um período de tempo.
-             </returns>
-        </member>
-        <member name="M:Desafio.Desafio.Controllers.Agenda.Listagem">
-            <summary>
-            Determina se a listagem da <see cref="T:Desafio.Desafio.Controllers.Agenda"/> vai ser completa ou por um período.
-            </summary> 
-             <returns>
-             Retorna uma <see cref="T:System.String"/> contendo a listagem da <see cref="T:Desafio.Desafio.Controllers.Agenda"/>.
-             </returns>
-        </member>
-        <member name="T:Desafio.Desafio.Controllers.Valida">
-            <summary>
-            Define a validadação de todos dados do <see cref="T:Desafio.Desafio.Models.Paciente"/> e da <see cref="T:Desafio.Desafio.Controllers.Agenda"/>.
+            Define um <see cref="T:Desafio.Model.Paciente"/> de um consultório odontológico.
             </summary>
         </member>
-        <member name="M:Desafio.Desafio.Controllers.Valida.ValidaCpf(System.String)">
-             <summary>
-             Validação do <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/>.
-             </summary>
-            <param name = "CPF">Representa o valor de um <see langword="CPF"/> que deve ser validado.</param>        
+        <member name="P:Desafio.Model.Paciente.CPF">
+            <summary>
+            Recebe o CPF do <see cref="T:Desafio.Model.Paciente"/>.
+            </summary>
+        </member>
+        <member name="P:Desafio.Model.Paciente.Nome">
+            <summary>
+            Recebe o nome do <see cref="T:Desafio.Model.Paciente"/>.
+            </summary>
+        </member>
+        <member name="P:Desafio.Model.Paciente.DtNascimento">
+            <summary>
+            Recebe a Data de nascimento do <see cref="T:Desafio.Model.Paciente"/>.
+            </summary>
+        </member>
+        <member name="M:Desafio.Model.Paciente.ToString">
+            <summary>
+            Sobreescreve método <see langword="ToString"/>.
+            </summary>
+            <returns>Uma <see langword="string"/> contendo dados do <see cref="T:Desafio.Model.Paciente"/>.</returns>
+        </member>
+        <member name="M:Desafio.Model.Paciente.Equals(System.Object)">
+            <summary>
+            Sobreescreve método <see langword="Equals"/>.        
+            </summary>
+            <param name="obj">Representa um objeto de <see cref="T:Desafio.Model.Paciente"/>.</param>
             <returns>
             <list type="bullet">
             <item>
-            Retorna <see langword="false"/>:
-            <list type="bullet">
-            <item>Se o valor do <see langword="CPF"/> for nulo ou vazio;</item>
-            <item>Se o <see langword="CPF"/> não tiver 11 dígitos;</item>
-            <item>Se o valor de todos os dígitos do <see langword="CPF"/> forem iguais;Ou</item>
-            <item>Se o valor <see langword="CPF"/> for um <see langword="CPF"/> de valor inexistente.</item>
-            </list>
+            Retorna <see langword="true"/> se o <see cref="T:Desafio.Model.Paciente"/> tiver o mesmo <see cref="P:Desafio.Model.Paciente.CPF"/>
+            que o <paramref name="obj"/> passado.
             </item>
-            <item>Retorna <see langword="true"/> se o valor do <see langword="CPF"/> for um <see langword="CPF"/> de valor que existente.</item>
-            </list>
-            </returns>
-        </member>
-        <member name="M:Desafio.Desafio.Controllers.Valida.ValidaDataConsulta(System.Collections.Generic.List{System.DateTime},System.String)">
-             <summary>
-             Validação da <see cref="P:Desafio.Desafio.Models.Consulta.DtConsulta"/>.
-             </summary>
-            <param name = "datas">Representa o valor de todas as <see langword="datas"/> na qual exitem pelo menos uma <see cref="T:Desafio.Desafio.Models.Consulta"/> agentada.</param>        
-            <param name = "data">Representa o valor de uma <see langword="data da consulta"/> que deve ser validada.</param>        
-            <returns>
-            <list type="bullet">
             <item>
-            Retorna <see langword="false"/> e exibe menssagem de erro:
-            <list type="bullet">
-            <item>Se o valor da <see langword="data"/> não estiver no formato DD/MM/AAAA;Ou</item>
-            <item>Se o valor da <see langword="data"/> não estiver em um período futuro;</item>        
-            </list>
+            Retorna <see langword="false"/> caso contrário.
             </item>
-            <item>Retorna <see langword="true"/> se não retornar <see langword="false"/>.</item>
             </list>
             </returns>
         </member>
-        <member name="M:Desafio.Desafio.Controllers.Valida.ValidaDataFormato(System.String)">
-             <summary>
-             Validação do formato da <see langword ="data"/>.
-             </summary>
-            <param name = "data">Representa o valor da <see langword="data"/> que deve estar no formato correto.</param>                
-            <returns>
-            <list type="bullet">
-            <item>Retorna <see langword="false"/> e exibe menssagem de erro.</item>        
-            <item>Retorna <see langword="true"/> e exibe menssagem de erro.</item>        
-            </list>
-            </returns>
-        </member>
-        <member name="T:Desafio.Desafio.Models.Consulta">
-            <summary>
-            Define uma <see cref="T:Desafio.Desafio.Models.Consulta"/> de um consultório odontológico.
-            </summary>
-        </member>
-        <member name="M:Desafio.Desafio.Models.Consulta.#ctor(System.Int64,System.DateTime,System.DateTime,System.DateTime)">
-             <summary>
-             Cria uma instância da <see cref="T:Desafio.Desafio.Models.Consulta"/> com os argumentos utilizados.
-             </summary>
-            <param name = "CPF">Representa o valor da propriedade <see cref="P:Desafio.Desafio.Models.Consulta.CPF" />, deve possuir o valor de um CPF cadastrado na lista de Pacientes.</param>
-            <param name = "DtConsulta">Representa o valor da propriedade <see cref="P:Desafio.Desafio.Models.Consulta.DtConsulta" />, deve possuir o formato DD/MM/AAAA e ser de um período futuro.</param>
-            <param name = "HrInicial">Representa o valor da propriedade <see cref="P:Desafio.Desafio.Models.Consulta.HrInicial" />, deve possuir o formato HHMM, ser de um período futuro e estar no limite do horário de funcionamento do consultório, 8:00h às 19:00h, e ser definida sempre de 15 em 15 minutos(Ex. 1400, 1730, 1615).</param>
-            <param name = "HrFinal">Representa o valor da propriedade <see cref="P:Desafio.Desafio.Models.Consulta.HrFinal" />, deve possuir o formato HHMM, ser de um período futuro maior que a propriedade <see cref="P:Desafio.Desafio.Models.Consulta.HrInicial"/>, estar no limite do horário de funcionamento do consultório, 8:00h às 19:00h, e ser definida sempre de 15 em 15 minutos(Ex. 1400, 1730, 1615).</param>
-        </member>
-        <member name="T:Desafio.Desafio.Models.Paciente">
-            <summary>
-            Define um <see cref="T:Desafio.Desafio.Models.Paciente"/> de um consultório odontológico.
-            </summary>
-        </member>
-        <member name="M:Desafio.Desafio.Models.Paciente.#ctor(System.Int64,System.String,System.DateTime)">
-             <summary>
-             Cria uma instância de <see cref="T:Desafio.Desafio.Models.Paciente"/> com os argumentos utilizados.
-             </summary>
-            <param name = "CPF">Representa o valor da propriedade <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/>, deve possuir o valor de um <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/> válido e não existir outro <see cref="T:Desafio.Desafio.Models.Paciente"/> com o mesmo <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/>.</param>
-            <param name = "Nome">Representa o valor da propriedade <paramref name="Nome"/>, deve possuir pelo menos 5 caracteres. </param>
-            <param name = "DtNascimento">Representa o valor da propriedade <paramref name="DtNascimento"/>, deve possuir o formato DD/MM/AAAA e o <see cref="T:Desafio.Desafio.Models.Paciente"/> deve ter 13 anos ou mais no momento do cadastro(<see cref="P:System.DateTime.Now"/>).</param>        
-        </member>
-        <member name="M:Desafio.Desafio.Models.Paciente.PacienteAgendado(System.Int64)">
-             <summary>
-             Pesquisa um <see cref="T:Desafio.Desafio.Models.Paciente"/> na <see cref="!:Consultas"/>.
-             </summary>
-            <returns>
-            Retorna <see cref="T:System.Collections.Generic.List`1"/> com todas as <see cref="T:Desafio.Desafio.Models.Consulta"/> do <see cref="T:Desafio.Desafio.Models.Paciente"/> que tem <see cref="P:Desafio.Desafio.Models.Paciente.CPF"/> igual ao passado por parâmetro.
-            </returns>
+        <member name="M:Desafio.Model.Paciente.GetHashCode">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

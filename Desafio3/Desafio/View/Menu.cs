@@ -23,10 +23,10 @@ namespace Desafio.Desafio.View
                 //Chama menu de pacientes
                 case 1:
                     return new Menu().Pacientes();
-                    
+
                 //Chama menu da agenda
                 case 2:
-                    return new Menu().Agenda();                    
+                    return new Menu().Agenda();
 
                 //Finaliza programa
                 case 3: return -1;
@@ -34,10 +34,10 @@ namespace Desafio.Desafio.View
                 //Ler opção novamente
                 default:
                     Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
-                    return Principal();                    
+                    return Principal();
             }
         }
-        
+
         //Chama menu de pacientes
         public int Pacientes()
         {
@@ -63,11 +63,13 @@ namespace Desafio.Desafio.View
                     break;
 
                 //Listar pacientes (ordenado por CPF)
-                case 3: Console.WriteLine(pacienteController.PacientesOrdemCPF());
+                case 3:
+                    Console.WriteLine(pacienteController.PacientesOrdemCPF());
                     break;
 
                 //Listar pacientes (ordenado por nome)
-                case 4: Console.WriteLine(pacienteController.PacientesOrdemNome());
+                case 4:
+                    Console.WriteLine(pacienteController.PacientesOrdemNome());
                     break;
 
                 //Voltar para o menu principal
@@ -76,7 +78,7 @@ namespace Desafio.Desafio.View
                 //Ler opção novamente
                 default:
                     Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
-                    return Pacientes();                    
+                    return Pacientes();
             }
             return Pacientes();
         }
@@ -95,15 +97,18 @@ namespace Desafio.Desafio.View
             switch (opcao)
             {
                 //Agendar consulta
-                case 1: agenda.Agendar();
+                case 1:
+                    agenda.Agendar();
                     break;
 
                 //Cancelar agendamento
-                case 2: agenda.Cancelar();
+                case 2:
+                    agenda.Cancelar();
                     break;
 
                 //Listar agenda
-                case 3: agenda.Listagem();
+                case 3:
+                    agenda.Listagem();
                     break;
 
                 //Voltar para o menu principal
@@ -111,8 +116,8 @@ namespace Desafio.Desafio.View
 
                 //Ler opção novamente
                 default:
-                Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
-                return Agenda();
+                    Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
+                    return Agenda();
             }
             return Agenda();
         }

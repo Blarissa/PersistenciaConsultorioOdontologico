@@ -1,15 +1,15 @@
 using Desafio.Data;
 using Desafio.Model;
 using Desafio.View;
-using Desafio.Data.Console;
 using Desafio.View.Mensagens;
+using Desafio.Data.DadosComConsole;
 
 namespace Desafio.Controller
 {
     /// <summary>
     /// Define uma <see cref="ConsultaController"/> com <see cref="Consulta"/> de um consultório odontológico.
     /// </summary>
-    public class ConsultaController
+    public class ConsultaController {
 
         /// <summary>
         /// The consultas.
@@ -24,19 +24,14 @@ namespace Desafio.Controller
         /// </summary>
         public List<DateTime> Agendamentos
         {
-            get {
+            get
+            {
                 Consultas.ForEach(c => agendamentos.Add(c.DataHoraInicial));
                 return agendamentos;
             }
         }
 
-        /// <summary>
-        /// Ordena <see cref="Consultas"/> pela <c>data de consulta</c>
-        /// </summary>        
-        public Agenda()
-        {
-            Consultas = Consultas.OrderBy(c => c.DataHoraInicial).ToList();
-        }
+
 
         /// <summary>
         /// Realiza o agendamento de uma consulta.
@@ -161,15 +156,16 @@ namespace Desafio.Controller
                 dtConsulta = EntradaDeDados.LerDtConsulta();
                 hrInicial = EntradaDeDados.LerHrInicial();
             }
-            
+
             Consulta consulta = PesquisaConsulta(CPF, dtConsulta, hrInicial);
-            
+
             //Se consulta agendada for de um período futuro pode cancelar
             if (consulta.DataHoraInicial > DateTime.Now)
             {
                 Consultas.Remove(PesquisaConsulta(CPF, dtConsulta, hrInicial));
                 Console.WriteLine(Menssagens.AgendamentoCancelado);
-            }else
+            }
+            else
                 Console.WriteLine(Menssagens.DtConsultaInvalida);
         }
         ///<summary>
@@ -200,7 +196,7 @@ namespace Desafio.Controller
                 str += $"{result.Key.ToShortDateString()} ";
 
                 foreach (Consulta c in result)
-                {                    
+                {
 
                     str += $"{c.DataHoraInicial:t} "
                      + $"{c.DataHoraFinal:t} "
@@ -248,9 +244,8 @@ namespace Desafio.Controller
                 return ToString();
             else
                 return AgendamentosPorPeriodo();
-        }    
-
-  }
+        }
+    }
 
 }
 

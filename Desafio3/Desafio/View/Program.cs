@@ -1,5 +1,5 @@
-﻿using Desafio.Desafio.Controllers;
-using Desafio.Desafio.Models;
+﻿using Desafio.Controller;
+using Desafio.Model;
 
 namespace Desafio.Desafio.View
 {

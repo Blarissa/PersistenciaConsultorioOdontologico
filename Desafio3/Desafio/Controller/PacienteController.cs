@@ -1,4 +1,4 @@
-using Desafio.Data.Console;
+using Desafio.Data.DadosComConsole;
 using Desafio.Data.DAO;
 namespace Desafio.Controller
 {
@@ -19,7 +19,7 @@ namespace Desafio.Controller
             DateTime dtNasc = EntradaDeDados.LerDtNascimento();
 
             DBConnection.AdicionarPaciente(CPF, nome, dtNasc);
-        }        
+        }
 
         //Removendo paciente
         public void Remove()
@@ -41,7 +41,7 @@ namespace Desafio.Controller
             else if (consultas.Count >= 1)
             {
                 //removendo consultas
-                new Agenda().Consultas.RemoveAll(c => c.Paciente.Equals(new Paciente(CPF, "", new DateTime(0001,01,01))));
+                new Agenda().Consultas.RemoveAll(c => c.Paciente.Equals(new Paciente(CPF, "", new DateTime(0001, 01, 01))));
                 //removendo paciente
                 DBConnection.RemoverPaciente(CPF);
                 Console.WriteLine(Menssagens.PacienteExcluido);
@@ -54,7 +54,8 @@ namespace Desafio.Controller
                        + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
                        + "".PadRight(60, '-') + "\n";
 
-            list.ForEach(p => {
+            list.ForEach(p =>
+            {
                 str += $"{p.CPF,-11:00000000000} {p.Nome,-33} " +
                        $"{p.DtNascimento.ToShortDateString()} {p.Idade}\n";
 
@@ -82,5 +83,5 @@ namespace Desafio.Controller
             List<Paciente> pacientes = DBConnection.TodosPacientes().OrderBy(p => p.CPF).ToList();
             return FormatarSaida(pacientes);
         }
-  }
+    }
 }
