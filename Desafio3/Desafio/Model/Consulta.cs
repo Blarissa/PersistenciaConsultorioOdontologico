@@ -42,11 +42,11 @@ namespace Desafio.Model
         /// <returns>Uma <see langword="string"/> contendo dados do <see cref="Consulta"/>.</returns>
         public override string ToString()
         {
-            return $"{this.DataHoraInicial:t} "
-                 + $"{this.DataHoraFinal:t} "
-                // + $"{this.Tempo:hh\\:mm} " 
-                 + $"{this.Paciente.Nome} "
-                 + $"{this.Paciente.DtNascimento:d}\n";
+            return $"{DataHoraInicial:t} "
+                 + $"{DataHoraFinal:t} "
+                 + $"{DataHoraFinal.Subtract(DataHoraInicial).ToString("hh\\:mm")} " 
+                 + $"{Paciente.Nome} "
+                 + $"{Paciente.DtNascimento:d}\n";
         }
 
         /// <summary>

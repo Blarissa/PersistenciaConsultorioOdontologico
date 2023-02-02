@@ -39,7 +39,8 @@ namespace Desafio.Model
         {
             return $"{this.CPF,-11:00000000000} " +
                    $"{this.Nome,-33} " +
-                   $"{this.DtNascimento:d} idade";
+                   $"{this.DtNascimento:d}" +
+                   $"{DtNascimento.Subtract(DateTime.Now).Days/365}";
                   
         }
 
