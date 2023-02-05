@@ -10,54 +10,35 @@ using System.Threading.Tasks;
 namespace Desafio.Data.DAO
 { 
 
-    internal class PacienteDAO
+    internal class PacienteDAO : IComando<Paciente>
     {
-        private List<Paciente> Pacientes { get; set; }
+        ConsultorioContexto contexto;
 
-        public PacienteDAO() { 
-            Pacientes = new List<Paciente>();
-        }
+        public PacienteDAO(ConsultorioContexto contexto) { 
+            this.contexto = contexto;
+        }      
 
-       
-        /// <summary>
-        /// Busca nos dados armazenados pacientes com o cpf informado
-        /// </summary>
-        /// <param name="cpf">Cpf a ser buscado</param>
-        /// <returns>
-        /// Retorna o primeiro paciente com o cpf encontrado
-        /// </returns>
-        public Paciente? PacientesPorCpf(long cpf)
+        public void Adicionar(Paciente paciente)
         {
-            var query = from pcte in Pacientes where pcte.CPF == cpf select pcte;
-
-            return query.GetEnumerator().Current;
+            contexto.Pacientes.Add(paciente);
+            contexto.SaveChanges();
         }
 
-        /// <returns>
-        /// Retorna uma lista com todos os pacientes armazenados no storage
-        /// </returns>
-        public List<Paciente> TodosPacientes()
+        public void Remover(Paciente paciente)
         {
-            return Pacientes;
+            contexto.Pacientes.Remove(paciente);
+            contexto.SaveChanges();
         }
 
-
-        //Adicionar
-        public void AdicionarPaciente(long cpf, string nome, DateTime dtNasc)
+        public IList<Paciente> ListaTodos()
         {
-            //Pacientes.Add(new(cpf, nome, dtNasc));
-            Console.WriteLine(MenssagemDeSucesso.PacienteCadastrado);
+            return contexto.Pacientes.ToList();
         }
 
-        //Remover
-        public void RemoverPaciente(long CPF)
+        public Paciente? ListaPorCPF(long cpf)
         {
-            Paciente? paraRemover = PacientesPorCpf(CPF);
-            if(paraRemover != null) {
-                Pacientes.Remove(paraRemover);
-            }
+            return contexto.Pacientes.Find(cpf);
         }
 
-        //Atualizar
     }
 }
