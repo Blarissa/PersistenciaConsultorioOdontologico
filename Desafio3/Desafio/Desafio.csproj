@@ -5,7 +5,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <DocumentationFile>bin\Debug\Desafio.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\laris\source\repos\Blarissa\ResidencialIUUL\Desafio3\Desafio\bin\Debug\net6.0\Desafio.xml</DocumentationFile>
     <BaseOutputPath>bin\</BaseOutputPath>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
