@@ -1,10 +1,4 @@
-﻿using Calmo.Core.Validator;
-using MySql.Data.MySqlClient;
-using Npgsql;
-using System.Data;
-using System.Data.Common;
-
-namespace Desafio.Data
+﻿namespace Desafio.Data
 {
     #region Documentation
     /// <summary>   Configurações do banco de dados <see langword="ConsultorioDB"/>. </summary>

@@ -1,11 +1,4 @@
 using Desafio.Model;
-using Desafio.View;
-using Desafio.View.Mensagens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Desafio.Data.DAO
 {

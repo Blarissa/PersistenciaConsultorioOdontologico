@@ -14,20 +14,6 @@
             Define a validadação de todos dados do <see cref="T:Desafio.Model.Paciente"/> e da <see cref="T:Desafio.Controller.ConsultaController"/>.
             </summary>
         </member>
-        <member name="M:Desafio.Data.DAO.PacienteDAO.PacientesPorCpf(System.Int64)">
-            <summary>
-            Busca nos dados armazenados pacientes com o cpf informado
-            </summary>
-            <param name="cpf">Cpf a ser buscado</param>
-            <returns>
-            Retorna o primeiro paciente com o cpf encontrado
-            </returns>
-        </member>
-        <member name="M:Desafio.Data.DAO.PacienteDAO.TodosPacientes">
-            <returns>
-            Retorna uma lista com todos os pacientes armazenados no storage
-            </returns>
-        </member>
         <member name="T:Desafio.Migrations.consultorio">
             <inheritdoc />
         </member>
