@@ -2,7 +2,6 @@ using Desafio.Data;
 using Desafio.Model;
 using Desafio.View;
 using Desafio.View.Mensagens;
-using Desafio.Data.DadosComConsole;
 
 namespace Desafio.Controller
 {
@@ -37,7 +36,7 @@ namespace Desafio.Controller
         /// Realiza o agendamento de uma consulta.
         /// </summary>
         /// <remarks>
-        /// A classe <see cref="EntradaDeDados"/> é chamada e realiza a leitura dos 
+        /// A classe <see cref="EntradaDeDadosViaConsole"/> é chamada e realiza a leitura dos 
         /// dados necessários para realizar o agendamento de uma consulta.
         /// <para>
         /// Caso algum dado seja inválido, aparecerá uma mensagem de erro e o dado 
@@ -46,19 +45,19 @@ namespace Desafio.Controller
         /// </remarks>
         public void Agendar()
         {
-            long CPF = EntradaDeDados.LerCPF();
+            long CPF = EntradaDeDadosViaConsole.LerCPF();
             //verifica se paciente está cadastrado
             if (!new Valida().PacienteExiste(CPF))
             {
                 Console.WriteLine(Menssagens.PacienteInixistente);
-                CPF = EntradaDeDados.LerCPF();
+                CPF = EntradaDeDadosViaConsole.LerCPF();
             }
 
             Paciente p = new PacienteDAO().PacientesPorCpf(CPF);
 
-            DateTime data = EntradaDeDados.LerDtConsulta();
-            DateTime hrInicial = EntradaDeDados.LerHrInicial();
-            DateTime hrFinal = EntradaDeDados.LerHrFinal(hrInicial.ToString("HHmm"));
+            DateTime data = EntradaDeDadosViaConsole.LerDtConsulta();
+            DateTime hrInicial = EntradaDeDadosViaConsole.LerHrInicial();
+            DateTime hrFinal = EntradaDeDadosViaConsole.LerHrFinal(hrInicial.ToString("HHmm"));
 
             hrInicial = new DateTime(data.Year, data.Month, data.Day, hrInicial.Hour, hrInicial.Minute, hrInicial.Second);
             hrFinal = new DateTime(data.Year, data.Month, data.Day, hrFinal.Hour, hrFinal.Minute, hrFinal.Second);
@@ -136,7 +135,7 @@ namespace Desafio.Controller
         /// Cancela uma <see cref="Consulta"/> da <see cref="Consultas"/>.
         /// </summary>
         /// <remarks>
-        /// A classe <see cref="EntradaDeDados"/> é chamada e realiza a leitura dos 
+        /// A classe <see cref="EntradaDeDadosViaConsole"/> é chamada e realiza a leitura dos 
         /// dados necessários para realizar o cancelamento de uma consulta.
         /// <para>
         /// Caso algum dado seja inválido, aparecerá uma mensagem de erro e o dado 
@@ -145,16 +144,16 @@ namespace Desafio.Controller
         /// </remarks>       
         public void Cancelar()
         {
-            long CPF = EntradaDeDados.LerCPF();
-            DateTime dtConsulta = EntradaDeDados.LerDtConsulta();
-            DateTime hrInicial = EntradaDeDados.LerHrInicial();
+            long CPF = EntradaDeDadosViaConsole.LerCPF();
+            DateTime dtConsulta = EntradaDeDadosViaConsole.LerDtConsulta();
+            DateTime hrInicial = EntradaDeDadosViaConsole.LerHrInicial();
 
             while (!ConsultaExiste(CPF, dtConsulta, hrInicial))
             {
                 Console.WriteLine(Menssagens.AgendInexistente);
-                CPF = EntradaDeDados.LerCPF();
-                dtConsulta = EntradaDeDados.LerDtConsulta();
-                hrInicial = EntradaDeDados.LerHrInicial();
+                CPF = EntradaDeDadosViaConsole.LerCPF();
+                dtConsulta = EntradaDeDadosViaConsole.LerDtConsulta();
+                hrInicial = EntradaDeDadosViaConsole.LerHrInicial();
             }
 
             Consulta consulta = PesquisaConsulta(CPF, dtConsulta, hrInicial);
@@ -216,8 +215,8 @@ namespace Desafio.Controller
         public string AgendamentosPorPeriodo()
         {
             //Leitura da data inicial e final para listagem
-            DateTime inicial = EntradaDeDados.LerDataInicial();
-            DateTime final = EntradaDeDados.LerDataFinal();
+            DateTime inicial = EntradaDeDadosViaConsole.LerDataInicial();
+            DateTime final = EntradaDeDadosViaConsole.LerDataFinal();
 
             string str = $"Data inicial: {inicial:d}\n"
                        + $"Data final: {final:d}\n";
@@ -238,7 +237,7 @@ namespace Desafio.Controller
         /// </returns>
         public string Listagem()
         {
-            char opcao = EntradaDeDados.LerOpcaoListAgenda();
+            char opcao = EntradaDeDadosViaConsole.LerOpcaoListAgenda();
 
             if (opcao.Equals('T'))
                 return ToString();

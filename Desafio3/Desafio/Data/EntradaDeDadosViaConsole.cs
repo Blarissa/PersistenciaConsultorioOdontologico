@@ -120,7 +120,7 @@ namespace Desafio.Data
                     str = "Data inicial: ";
                     break;
 
-                case 3L:
+                case 3:
                     str = "Data final: ";
                     break;
 
