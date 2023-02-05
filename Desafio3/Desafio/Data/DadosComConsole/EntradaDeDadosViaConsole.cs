@@ -2,7 +2,7 @@ using Desafio.Model;
 
 namespace Desafio.Data.DadosComConsole
 {
-    public class EntradaDeDados
+    public class EntradaDeDadosViaConsole
     {
         #region Documentation
         /// <summary>   Realiza a leitura do <see cref="Paciente.CPF"/> via console. </summary>
