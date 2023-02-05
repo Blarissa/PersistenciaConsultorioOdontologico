@@ -1,134 +1,139 @@
-using Desafio.Controller;
-using Desafio.View.Mensagens;
-using System.Globalization;
+using Desafio.Model;
 
 namespace Desafio.Data.DadosComConsole
 {
     public class EntradaDeDados
     {
-        //Ler CPF
-        public static long LerCPF()
+        #region Documentation
+        /// <summary>   Realiza a leitura do <see cref="Paciente.CPF"/> via console. </summary>
+        ///
+        /// <returns>
+        ///     <list type="bullet">
+        ///       <item>
+        ///       Se o valor for diferente de <see langword= "null"/>, retorna uma <see cref="string"/>
+        ///       com valor do <see langword= "CPF"/>.
+        ///       </item>
+        ///       <item>Caso contrário, retorna uma <see cref="string"/> <see langword= "null"/>.</item>
+        ///     </list>
+        /// </returns>
+        #endregion
+
+        public static string? LerCPF()
         {
             Console.WriteLine("CPF:");
-            var CPF = Console.ReadLine();
-
-            //CPF inválido ler novamente
-            if (!ValidacaoController.ValidaCpf(CPF))
-                return LerCPF();
-
-            return long.Parse(CPF);
+            return Console.ReadLine();
         }
 
-        //Ler Nome
-        public static string LerNome()
+        #region Documentation
+        /// <summary>   Realiza a leitura do <see cref="Paciente.Nome"/> via console. </summary>
+        ///
+        /// <returns>
+        ///     <list type="bullet">
+        ///       <item>
+        ///       Se o valor for diferente de <see langword= "null"/>, retorna uma <see cref="string"/>
+        ///       com valor do <see langword= "nome"/>.
+        ///       </item>
+        ///       <item>Caso contrário, retorna uma <see cref="string"/> <see langword= "null"/>.</item>
+        ///     </list>
+        /// </returns>
+        #endregion
+
+        public static string? LerNome()
         {
-            Console.WriteLine("Nome:");
-            var nome = Console.ReadLine();
-
-            //nome inválido ler dados novamente
-            if (!ValidacaoController.ValidaNome(nome))
-                return LerNome();
-
-            return nome;
+            Console.WriteLine("Nome:");           
+            return Console.ReadLine();
         }
 
-        //Ler Data de nascimento
-        public static DateTime LerDtNascimento()
+        #region Documentation
+        /// <summary>   Realiza a leitura da <see langword="data ou hora"/> via console. </summary>
+        ///
+        /// <param name="tipo">
+        ///     <see cref="int"/> referente ao <see cref="TipoDataHora"/> que vai ser lido.
+        /// </param>
+        ///
+        /// <returns>
+        ///     <list type="bullet">
+        ///       <item>
+        ///       Se o valor for diferente de <see langword= "null"/>, retorna uma <see cref="string"/>
+        ///       com valor da <see langword= "data ou hora"/>.
+        ///       </item>
+        ///       <item>Caso contrário, retorna uma <see cref="string"/> <see langword= "null"/>.</item>
+        ///     </list>
+        /// </returns>
+        #endregion
+
+        public static string? LerDataHora(int tipo)
         {
-            Console.WriteLine("Data de nascimento:");
-            var dtNasc = Console.ReadLine();
-
-            //Data de nascimento inválido ler dados novamente
-            if (!ValidacaoController.ValidaDataNascimento(dtNasc))
-                return LerDtNascimento();
-
-            return DateTime.Parse(dtNasc);
+            Console.WriteLine(CabecalhoDataHora(tipo));
+            return Console.ReadLine();
         }
 
-        //Ler Data da consulta
-        public static DateTime LerDtConsulta()
-        {
-            Console.WriteLine("Data da consulta:");
-            var data = Console.ReadLine();
+        #region Documentation
+        /// <summary>
+        ///     Realiza a leitura da <see langword="opção de listagem da agenda"/> via console.
+        /// </summary>        
+        ///
+        /// <returns>
+        ///     <list type="bullet">
+        ///       <item>
+        ///       Se o valor for diferente de <see langword= "null"/>, retorna uma <see cref="string"/>
+        ///       com valor da <see langword= "opção de listagem da agenda"/>.
+        ///       </item>
+        ///       <item>Caso contrário, retorna uma <see cref="string"/> <see langword= "null"/>.</item>
+        ///     </list>
+        /// </returns>
+        #endregion
 
-            var datas = new ConsultaController().Agendamentos;
-
-            //Data inválida ler dados novamente
-            if (!ValidacaoController.ValidaDataConsulta(datas, data))
-                return LerDtConsulta();
-
-            return DateTime.Parse(data);
-        }
-
-        //Ler Hora inicial da consulta
-        public static DateTime LerHrInicial()
-        {
-            Console.WriteLine("Hora inicial:");
-            var hrInicial = Console.ReadLine();
-
-            //Hora inicial inválida ler dados novamente
-            if (!ValidacaoController.ValidaHrInicial(new ConsultaController().Agendamentos, hrInicial))
-                return LerHrInicial();
-
-            return DateTime.ParseExact(hrInicial, "HHmm", new CultureInfo("pt-BR"));
-        }
-
-        //Ler Hora final da consulta
-        public static DateTime LerHrFinal(string hrInicial)
-        {
-            Console.WriteLine("Hora final:");
-            var hrFinal = Console.ReadLine();
-
-            //Hora Final inválida ler dados novamente
-            if (!ValidacaoController.ValidaHrFinal(new ConsultaController().Agendamentos, hrFinal, hrInicial))
-                return LerHrFinal(hrInicial);
-
-            return DateTime.ParseExact(hrFinal, "HHmm", new CultureInfo("pt-BR"));
-        }
-
-        //Ler período para listar agenda
-        public static DateTime LerDataInicial()
-        {
-            Console.WriteLine("Data inicial: ");
-            var data = Console.ReadLine();
-
-            if (ValidacaoController.ValidaDataInicial(data))
-            {
-                Console.WriteLine(MenssagemDeErro.DtInicialInvalida);
-                return LerDataInicial();
-            }
-
-            return DateTime.Parse(data);
-        }
-
-        //Ler período para listar agenda
-        public static DateTime LerDataFinal()
-        {
-            Console.WriteLine("Data final: ");
-            var data = Console.ReadLine();
-
-            if (ValidacaoController.ValidaDataFinal(data))
-            {
-                Console.WriteLine(MenssagemDeErro.DtFinalInvalida);
-                return LerDataFinal();
-            }
-
-            return DateTime.Parse(data);
-        }
-
-        //Ler 
-        public static char LerOpcaoListAgenda()
+        public static string? LerOpcaoListagemDaAgenda()
         {
             Console.WriteLine("Apresentar a agenda T-Toda ou P-Periodo: ");
-            char opcao = char.Parse(Console.ReadLine().ToUpper());
-
-            if (!ValidacaoController.ValidaOpcaoListAgenda(opcao))
-            {
-                Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
-                return LerOpcaoListAgenda();
-            }
-
-            return opcao;
+            return Console.ReadLine().ToUpper();
         }
+
+        #region Documentation
+        /// <summary>
+        ///     Devolde o cabeçalho de <see cref="LerDataHora(int)"/> de acordo com o <see cref="TipoDataHora"/>.            
+        /// </summary>
+        ///
+        /// <param name="tipo">
+        ///     <see cref="int"/> referente ao <see cref="TipoDataHora"/> que vai ser lido.
+        /// </param>
+        ///
+        /// <returns>   Uma <see cref="string"/> com o cabeçalho da data ou hora. </returns>
+        #endregion
+
+        private static string CabecalhoDataHora(int tipo)
+        {
+            string str = "";
+
+            switch (tipo)
+            {
+                case 0:
+                    str = "Data de nascimento: ";
+                    break;
+
+                case 1:
+                    str = "Data da consulta: ";
+                    break;
+
+                case 2:
+                    str = "Data inicial: ";
+                    break;
+
+                case 3L:
+                    str = "Data final: ";
+                    break;
+
+                case 4:
+                    str = "Hora inicial: ";
+                    break;
+
+                case 5:
+                    str = "Hora final: ";
+                    break;
+            }
+            return str;
+        }
+ 
     }
 }
