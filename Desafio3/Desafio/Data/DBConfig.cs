@@ -1,10 +1,19 @@
-﻿namespace Desafio.Data
+﻿using Calmo.Core.Validator;
+using MySql.Data.MySqlClient;
+using Npgsql;
+using System.Data;
+using System.Data.Common;
+
+namespace Desafio.Data
 {
     internal class DBConfig
     {
-        public string Host { get =>""; }
-        public string User { get =>""; }
-        public string Database { get=> ""; }
-        public string Senha { get=>""; }
+        public const int DefaultPort = 5432;
+        public string Host { get =>"localhost"; }
+        public string User { get =>"postgres"; }
+        public string Database { get => "ConsultorioDB"; }
+        public string Senha { get => "mypass"; }
+
+        
     }
 }

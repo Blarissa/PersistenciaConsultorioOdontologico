@@ -37,9 +37,12 @@ namespace Desafio.Model
         /// <returns>Uma <see langword="string"/> contendo dados do <see cref="Paciente"/>.</returns>
         public override string ToString()
         {
-            return $"{this.CPF,-11:00000000000} " +
-                   $"{this.Nome,-33} " +
-                   $"{this.DtNascimento:d} idade";
+            int idade = DateTime.Now.Subtract(DtNascimento).Days/365;
+            
+            return $"{CPF:00000000000} " +
+                   $"{Nome} " +
+                   $"{DtNascimento:d} " +
+                   $"{idade}";
                   
         }
 
