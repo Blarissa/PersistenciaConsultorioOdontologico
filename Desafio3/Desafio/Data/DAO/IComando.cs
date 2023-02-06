@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Desafio.Data.DAO
 {
-    internal interface IComando
+    internal interface IComando<T>
     {
+        void Adicionar(T tipo);
+        void Remover(T tipo);
+        IList<T> ListaTodos();
     }
 }

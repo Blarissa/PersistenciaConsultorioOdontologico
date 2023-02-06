@@ -1,63 +1,85 @@
 using Desafio.Model;
-using Desafio.View;
-using Desafio.View.Mensagens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Desafio.Data.DAO
-{ 
+{
+    #region Documentation
+    /// <summary>
+    ///     Define a classe <see cref="PacienteDAO" /> que utiliza a tabela <see cref="ConsultorioContexto.Pacientes" />
+    ///     do banco de dados.
+    /// </summary>
+    #endregion
 
-    internal class PacienteDAO
+    internal class PacienteDAO : IComando<Paciente>
     {
-        private List<Paciente> Pacientes { get; set; }
+        ConsultorioContexto contexto;
 
-        public PacienteDAO() { 
-            Pacientes = new List<Paciente>();
+        #region Documentation
+        /// <summary>   Inicializa uma instância da classe <see cref="PacienteDAO" />. </summary>
+        ///
+        /// <param name="contexto"> Referente a um objeto do <see cref="ConsultorioContexto" />. </param>
+        #endregion
+
+        public PacienteDAO(ConsultorioContexto contexto) { 
+            this.contexto = contexto;
         }
 
-       
+        #region Documentation
+        /// <summary>   Realiza a adição de um <see cref="Paciente" /> do banco de dados. </summary>
+        ///
+        /// <param name="paciente"> Representa um objeto do <see cref="Paciente" />. </param>
+        #endregion
+
+        public void Adicionar(Paciente paciente)
+        {
+            contexto.Pacientes.Add(paciente);
+            contexto.SaveChanges();
+        }
+
+        #region Documentation
+        /// <summary>   Realiza a remoção de um <see cref="Paciente" /> do banco de dados. </summary>
+        ///
+        /// <param name="paciente"> Representa um objeto do <see cref="Paciente" />. </param>
+        #endregion
+
+        public void Remover(Paciente paciente)
+        {
+            contexto.Pacientes.Remove(paciente);
+            contexto.SaveChanges();
+        }
+
+        #region Documentation
         /// <summary>
-        /// Busca nos dados armazenados pacientes com o cpf informado
+        ///     Realiza a listagem de todos os <see cref="Paciente">Pacientes</see> da lista.
         /// </summary>
-        /// <param name="cpf">Cpf a ser buscado</param>
+        ///
+        /// <returns>   Uma <see cref="IList" /> do tipo <see cref="Paciente" />. </returns>
+        #endregion
+
+        public IList<Paciente> ListaTodos()
+        {
+            return contexto.Pacientes.ToList();
+        }
+
+        #region Documentation
+        /// <summary>
+        ///     Realiza a listagem de um <see cref="Paciente" /> com o CPF igual ao <paramref name="cpf"/>.
+        /// </summary>
+        ///
+        /// <param name="cpf">  Referente a propriedade <see cref="Paciente.CPF"/>. </param>
+        ///
         /// <returns>
-        /// Retorna o primeiro paciente com o cpf encontrado
+        ///     <list type="bullet">
+        ///       <item>Se o <see cref="Paciente" /> existir retorna o <see cref="Paciente" /> que tem
+        ///       CPF igual ao <paramref name="cpf"/>.</item>
+        ///       <item>Caso contrário, retorna um <see cref="Paciente" /> <see langword="null"/>.</item>
+        ///     </list>
         /// </returns>
-        public Paciente? PacientesPorCpf(long cpf)
-        {
-            var query = from pcte in Pacientes where pcte.CPF == cpf select pcte;
+        #endregion
 
-            return query.GetEnumerator().Current;
+        public Paciente ListaPorCPF(long cpf)
+        {
+            return contexto.Pacientes.Find(cpf);
         }
 
-        /// <returns>
-        /// Retorna uma lista com todos os pacientes armazenados no storage
-        /// </returns>
-        public List<Paciente> TodosPacientes()
-        {
-            return Pacientes;
-        }
-
-
-        //Adicionar
-        public void AdicionarPaciente(long cpf, string nome, DateTime dtNasc)
-        {
-            //Pacientes.Add(new(cpf, nome, dtNasc));
-            Console.WriteLine(MenssagemDeSucesso.PacienteCadastrado);
-        }
-
-        //Remover
-        public void RemoverPaciente(long CPF)
-        {
-            Paciente? paraRemover = PacientesPorCpf(CPF);
-            if(paraRemover != null) {
-                Pacientes.Remove(paraRemover);
-            }
-        }
-
-        //Atualizar
     }
 }
