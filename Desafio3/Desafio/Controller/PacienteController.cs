@@ -1,7 +1,5 @@
-using Desafio.Data;
 using Desafio.Data.DAO;
 using Desafio.Model;
-using Desafio.View;
 
 namespace Desafio.Controller
 {
