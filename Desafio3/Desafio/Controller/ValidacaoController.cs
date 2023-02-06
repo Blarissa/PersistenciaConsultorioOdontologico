@@ -2,6 +2,7 @@ using Desafio.Model;
 using System.Globalization;
 using Desafio.Data;
 using Desafio.View.Mensagens;
+using System.Text.RegularExpressions;
 
 namespace Desafio.Controller
 
@@ -10,24 +11,24 @@ namespace Desafio.Controller
      /// </summary>
     public class ValidacaoController
     {
-        / <summary>
-        / Validação do <see cref = "Paciente.CPF" />.
-        / </ summary >
-        /< param name = "CPF">Representa o valor de um<see langword="CPF"/> que deve ser validado.</param>        
-        /<returns>
-        /<list type = "bullet" >
-        /< item >
-        / Retorna < see langword="false"/>:
-        /<list type = "bullet" >
-        /< item > Se o valor do <see langword = "CPF" /> for nulo ou vazio;</item>
-        /<item>Se o<see langword= "CPF" /> não tiver 11 dígitos;</item>
-        /<item>Se o valor de todos os dígitos do <see langword = "CPF" /> forem iguais;Ou</item>
-        /<item>Se o valor<see langword="CPF"/> for um<see langword="CPF"/> de valor inexistente.</item>
-        /</list>
-        /</item>
-        /<item>Retorna<see langword="true"/> se o valor do <see langword = "CPF" /> for um<see langword="CPF"/> de valor que existente.</item>
-        /</list>
-        /</returns>
+        /// <summary>
+        /// Validação do <see cref = "Paciente.CPF" />.
+        /// </ summary >
+        ///< param name = "CPF">Representa o valor de um<see langword="CPF"/> que deve ser validado.</param>        
+        ///<returns>
+        ///<list type = "bullet" >
+        ///< item >
+        /// Retorna < see langword="false"/>:
+        ///<list type = "bullet" >
+        ///< item > Se o valor do <see langword = "CPF" /> for nulo ou vazio;</item>
+        ///<item>Se o<see langword= "CPF" /> não tiver 11 dígitos;</item>
+        ///<item>Se o valor de todos os dígitos do <see langword = "CPF" /> forem iguais;Ou</item>
+        ///<item>Se o valor<see langword="CPF"/> for um<see langword="CPF"/> de valor inexistente.</item>
+        ///</list>
+        ///</item>
+        ///<item>Retorna<see langword="true"/> se o valor do <see langword = "CPF" /> for um<see langword="CPF"/> de valor que existente.</item>
+        ///</list>
+        ///</returns>
         public static bool ValidaCpf(string? CPF)
         {
             if (string.IsNullOrEmpty(CPF) && !CPF.Length.Equals(11) ||
@@ -74,6 +75,17 @@ namespace Desafio.Controller
                 return false;
             }
             return true;
+        }
+
+
+        public static bool ValidaData(TipoDeData tipo, string data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool ValidaDataFinal(TipoDeData tipo, DateTime dtInicial, string dtFinal)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -266,9 +278,15 @@ namespace Desafio.Controller
         }
 
         //Valida opção de listagem de agenda
-        public static bool ValidaOpcaoListAgenda(char? opcao)
+        public static bool ValidaOpcaoListAgenda(string? opcao)
         {
-            return opcao.HasValue && (opcao.Equals('T') || opcao.Equals('P'));
+            Regex rx = new Regex(@"(^[TPtp])");
+            if(!rx.Match(opcao.ToUpper()).Success) {
+                Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
+                return false;
+            }
+
+            return true;
         }
 
         public bool PacienteExiste(long cpf)
