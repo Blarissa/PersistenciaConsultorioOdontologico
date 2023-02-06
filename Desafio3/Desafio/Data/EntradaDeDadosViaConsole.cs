@@ -1,6 +1,6 @@
 using Desafio.Model;
 
-namespace Desafio.Data.DadosComConsole
+namespace Desafio.Data
 {
     public class EntradaDeDadosViaConsole
     {
@@ -40,7 +40,7 @@ namespace Desafio.Data.DadosComConsole
 
         public static string? LerNome()
         {
-            Console.WriteLine("Nome:");           
+            Console.WriteLine("Nome:");
             return Console.ReadLine();
         }
 
@@ -120,7 +120,7 @@ namespace Desafio.Data.DadosComConsole
                     str = "Data inicial: ";
                     break;
 
-                case 3L:
+                case 3:
                     str = "Data final: ";
                     break;
 
@@ -134,6 +134,6 @@ namespace Desafio.Data.DadosComConsole
             }
             return str;
         }
- 
+
     }
 }

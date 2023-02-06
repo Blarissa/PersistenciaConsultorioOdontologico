@@ -1,87 +1,86 @@
-using Desafio.Data.DadosComConsole;
 using Desafio.Data.DAO;
+using Desafio.Model;
+
 namespace Desafio.Controller
 {
-    public class PacienteController
+    #region Documentation
+    /// <summary>   Define o controlador da classe <see cref="Paciente"/>. </summary>
+    #endregion
+
+    public class PacienteController : IController
     {
-        PacienteDAO DBConnection = new PacienteDAO();
-        //Adionando paciente
+        PacienteDAO dao;
+
+        #region Documentation
+        /// <summary>
+        ///     Realiza adição de um <see cref="Paciente"/> com dados inseridos pelo console e válidos.
+        /// </summary>       
+        #endregion
+
         public void Adiciona()
         {
-            long CPF = EntradaDeDados.LerCPF();
-            if (new Valida().PacienteExiste(CPF))
-            {
-                Console.WriteLine(Menssagens.CpfExistente);
-                CPF = EntradaDeDados.LerCPF();
-            }
+            long CPF = EntradaDeDados.RetornaCPF();   
+            string nome = EntradaDeDados.RetornaNome();
+            DateTime data = EntradaDeDados.RetornaData(0);
 
-            string nome = EntradaDeDados.LerNome();
-            DateTime dtNasc = EntradaDeDados.LerDtNascimento();
-
-            DBConnection.AdicionarPaciente(CPF, nome, dtNasc);
+            dao.Adicionar(
+                new Paciente() { 
+                    CPF = CPF, 
+                    Nome = nome, 
+                    DtNascimento = data
+                });
         }
 
-        //Removendo paciente
+        #region Documentation
+        /// <summary>   Realiza a remoção de um <see cref="Paciente"/>. </summary>       
+        #endregion
+
         public void Remove()
         {
-            long CPF = EntradaDeDados.LerCPF();
+            long CPF = EntradaDeDados.RetornaCPF();
+            var paciente = dao.ListaPorCPF(CPF);
 
-            //Se nÃ£o encontrar o paciente na lista imprime a mensagem de erro
-            while (!new Valida().PacienteExiste(CPF))
-            {
-                Console.WriteLine(Menssagens.PacienteInixistente);
-                CPF = EntradaDeDados.LerCPF();
-            }
+            dao.Remover(paciente);
+        }        
 
-            List<Consulta> consultas = new Agenda().PesquisaConsultasPorCPF(CPF);
+        #region Documentation
+        /// <summary>
+        ///     Realiza listagem dos <see cref="Paciente">pacientes</see> ordenados por <see cref="Paciente.CPF"/>.      
+        /// </summary>
+        #endregion
 
-            if (consultas.Exists(c => c.DataHoraInicial >= DateTime.Now))
-                Console.WriteLine(Menssagens.PacienteAgendado);
-
-            else if (consultas.Count >= 1)
-            {
-                //removendo consultas
-                new Agenda().Consultas.RemoveAll(c => c.Paciente.Equals(new Paciente(CPF, "", new DateTime(0001, 01, 01))));
-                //removendo paciente
-                DBConnection.RemoverPaciente(CPF);
-                Console.WriteLine(Menssagens.PacienteExcluido);
-            }
-        }
-
-        private string? FormatarSaida(List<Paciente> list)
+        public void ListarOrdenadosPorCPF()
         {
-            string str = "".PadRight(60, '-') + "\n"
-                       + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
-                       + "".PadRight(60, '-') + "\n";
+            var pacientes = dao.ListaTodos();
+            var query = from p in pacientes orderby p.CPF select p;
 
-            list.ForEach(p =>
-            {
-                str += $"{p.CPF,-11:00000000000} {p.Nome,-33} " +
-                       $"{p.DtNascimento.ToShortDateString()} {p.Idade}\n";
-
-                List<Consulta> consultas = new Agenda().PesquisaConsultasPorCPF(p.CPF);
-
-                if (consultas.Exists(c => c.DataHoraInicial >= DateTime.Now))
-                    consultas.ForEach(c => str += $"{"",-11} " +
-                           $"Agendado para: {c.DataHoraInicial.Date:d}\n" +
-                           $"{"",-11} {c.DataHoraInicial:t} Ã s {c.DataHoraFinal:t}\n");
-            });
-            return str;
+            Console.WriteLine(Paciente.Listar(query.ToList()));
         }
 
+        #region Documentation
+        /// <summary>
+        ///     Realiza listagem dos <see cref="Paciente">pacientes</see> ordenados por <see cref="Paciente.Nome"/>.        
+        /// </summary>
+        #endregion
 
-        //Listar pacientes(ordenado por nome)
-        public string? PacientesOrdemNome()
+        public void ListarOrdenadosPorNome()
         {
-            List<Paciente> pacientes = DBConnection.TodosPacientes().OrderBy(p => p.Nome).ToList();
-            return FormatarSaida(pacientes);
+            var pacientes = dao.ListaTodos();
+            var query = from p in pacientes orderby p.Nome select p;
+
+            Console.WriteLine(Paciente.Listar(query.ToList()));
         }
 
-        //Listar pacientes(ordenado por CPF)
-        public string? PacientesOrdemCPF()
+        #region Documentation
+        /// <summary >  Realiza listagem de um <see cref="Paciente"/>. </summary>
+        #endregion
+
+        public void ListarPorChave()
         {
-            List<Paciente> pacientes = DBConnection.TodosPacientes().OrderBy(p => p.CPF).ToList();
-            return FormatarSaida(pacientes);
-        }
+            long CPF = EntradaDeDados.RetornaCPF();
+            var paciente = dao.ListaPorCPF(CPF);
+
+            Console.WriteLine(paciente);
+        }        
     }
 }

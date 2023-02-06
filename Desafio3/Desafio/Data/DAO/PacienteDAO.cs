@@ -52,7 +52,7 @@ namespace Desafio.Data.DAO
         ///     Realiza a listagem de todos os <see cref="Paciente">Pacientes</see> da lista.
         /// </summary>
         ///
-        /// <returns>   Uma <see cref="IList" /> do tipo <see cref="Paciente" />. </returns>
+        /// <returns>   Uma <see cref="IList{T}"/> do tipo <see cref="Paciente" />. </returns>
         #endregion
 
         public IList<Paciente> ListaTodos()
