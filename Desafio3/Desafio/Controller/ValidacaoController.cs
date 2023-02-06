@@ -34,7 +34,7 @@ namespace Desafio.Controller
             if (string.IsNullOrEmpty(CPF) && !CPF.Length.Equals(11) ||
                 CPF.All(c => CPF[0].Equals(c)))
             {
-                Console.WriteLine(MenssagemDeErro.CpfIvalido);
+                Console.WriteLine(MenssagemDeErro.CpfInvalido);
                 return false;
             }
 
@@ -71,7 +71,7 @@ namespace Desafio.Controller
 
             if (!(valorJ || valorK))
             {
-                Console.WriteLine(MenssagemDeErro.CpfIvalido);
+                Console.WriteLine(MenssagemDeErro.CpfInvalido);
                 return false;
             }
             return true;
@@ -163,7 +163,7 @@ namespace Desafio.Controller
 
             if (DateTime.Parse(data) >= DateTime.Now)
             {
-                Console.WriteLine(MenssagemDeErro.DtFinalInvalida);
+                Console.WriteLine(MenssagemDeErro.DtInvalidaFinal);
                 return false;
             }
 
@@ -201,7 +201,7 @@ namespace Desafio.Controller
             //Se existes data e hora iguais agendadas
             if (datas.Exists(dataEhora => dataEhora.Equals(dtHr)))
             {
-                Console.WriteLine(MenssagemDeErro.ConsultExistente);
+                Console.WriteLine(MenssagemDeErro.ConsultaExistente);
                 return false;
             }
 
@@ -227,7 +227,7 @@ namespace Desafio.Controller
             //Valida a Hora final de acordo com as regras de agendamento
             if (horaFinal.TimeOfDay <= horaInicial.TimeOfDay)
             {
-                Console.WriteLine(MenssagemDeErro.HrFinalInvalida);
+                Console.WriteLine(MenssagemDeErro.HrInvalidaFinal);
                 return false;
             }
 
@@ -271,7 +271,7 @@ namespace Desafio.Controller
         {
             if (nome.Length < 5)
             {
-                Console.WriteLine(MenssagemDeErro.NomeIvalido);
+                Console.WriteLine(MenssagemDeErro.NomeInvalido);
                 return false;
             }
             return true;
