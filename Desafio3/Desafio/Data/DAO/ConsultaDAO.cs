@@ -24,9 +24,14 @@ namespace Desafio.Data.DAO
             throw new NotImplementedException();
         }
 
-        internal IList<Consulta> ListaPorId(int id)
+        internal IList<Consulta> ListaPorCPF(long CPF)
         {
-            return null;
+            throw new NotImplementedException();
+        }
+
+        internal Consulta ListaPorId(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
