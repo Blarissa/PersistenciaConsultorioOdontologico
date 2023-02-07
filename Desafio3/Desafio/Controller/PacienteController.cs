@@ -1,3 +1,4 @@
+using Desafio.Data;
 using Desafio.Data.DAO;
 using Desafio.Model;
 
@@ -10,6 +11,12 @@ namespace Desafio.Controller
     public class PacienteController : IController
     {
         PacienteDAO dao;
+        ConsultorioContexto contexto = new ConsultorioContexto();
+
+        public PacienteController()
+        {
+            dao = new PacienteDAO(contexto);
+        }
 
         #region Documentation
         /// <summary>
@@ -19,14 +26,15 @@ namespace Desafio.Controller
 
         public void Adiciona()
         {
-            long CPF = EntradaDeDados.RetornaCPF();   
+            long CPF = EntradaDeDados.RetornaCPF();
             string nome = EntradaDeDados.RetornaNome();
             DateTime data = EntradaDeDados.RetornaData(0);
 
             dao.Adicionar(
-                new Paciente() { 
-                    CPF = CPF, 
-                    Nome = nome, 
+                new Paciente()
+                {
+                    CPF = CPF,
+                    Nome = nome,
                     DtNascimento = data
                 });
         }
@@ -41,7 +49,7 @@ namespace Desafio.Controller
             var paciente = dao.ListaPorCPF(CPF);
 
             dao.Remover(paciente);
-        }        
+        }
 
         #region Documentation
         /// <summary>
@@ -80,7 +88,9 @@ namespace Desafio.Controller
             long CPF = EntradaDeDados.RetornaCPF();
             var paciente = dao.ListaPorCPF(CPF);
 
-            Console.WriteLine(paciente);
-        }        
+            Console.WriteLine(paciente.Listar());
+        }
     }
 }
+
+   

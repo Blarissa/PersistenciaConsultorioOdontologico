@@ -9,6 +9,13 @@ namespace Desafio.Data.DAO
 {
     internal class ConsultaDAO : IComando<Consulta>
     {
+        ConsultorioContexto contexto;
+
+        public ConsultaDAO(ConsultorioContexto contexto)
+        {
+            this.contexto = contexto;
+        }
+
         public void Adicionar(Consulta tipo)
         {
             throw new NotImplementedException();
