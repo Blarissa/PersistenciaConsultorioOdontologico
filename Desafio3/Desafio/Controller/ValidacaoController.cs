@@ -3,6 +3,7 @@ using System.Globalization;
 using Desafio.Data;
 using Desafio.View.Mensagens;
 using System.Text.RegularExpressions;
+using Desafio.Data.DAO;
 
 namespace Desafio.Controller
 
@@ -11,6 +12,17 @@ namespace Desafio.Controller
      /// </summary>
     public class ValidacaoController
     {
+
+        private PacienteDAO PacienteDB { get; set; }
+        private ConsultaDAO ConsultaDB { get; set; }
+
+        public ValidacaoController(PacienteDAO pcteDB, ConsultaDAO cnslt)
+        {
+            PacienteDB = pcteDB;
+            ConsultaDB = cnslt;
+        }
+
+
         /// <summary>
         /// Validação do <see cref = "Paciente.CPF" />.
         /// </ summary >
@@ -29,7 +41,7 @@ namespace Desafio.Controller
         ///<item>Retorna<see langword="true"/> se o valor do <see langword = "CPF" /> for um<see langword="CPF"/> de valor que existente.</item>
         ///</list>
         ///</returns>
-        public static bool ValidaCpf(string? CPF)
+        public bool ValidaCpf(string? CPF)
         {
             if (string.IsNullOrEmpty(CPF) && !CPF.Length.Equals(11) ||
                 CPF.All(c => CPF[0].Equals(c)))
@@ -78,12 +90,20 @@ namespace Desafio.Controller
         }
 
 
-        public static bool ValidaData(TipoDeData tipo, string data)
+        public bool ValidaData(TipoDeData tipo, string data)
         {
-            throw new NotImplementedException();
+            switch(tipo) {
+                case TipoDeData.DataDeNascimento: return ValidaDataNascimento(data);
+                case TipoDeData.DataConsulta: return ValidaDataConsulta(data);
+                case TipoDeData.DataInicialPeriodo: return ValidaDataInicial(data);
+                default: {
+                        Console.WriteLine(MenssagemDeErro.DtInvalida);
+                        return false;
+                    }
+            }
         }
 
-        public static bool ValidaDataFinal(TipoDeData tipo, DateTime dtInicial, string dtFinal)
+        public bool ValidaDataFinal(TipoDeData tipo, DateTime dtInicial, string dtFinal)
         {
             throw new NotImplementedException();
         }
@@ -105,7 +125,7 @@ namespace Desafio.Controller
         ///<item>Retorna <see langword="true"/> se não retornar <see langword="false"/>.</item>
         ///</list>
         ///</returns>
-        public static bool ValidaDataConsulta(List<DateTime> datas, string? data)
+        public bool ValidaDataConsulta(string? data)
         {
             if (!ValidaDataFormato(data))
             {
@@ -116,7 +136,7 @@ namespace Desafio.Controller
             DateTime dataConsulta = DateTime.Parse(data);
 
             if (!(dataConsulta.Date.Equals(DateTime.Now.Date) &&
-                   ValidaHrConsulta(datas, DateTime.Now.ToString("HHmm")) ||
+                   ValidaHrConsulta(DateTime.Now.ToString("HHmm")) ||
                    dataConsulta.Date > DateTime.Now.Date))
             {
                 Console.WriteLine(MenssagemDeErro.DtConsultaInvalida);
@@ -135,13 +155,13 @@ namespace Desafio.Controller
         ///<item>Retorna <see langword="true"/> e exibe menssagem de erro.</item>        
         ///</list>
         ///</returns>
-        public static bool ValidaDataFormato(String? data)
+        public bool ValidaDataFormato(String? data)
         {
             return DateTime.TryParse(data, out DateTime dt);
         }
 
         //Valida data inicial
-        public static bool ValidaDataInicial(string? data)
+        public bool ValidaDataInicial(string? data)
         {
             if (!ValidaDataFormato(data))
             {
@@ -153,7 +173,7 @@ namespace Desafio.Controller
         }
 
         //Valida data final
-        public static bool ValidaDataFinal(string? data)
+        public bool ValidaDataFinal(string? data)
         {
             if (!ValidaDataFormato(data))
             {
@@ -171,7 +191,7 @@ namespace Desafio.Controller
         }
 
         //Valida da data de nascimento
-        public static bool ValidaDataNascimento(string? data)
+        public bool ValidaDataNascimento(string? data)
         {
             if (!ValidaDataFormato(data))
             {
@@ -187,10 +207,16 @@ namespace Desafio.Controller
         }
 
         //Valida da hora da consulta
-        public static bool ValidaHrConsulta(List<DateTime> datas, string? hora)
+        public bool ValidaHrConsulta(string? hora)
         {
+
+            var datasIniciais = from cnslt in ConsultaDB.ListaTodos() select cnslt.DataHoraFinal;
+            var datasFinais = from cnslt in ConsultaDB.ListaTodos() select cnslt.DataHoraFinal;
+
+            IEnumerable<DateTime> datas = datasIniciais.Union(datasFinais);
+
             //Se o formato é válido
-            if (!ValidaHoraFormato(hora))
+            if(!ValidaHoraFormato(hora))
             {
                 Console.WriteLine(MenssagemDeErro.HrInvalidaFormato);
                 return false;
@@ -199,10 +225,16 @@ namespace Desafio.Controller
             DateTime dtHr = DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR"));
 
             //Se existes data e hora iguais agendadas
-            if (datas.Exists(dataEhora => dataEhora.Equals(dtHr)))
-            {
-                Console.WriteLine(MenssagemDeErro.ConsultaExistente);
-                return false;
+            //if (datas.Exists(dataEhora => dataEhora.Equals(dtHr)))
+            //{
+            //    Console.WriteLine(MenssagemDeErro.ConsultaExistente);
+            //    return false;
+            //}
+            foreach(DateTime dt in datas) {
+                if(dt.Equals(dtHr)) {
+                    Console.WriteLine(MenssagemDeErro.ConsultaExistente);
+                    return false;
+                }
             }
 
             //Se o horário é definido de 15 em 15 minutos
@@ -215,10 +247,10 @@ namespace Desafio.Controller
         }
 
         //Valida hora final
-        public static bool ValidaHrFinal(List<DateTime> datas, string? hrFinal, string? hrInicial)
+        public bool ValidaHrFinal(string? hrFinal, string? hrInicial)
         {
             //Se a Hora inicial for inválida 
-            if (!ValidaHrConsulta(datas, hrFinal))
+            if (!ValidaHrConsulta(hrFinal))
                 return false;
 
             DateTime horaFinal = DateTime.ParseExact(hrFinal, "HHmm", new CultureInfo("pt-BR"));
@@ -241,17 +273,17 @@ namespace Desafio.Controller
         }
 
         //Valida o formato da hora
-        public static bool ValidaHoraFormato(string? hora)
+        public bool ValidaHoraFormato(string? hora)
         {
             return DateTime.TryParseExact(hora, "HHmm",
                 new CultureInfo("pt-BR"), DateTimeStyles.None, out DateTime hr);
         }
 
         //Valida hora inicial
-        public static bool ValidaHrInicial(List<DateTime> datas, string? hora)
+        public bool ValidaHrInicial(string? hora)
         {
             //Se a Hora inicial for inválida 
-            if (!ValidaHrConsulta(datas, hora))
+            if (!ValidaHrConsulta(hora))
                 return false;
 
             DateTime hrInicial = DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR"));
@@ -267,7 +299,7 @@ namespace Desafio.Controller
         }
 
         //Valida do nome
-        public static bool ValidaNome(string? nome)
+        public bool ValidaNome(string? nome)
         {
             if (nome.Length < 5)
             {
@@ -278,7 +310,7 @@ namespace Desafio.Controller
         }
 
         //Valida opção de listagem de agenda
-        public static bool ValidaOpcaoListAgenda(string? opcao)
+        public bool ValidaOpcaoListAgenda(string? opcao)
         {
             Regex rx = new Regex(@"(^[TPtp])");
             if(!rx.Match(opcao.ToUpper()).Success) {
@@ -291,7 +323,7 @@ namespace Desafio.Controller
 
         public bool PacienteExiste(long cpf)
         {
-            Paciente? p = new PacienteDAO().PacientesPorCpf(cpf);
+            Paciente p = PacienteDB.ListaPorCPF(cpf);
             if (p == null) return false;
 
             return true;

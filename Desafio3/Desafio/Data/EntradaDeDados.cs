@@ -2,16 +2,19 @@ using Desafio.Controller;
 using Desafio.View.Mensagens;
 using Desafio.Model;
 using System.Globalization;
+using Desafio.Data.DAO;
 
 namespace Desafio.Data
 {
     public class EntradaDeDados
     {
         private IRecebimentoDeDados Input { get; set; }
+        private ValidacaoController Validador { get; set; }
 
-        public EntradaDeDados(IRecebimentoDeDados input)
+        public EntradaDeDados(IRecebimentoDeDados input, PacienteDAO pctDB, ConsultaDAO cnsltDB )
         {
             Input = input;
+            Validador = new ValidacaoController(pctDB, cnsltDB);
         }
 
         //Ler CPF
@@ -22,7 +25,7 @@ namespace Desafio.Data
             //CPF inválido ler novamente
             do {
                 CPF = Input.LerCpf();
-            } while(!ValidacaoController.ValidaCpf(CPF));
+            } while(!Validador.ValidaCpf(CPF));
 
             return long.Parse(CPF);
         }
@@ -33,7 +36,7 @@ namespace Desafio.Data
             var nome = Input.LerNome();
 
             //nome inválido ler dados novamente
-            if (!ValidacaoController.ValidaNome(nome))
+            if (!Validador.ValidaNome(nome))
                 return Input.LerNome();
 
             return nome;
@@ -43,21 +46,25 @@ namespace Desafio.Data
         
         public DateTime RetornaData(TipoDeData tipo)
         {
-            string data = "";
+            string data;
 
             do {
                 data = Input.LerData(tipo);
-            } while(!ValidacaoController.ValidaData(tipo, data));
+            } while(!Validador.ValidaData(tipo, data));
+
+            return DateTime.Parse(data);
             
         }
 
         public DateTime RetornaDataFinal(DateTime dtInicial)
         {
-            string dtFinal = "";
+            string dtFinal;
 
             do {
                 dtFinal = Input.LerData(TipoDeData.DataFinalPeriodo);
-            } while(!ValidacaoController.ValidaDataFinal(TipoDeData.DataFinalPeriodo, dtInicial, dtFinal));
+            } while(!Validador.ValidaDataFinal(TipoDeData.DataFinalPeriodo, dtInicial, dtFinal));
+
+            return DateTime.Parse(dtFinal);
         }
 
         //Ler 
@@ -65,13 +72,13 @@ namespace Desafio.Data
         {
             string opcao = Input.LerOpcaoDeListagemDaAgenda();
 
-            if (!ValidacaoController.ValidaOpcaoListAgenda(opcao))
+            if (!Validador.ValidaOpcaoListAgenda(opcao))
             {
                 Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
                 return LerOpcaoListAgenda();
             }
 
-            return opcao;
+            return opcao[0];
         }
     }
 }
