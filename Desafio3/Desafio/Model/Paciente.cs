@@ -2,10 +2,6 @@ using Desafio.Controller;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using Desafio.Data.DAO;
-using System.Collections;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Desafio.Model
 
@@ -22,30 +18,27 @@ namespace Desafio.Model
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long CPF { get;  set; }
+        public long CPF { get; set; }
 
         #region Documentation
         /// <summary>   Recebe o nome do <see cref="Paciente"/>. </summary>
         #endregion
 
         [MinLength(5, ErrorMessage = "Nome do paciente deve ter no mínimo 5 letras!")]
-        public string Nome { get;  set; }
+        public string Nome { get; set; }
 
         #region Documentation
         /// <summary>   Recebe a Data de nascimento do <see cref="Paciente"/>. </summary>
         #endregion
 
         [Column(TypeName = "date")]
-        public DateTime DtNascimento { get;  set; }
+        public DateTime DtNascimento { get; set; }
 
         #region Documentation
         /// <summary>   Retorna a <see langword="idade"/> do <see cref="Paciente"/>. </summary>
         #endregion
 
-        public int Idade()
-        {
-            return DateTime.Now.Subtract(DtNascimento).Days / 365;
-        }
+        private int Idade => DateTime.Now.Subtract(DtNascimento).Days / 365;
 
         #region Documentation
         /// <summary>   Realiza a listagem dos <paramref name="pacientes"/>. </summary>        
@@ -62,9 +55,9 @@ namespace Desafio.Model
         public static string Listar(IList<Paciente> pacientes)
         {
             string str = Cabecalho();
-            
-            pacientes.ForEach(p => p.ToString());
-            
+
+            pacientes.ForEach(p => str += p.ToString());
+
             return str;
         }
 
@@ -80,9 +73,9 @@ namespace Desafio.Model
         /// </returns>
         #endregion
 
-        public static string Listar(Paciente paciente)
+        public string Listar()
         {
-            string str = Cabecalho() + paciente.ToString();
+            string str = Cabecalho() + ToString();
             return str;
         }
 
@@ -101,13 +94,17 @@ namespace Desafio.Model
                        + $"{DtNascimento:d} "
                        + $"{Idade}\n";
 
-            var consultas = new ConsultaDAO().ListaPorCPF(CPF).ToList();
+            var consultas = new ConsultaController().ListarPorCPF(CPF);
 
-            if (consultas.Exists(c => c.DataHoraInicial >= DateTime.Now))
+            var query = from c in consultas
+                        where c.DataHoraInicial >= DateTime.Now
+                        select c;
+
+            if (query.HasItems())
                 consultas.ForEach(c =>
                     str += $"{"",-11} "
-                        + $"Agendado para: {c.DataHoraInicial.Date:d}\n"
-                        + $"{"",-11} {c.DataHoraInicial:t} às {c.DataHoraFinal:t}\n");
+                         + $"Agendado para: {c.DataHoraInicial.Date:d}\n"
+                         + $"{"",-11} {c.DataHoraInicial:t} às {c.DataHoraFinal:t}\n");
 
             return str;
         }
@@ -151,7 +148,7 @@ namespace Desafio.Model
                    this.CPF.Equals(paciente.CPF);
         }
 
-/// <inheritdoc/>
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return HashCode.Combine(CPF);
