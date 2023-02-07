@@ -9,7 +9,7 @@ namespace Desafio.Data.DAO
     /// </summary>
     #endregion
 
-    internal class PacienteDAO : IComando<Paciente>
+    public class PacienteDAO : IComando<Paciente>
     {
         ConsultorioContexto contexto;
 
