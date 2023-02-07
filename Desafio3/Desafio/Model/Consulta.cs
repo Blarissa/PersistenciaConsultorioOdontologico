@@ -48,10 +48,7 @@ namespace Desafio.Model
         /// <summary>   Retorna o <see langword="tempo"/> da <see cref="Consulta"/>. </summary>        
         #endregion
 
-        public TimeSpan Tempo()
-        {
-            return DataHoraFinal.Subtract(DataHoraInicial);
-        }
+        private TimeSpan Tempo => DataHoraFinal.Subtract(DataHoraInicial);
 
         #region Documentation
         /// <summary>   Realiza a listagem das <paramref name="consultas"/>. </summary>
@@ -67,14 +64,7 @@ namespace Desafio.Model
 
         public static string Listar(IList<Consulta> consultas)
         {
-            string str = "".PadRight(61, '-') + "\n" + "".PadLeft(3)
-                       + $"{"Data"} " + "".PadRight(3) 
-                       + $"{"H.Ini"} "
-                       + $"{"H.Fim"} " 
-                       + $"{"Tempo"} " 
-                       + $"{"Nome"} " 
-                       + $"{"Dt.Nasc.",26} \n"
-                       + "".PadRight(61, '-') + "\n";
+            string str = Cabecalho();
 
             //Agrupando consultas por data
             var query = consultas.GroupBy(c => c.DataHoraInicial);
@@ -85,16 +75,26 @@ namespace Desafio.Model
                 str += $"{result.Key:d} ";
 
                 foreach (Consulta c in result)
-                {
                     str += $"{c.DataHoraInicial:t} "
-                     + $"{c.DataHoraFinal:t} "
-                     + $"{c.Tempo():hh\\:mm} "
-                     + $"{c.Paciente.Nome} "
-                     + $"{c.Paciente.DtNascimento:d}\n";
-                }
-            }
+                         + $"{c.DataHoraFinal:t} "
+                         + $"{c.Tempo:hh\\:mm} "
+                         + $"{c.Paciente.Nome} "
+                         + $"{c.Paciente.DtNascimento:d}\n";
 
+            }
             return str;
+        }        
+
+        private static string Cabecalho()
+        {
+            return "".PadRight(61, '-') + "\n" + "".PadLeft(3)
+                                   + $"{"Data"} " + "".PadRight(3)
+                                   + $"{"H.Ini"} "
+                                   + $"{"H.Fim"} "
+                                   + $"{"Tempo"} "
+                                   + $"{"Nome"} "
+                                   + $"{"Dt.Nasc.",26} \n"
+                                   + "".PadRight(61, '-') + "\n";
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Desafio.Model
                    this.DataHoraInicial.Equals(consulta.DataHoraInicial);
         }
 
-/// <inheritdoc/>
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return HashCode.Combine(Paciente, DataHoraInicial);
