@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Desafio.Data.DAO
 {
-    public class ConsultaDAO : IComando<Consulta>
+    internal class ConsultaDAO : IComando<Consulta>
     {
         public void Adicionar(Consulta tipo)
         {
