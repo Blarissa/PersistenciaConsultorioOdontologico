@@ -15,7 +15,7 @@ namespace Desafio.Data
     /// </summary>
     #endregion
 
-    public class ConsultorioContexto : DbContext
+    internal class ConsultorioContexto : DbContext
     {
         #region Documentation
         /// <summary>  
