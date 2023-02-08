@@ -38,7 +38,10 @@ namespace Desafio.Model
         /// <summary>   Retorna a <see langword="idade"/> do <see cref="Paciente"/>. </summary>
         #endregion
 
-        private int Idade => DateTime.Now.Subtract(DtNascimento).Days / 365;
+        public int Idade()
+        {
+            return DateTime.Now.Subtract(DtNascimento).Days / 365;
+        }
 
         #region Documentation
         /// <summary>   Realiza a listagem dos <paramref name="pacientes"/>. </summary>        
@@ -55,9 +58,9 @@ namespace Desafio.Model
         public static string Listar(IList<Paciente> pacientes)
         {
             string str = Cabecalho();
-
+            
             pacientes.ForEach(p => str += p.ToString());
-
+            
             return str;
         }
 
@@ -92,7 +95,7 @@ namespace Desafio.Model
             string str = $"{CPF,-11:00000000000} "
                        + $"{Nome,-33} "
                        + $"{DtNascimento:d} "
-                       + $"{Idade}\n";
+                       + $"{Idade()}\n";
 
             //Remover lógica de Consulta do model de paciente
 

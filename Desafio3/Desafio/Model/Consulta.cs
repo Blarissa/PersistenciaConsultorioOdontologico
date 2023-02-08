@@ -70,20 +70,21 @@ namespace Desafio.Model
             var query = consultas.GroupBy(c => c.DataHoraInicial);
 
             //Listando consultas agrupadas por data
-            foreach (var result in query)
-            {
+            foreach(var result in query) {
                 str += $"{result.Key:d} ";
 
-                foreach (Consulta c in result)
+                foreach(Consulta c in result)
                     str += $"{c.DataHoraInicial:t} "
-                         + $"{c.DataHoraFinal:t} "
-                         + $"{c.Tempo:hh\\:mm} "
-                         + $"{c.Paciente.Nome} "
-                         + $"{c.Paciente.DtNascimento:d}\n";
-
+                     + $"{c.DataHoraFinal:t} "
+                     + $"{c.Tempo:hh\\:mm} "
+                     + $"{c.Paciente.Nome} "
+                     + $"".PadRight(26 - c.Paciente.Nome.Length, ' ')
+                     + $"{c.Paciente.Idade():d}\n";
             }
+
             return str;
-        }        
+        }
+
 
         private static string Cabecalho()
         {
