@@ -75,7 +75,7 @@ namespace Desafio.Data
 
             do {
                 dtFinal = Input.LerData(TipoDeData.DataFinalPeriodo);
-            } while(!Validador.ValidaDataFinal(TipoDeData.DataFinalPeriodo, dtInicial, dtFinal));
+            } while(!Validador.ValidaDataFinal(dtInicial, dtFinal));
 
             return DateTime.Parse(dtFinal);
         }
