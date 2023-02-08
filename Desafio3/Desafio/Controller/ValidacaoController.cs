@@ -2,6 +2,9 @@ using Desafio.Model;
 using System.Globalization;
 using Desafio.Data;
 using Desafio.View.Mensagens;
+using System.Text.RegularExpressions;
+using Desafio.Data.DAO;
+using System;
 
 namespace Desafio.Controller
 
@@ -10,30 +13,39 @@ namespace Desafio.Controller
      /// </summary>
     public class ValidacaoController
     {
-        / <summary>
-        / Validação do <see cref = "Paciente.CPF" />.
-        / </ summary >
-        /< param name = "CPF">Representa o valor de um<see langword="CPF"/> que deve ser validado.</param>        
-        /<returns>
-        /<list type = "bullet" >
-        /< item >
-        / Retorna < see langword="false"/>:
-        /<list type = "bullet" >
-        /< item > Se o valor do <see langword = "CPF" /> for nulo ou vazio;</item>
-        /<item>Se o<see langword= "CPF" /> não tiver 11 dígitos;</item>
-        /<item>Se o valor de todos os dígitos do <see langword = "CPF" /> forem iguais;Ou</item>
-        /<item>Se o valor<see langword="CPF"/> for um<see langword="CPF"/> de valor inexistente.</item>
-        /</list>
-        /</item>
-        /<item>Retorna<see langword="true"/> se o valor do <see langword = "CPF" /> for um<see langword="CPF"/> de valor que existente.</item>
-        /</list>
-        /</returns>
-        public static bool ValidaCpf(string? CPF)
+
+        private ValidacaoDAO ValidacaoDB { get; set; }
+
+        public ValidacaoController(ConsultorioContexto consultorioCtxt)
+        {
+            ValidacaoDB = new(consultorioCtxt);
+        }
+
+
+        /// <summary>
+        /// Validação do <see cref = "Paciente.CPF" />.
+        /// </ summary >
+        ///< param name = "CPF">Representa o valor de um<see langword="CPF"/> que deve ser validado.</param>        
+        ///<returns>
+        ///<list type = "bullet" >
+        ///< item >
+        /// Retorna < see langword="false"/>:
+        ///<list type = "bullet" >
+        ///< item > Se o valor do <see langword = "CPF" /> for nulo ou vazio;</item>
+        ///<item>Se o<see langword= "CPF" /> não tiver 11 dígitos;</item>
+        ///<item>Se o valor de todos os dígitos do <see langword = "CPF" /> forem iguais;Ou</item>
+        ///<item>Se o valor<see langword="CPF"/> for um<see langword="CPF"/> de valor inexistente.</item>
+        ///</list>
+        ///</item>
+        ///<item>Retorna<see langword="true"/> se o valor do <see langword = "CPF" /> for um<see langword="CPF"/> de valor que existente.</item>
+        ///</list>
+        ///</returns>
+        public bool ValidaCpf(string? CPF)
         {
             if (string.IsNullOrEmpty(CPF) && !CPF.Length.Equals(11) ||
                 CPF.All(c => CPF[0].Equals(c)))
             {
-                Console.WriteLine(MenssagemDeErro.CpfIvalido);
+                Console.WriteLine(MenssagemDeErro.CpfInvalido);
                 return false;
             }
 
@@ -70,11 +82,17 @@ namespace Desafio.Controller
 
             if (!(valorJ || valorK))
             {
-                Console.WriteLine(MenssagemDeErro.CpfIvalido);
+                Console.WriteLine(MenssagemDeErro.CpfInvalido);
                 return false;
             }
             return true;
         }
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //===================================================VALIDACOES DATA====================================================
+
+        
 
         /// <summary>
         /// Validação da <see cref="Consulta.DtConsulta"/>.
@@ -93,7 +111,7 @@ namespace Desafio.Controller
         ///<item>Retorna <see langword="true"/> se não retornar <see langword="false"/>.</item>
         ///</list>
         ///</returns>
-        public static bool ValidaDataConsulta(List<DateTime> datas, string? data)
+        private bool ValidaDataConsulta(string? data)
         {
             if (!ValidaDataFormato(data))
             {
@@ -103,9 +121,7 @@ namespace Desafio.Controller
 
             DateTime dataConsulta = DateTime.Parse(data);
 
-            if (!(dataConsulta.Date.Equals(DateTime.Now.Date) &&
-                   ValidaHrConsulta(datas, DateTime.Now.ToString("HHmm")) ||
-                   dataConsulta.Date > DateTime.Now.Date))
+            if (dataConsulta.CompareTo(DateTime.Today) < 0)
             {
                 Console.WriteLine(MenssagemDeErro.DtConsultaInvalida);
                 return false;
@@ -123,13 +139,13 @@ namespace Desafio.Controller
         ///<item>Retorna <see langword="true"/> e exibe menssagem de erro.</item>        
         ///</list>
         ///</returns>
-        public static bool ValidaDataFormato(String? data)
+        private bool ValidaDataFormato(String? data)
         {
             return DateTime.TryParse(data, out DateTime dt);
         }
 
         //Valida data inicial
-        public static bool ValidaDataInicial(string? data)
+        private bool ValidaDataInicial(string? data)
         {
             if (!ValidaDataFormato(data))
             {
@@ -141,7 +157,7 @@ namespace Desafio.Controller
         }
 
         //Valida data final
-        public static bool ValidaDataFinal(string? data)
+        private bool ValidaDataFinal(string? data)
         {
             if (!ValidaDataFormato(data))
             {
@@ -151,7 +167,7 @@ namespace Desafio.Controller
 
             if (DateTime.Parse(data) >= DateTime.Now)
             {
-                Console.WriteLine(MenssagemDeErro.DtFinalInvalida);
+                Console.WriteLine(MenssagemDeErro.DtInvalidaFinal);
                 return false;
             }
 
@@ -159,7 +175,7 @@ namespace Desafio.Controller
         }
 
         //Valida da data de nascimento
-        public static bool ValidaDataNascimento(string? data)
+        private bool ValidaDataNascimento(string? data)
         {
             if (!ValidaDataFormato(data))
             {
@@ -174,107 +190,144 @@ namespace Desafio.Controller
             return true;
         }
 
-        //Valida da hora da consulta
-        public static bool ValidaHrConsulta(List<DateTime> datas, string? hora)
+        public bool ValidaData(TipoDeData tipo, string data)
         {
-            //Se o formato é válido
-            if (!ValidaHoraFormato(hora))
-            {
-                Console.WriteLine(MenssagemDeErro.HrInvalidaFormato);
+            switch(tipo) {
+                case TipoDeData.DataDeNascimento: return ValidaDataNascimento(data);
+                case TipoDeData.DataConsulta: return ValidaDataConsulta(data);
+                case TipoDeData.DataInicialPeriodo: return ValidaDataInicial(data);
+                default: {
+                        Console.WriteLine(MenssagemDeErro.DtInvalida);
+                        return false;
+                    }
+            }
+        }
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //===================================================VALIDACOES HORA====================================================
+
+
+        private bool ValidaHrInicialAux(DateTime hrInicial)
+        {
+            if(ValidacaoDB.QtdConsultasConflituosasHoraInicial(hrInicial) > 0) {
+                Console.WriteLine(MenssagemDeErro.HrInvalidaConflito);
                 return false;
             }
 
-            DateTime dtHr = DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR"));
-
-            //Se existes data e hora iguais agendadas
-            if (datas.Exists(dataEhora => dataEhora.Equals(dtHr)))
-            {
-                Console.WriteLine(MenssagemDeErro.ConsultExistente);
-                return false;
-            }
-
-            //Se o horário é definido de 15 em 15 minutos
-            if (dtHr.TimeOfDay.Minutes % 15 != 0)
-            {
-                Console.WriteLine(MenssagemDeErro.HrInvalidaFormato);
-                return false;
-            }
             return true;
         }
 
         //Valida hora final
-        public static bool ValidaHrFinal(List<DateTime> datas, string? hrFinal, string? hrInicial)
+        private bool ValidaHrFinalAux(DateTime hrInicial, DateTime hrFinal)
         {
-            //Se a Hora inicial for inválida 
-            if (!ValidaHrConsulta(datas, hrFinal))
-                return false;
-
-            DateTime horaFinal = DateTime.ParseExact(hrFinal, "HHmm", new CultureInfo("pt-BR"));
-            DateTime horaInicial = DateTime.ParseExact(hrInicial, "HHmm", new CultureInfo("pt-BR"));
 
             //Valida a Hora final de acordo com as regras de agendamento
-            if (horaFinal.TimeOfDay <= horaInicial.TimeOfDay)
+            if (hrFinal.TimeOfDay <= hrInicial.TimeOfDay)
             {
-                Console.WriteLine(MenssagemDeErro.HrFinalInvalida);
+                Console.WriteLine(MenssagemDeErro.HrInvalidaFinal);
                 return false;
             }
 
-            if (horaFinal.Hour == 8 && horaFinal.Minute < 15 ||
-               horaFinal.Hour < 8 || horaFinal.Hour > 19)
-            {
-                Console.WriteLine(MenssagemDeErro.HrInvalidaFuncionamento);
+            if(ValidacaoDB.QtdConsultasConflituosasHoraFinal(hrFinal) > 0) {
+                Console.WriteLine(MenssagemDeErro.HrInvalidaConflito);
                 return false;
             }
+
+
             return true;
         }
 
         //Valida o formato da hora
-        public static bool ValidaHoraFormato(string? hora)
+        private bool ValidaHoraFormato(string? horario)
         {
-            return DateTime.TryParseExact(hora, "HHmm",
-                new CultureInfo("pt-BR"), DateTimeStyles.None, out DateTime hr);
-        }
-
-        //Valida hora inicial
-        public static bool ValidaHrInicial(List<DateTime> datas, string? hora)
-        {
-            //Se a Hora inicial for inválida 
-            if (!ValidaHrConsulta(datas, hora))
-                return false;
-
-            DateTime hrInicial = DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR"));
-
-            //Valida a Hora inicial de acordo com as regras de agendamento
-            if (hrInicial.Hour < 8 || hrInicial.Hour > 18 ||
-               hrInicial.Hour == 18 && hrInicial.Minute > 45)
-            {
-                Console.WriteLine(MenssagemDeErro.HrInvalidaFuncionamento);
+            Regex rx = new Regex(@"(^\d{4}$)");
+            if(!rx.Match(horario).Success) {
+                Console.WriteLine(MenssagemDeErro.HrInvalidaFormato);
                 return false;
             }
-            return true;
+
+            try {
+                short min = Convert.ToInt16(horario.Substring(3));
+                short hora = Convert.ToInt16(horario.Substring(0, 2));
+
+                if(min % 15 != 0 || min >= 60) {
+                    Console.WriteLine(MenssagemDeErro.HrInvalidaMultiplos);
+                    return false;
+                }
+
+                if(hora < 8 || hora > 19) {
+                    Console.WriteLine(MenssagemDeErro.HrInvalidaFuncionamento);
+                    return false;
+                }
+
+                return true;
+            }
+            catch {
+                Console.WriteLine(MenssagemDeErro.HrInvalidaFormato);
+                return false;
+            }
         }
 
+        public bool ValidaHoraInicial(TipoDeHora tipo, DateTime data, string? hora)
+        {
+            if(!ValidaHoraFormato(hora)) {
+                return false;
+            }
+
+            DateTime tempoCompleto = data + DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR")).TimeOfDay;
+
+            switch(tipo) {
+                case TipoDeHora.HoraInicial: return ValidaHrInicialAux(tempoCompleto);
+
+                default: return false;
+            }
+        }
+
+        public bool ValidaHoraFinal(DateTime data, DateTime horaInicial, string? hora)
+        {
+            if(!ValidaHoraFormato(hora)) {
+                return false;
+            }
+
+            DateTime tempoCompleto = data + DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR")).TimeOfDay;
+
+            return ValidaHrFinalAux(horaInicial, tempoCompleto);
+        }
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         //Valida do nome
-        public static bool ValidaNome(string? nome)
+        public bool ValidaNome(string? nome)
         {
             if (nome.Length < 5)
             {
-                Console.WriteLine(MenssagemDeErro.NomeIvalido);
+                Console.WriteLine(MenssagemDeErro.NomeInvalido);
                 return false;
             }
             return true;
         }
 
         //Valida opção de listagem de agenda
-        public static bool ValidaOpcaoListAgenda(char? opcao)
+        public bool ValidaOpcaoListAgenda(string? opcao)
         {
-            return opcao.HasValue && (opcao.Equals('T') || opcao.Equals('P'));
+            Regex rx = new Regex(@"(^[TP])");
+            if(!rx.Match(opcao.ToUpper()).Success) {
+                Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
+                return false;
+            }
+
+            return true;
         }
 
         public bool PacienteExiste(long cpf)
         {
-            Paciente? p = new PacienteDAO().PacientesPorCpf(cpf);
-            if (p == null) return false;
+            Paciente p = ValidacaoDB.ListarPacientePorCPF(cpf);
+            if (p == null) {
+                Console.WriteLine(MenssagemDeErro.CpfInexistente);
+                return false;
+            }
 
             return true;
         }

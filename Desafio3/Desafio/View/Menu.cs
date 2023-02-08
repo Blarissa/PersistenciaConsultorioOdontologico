@@ -1,12 +1,32 @@
 using Desafio.Controller;
+using Desafio.Data;
+using Desafio.Data.DadosComConsole;
 using Desafio.View.Mensagens;
 
 namespace Desafio.Desafio.View
 {
     internal class Menu
     {
-        readonly PacienteController pacienteController = new();
-        readonly ConsultaController agenda = new ();
+
+        readonly PacienteController PacienteController;
+        readonly ConsultaController AgendaController;
+
+        readonly ConsultorioContexto DBcontext;
+        readonly ValidacaoController ValidacaoCtrl;
+
+        public Menu()
+        {
+            //Contexto para acessar o BD
+            DBcontext = new ConsultorioContexto();
+
+            //Input escolhido -> Classe entrada de console
+            EntradaDeConsole console = new EntradaDeConsole();
+
+            ValidacaoCtrl = new(DBcontext);
+
+            PacienteController = new(console, ValidacaoCtrl, DBcontext);
+            AgendaController = new(console, ValidacaoCtrl, DBcontext);
+        }
 
         //Chama menu principal
         public static int Principal()
@@ -54,22 +74,22 @@ namespace Desafio.Desafio.View
             {
                 //Cadastrar novo paciente
                 case 1:
-                    pacienteController.Adiciona();
+                    PacienteController.Adiciona();
                     break;
 
                 //Excluir paciente
                 case 2:
-                    pacienteController.Remove();
+                    PacienteController.Remove();
                     break;
 
                 //Listar pacientes (ordenado por CPF)
                 case 3:
-                    Console.WriteLine(pacienteController.PacientesOrdemCPF());
+                    PacienteController.ListarOrdenadosPorCPF();
                     break;
 
                 //Listar pacientes (ordenado por nome)
                 case 4:
-                    Console.WriteLine(pacienteController.PacientesOrdemNome());
+                    PacienteController.ListarOrdenadosPorNome();
                     break;
 
                 //Voltar para o menu principal
@@ -98,17 +118,17 @@ namespace Desafio.Desafio.View
             {
                 //Agendar consulta
                 case 1:
-                    agenda.Agendar();
+                    AgendaController.Adiciona();
                     break;
 
                 //Cancelar agendamento
                 case 2:
-                    agenda.Cancelar();
+                    AgendaController.Remove();
                     break;
 
                 //Listar agenda
                 case 3:
-                    agenda.Listagem();
+                    AgendaController.ListarTodos();
                     break;
 
                 //Voltar para o menu principal
