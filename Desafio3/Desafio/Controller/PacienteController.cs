@@ -1,6 +1,6 @@
-using Desafio.Data;
 using Desafio.Data.DAO;
 using Desafio.Model;
+using Desafio.Data;
 
 namespace Desafio.Controller
 {
@@ -11,11 +11,11 @@ namespace Desafio.Controller
     public class PacienteController : IController
     {
         PacienteDAO dao;
-        ConsultorioContexto contexto = new ConsultorioContexto();
-
-        public PacienteController()
+        private EntradaDeDados Input { get; set; }
+        public PacienteController(IRecebimentoDeDados entrada, ValidacaoController validacao, ConsultorioContexto DBCtxt)
         {
-            dao = new PacienteDAO(contexto);
+            Input = new EntradaDeDados(entrada, validacao);
+            dao = new(DBCtxt);
         }
 
         #region Documentation
@@ -26,15 +26,14 @@ namespace Desafio.Controller
 
         public void Adiciona()
         {
-            long CPF = EntradaDeDados.RetornaCPF();
-            string nome = EntradaDeDados.RetornaNome();
-            DateTime data = EntradaDeDados.RetornaData(0);
+            long CPF = Input.RetornaCPF();   
+            string nome = Input.RetornaNome();
+            DateTime data = Input.RetornaData(TipoDeData.DataDeNascimento);
 
             dao.Adicionar(
-                new Paciente()
-                {
-                    CPF = CPF,
-                    Nome = nome,
+                new Paciente() { 
+                    CPF = CPF, 
+                    Nome = nome, 
                     DtNascimento = data
                 });
         }
@@ -45,11 +44,11 @@ namespace Desafio.Controller
 
         public void Remove()
         {
-            long CPF = EntradaDeDados.RetornaCPF();
+            long CPF = Input.RetornaCPF();
             var paciente = dao.ListaPorCPF(CPF);
 
             dao.Remover(paciente);
-        }
+        }        
 
         #region Documentation
         /// <summary>
@@ -85,12 +84,10 @@ namespace Desafio.Controller
 
         public void ListarPorChave()
         {
-            long CPF = EntradaDeDados.RetornaCPF();
+            long CPF = Input.RetornaCPF();
             var paciente = dao.ListaPorCPF(CPF);
 
-            Console.WriteLine(paciente.Listar());
-        }
+            Console.WriteLine(paciente);
+        }        
     }
 }
-
-   

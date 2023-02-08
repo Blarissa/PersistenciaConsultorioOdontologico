@@ -94,17 +94,19 @@ namespace Desafio.Model
                        + $"{DtNascimento:d} "
                        + $"{Idade}\n";
 
-            var consultas = new ConsultaController().ListarPorCPF(CPF);
+            //Remover lógica de Consulta do model de paciente
 
-            var query = from c in consultas
-                        where c.DataHoraInicial >= DateTime.Now
-                        select c;
+            //var consultas = new ConsultaController().ListarPorCPF(CPF);
 
-            if (query.HasItems())
-                consultas.ForEach(c =>
-                    str += $"{"",-11} "
-                         + $"Agendado para: {c.DataHoraInicial.Date:d}\n"
-                         + $"{"",-11} {c.DataHoraInicial:t} às {c.DataHoraFinal:t}\n");
+            //var query = from c in consultas
+            //            where c.DataHoraInicial >= DateTime.Now
+            //            select c;
+
+            //if (query.HasItems())
+            //    consultas.ForEach(c =>
+            //        str += $"{"",-11} "
+            //             + $"Agendado para: {c.DataHoraInicial.Date:d}\n"
+            //             + $"{"",-11} {c.DataHoraInicial:t} às {c.DataHoraFinal:t}\n");
 
             return str;
         }

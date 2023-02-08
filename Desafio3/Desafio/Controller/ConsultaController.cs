@@ -10,14 +10,15 @@ namespace Desafio.Controller
 
     public class ConsultaController : IController
     {
-        ConsultaDAO consultaDAO;
-        PacienteDAO pacienteDAO;
-        ConsultorioContexto contexto = new ConsultorioContexto();
+        private ConsultaDAO CnsltDAO { get; set; }
+        private PacienteDAO PcteDAO { get; set; }
 
-        public ConsultaController()
+        private EntradaDeDados Input { get; set; }
+        public ConsultaController(IRecebimentoDeDados entrada, ValidacaoController val, ConsultorioContexto DBCtxt)
         {
-            consultaDAO = new ConsultaDAO(contexto);
-            pacienteDAO = new PacienteDAO(contexto);
+            Input = new EntradaDeDados(entrada, val);
+            CnsltDAO = new(DBCtxt);
+            PcteDAO = new(DBCtxt);
         }
 
         #region Documentation
@@ -26,15 +27,15 @@ namespace Desafio.Controller
 
         public void Adiciona()
         {
-            var CPF = EntradaDeDados.RetornaCPF();
-            var paciente = pacienteDAO.ListaPorCPF(CPF);
+            var CPF = Input.RetornaCPF();
+            var paciente = PcteDAO.ListaPorCPF(CPF);
 
-            var data = EntradaDeDados.RetornaData(1);
-            var dataHoraInicial = data + EntradaDeDados.RetornaData(4).TimeOfDay;
-            var dataHoraFinal = data + EntradaDeDados.RetornaData(5).TimeOfDay;
+            var data = Input.RetornaData(TipoDeData.DataConsulta);
+            var dataHoraInicial = Input.RetornaHoraInicial(TipoDeHora.HoraInicial, data);
+            var dataHoraFinal = Input.RetornaHoraFinal(data,dataHoraInicial);
 
-            consultaDAO.Adicionar(new Consulta()
-            {
+
+            CnsltDAO.Adicionar(new Consulta() {
                 CPFPaciente = CPF,
                 Paciente = paciente,
                 DataHoraInicial = dataHoraInicial,
@@ -48,13 +49,16 @@ namespace Desafio.Controller
 
         public void ListarPorChave()
         {
-            var CPF = EntradaDeDados.RetornaCPF();
-            var DataHora = EntradaDeDados.RetornaData(1);
-            DataHora += EntradaDeDados.RetornaData(4).TimeOfDay;
+            var CPF = Input.RetornaCPF();
+            var DataHora = Input.RetornaData(TipoDeData.DataInicialPeriodo);
+            DataHora += Input.RetornaData(TipoDeData.DataConsulta).TimeOfDay;
 
-            var id = RetornaID(CPF, DataHora);
+            var query = from c in CnsltDAO.ListaTodos()
+                        where c.CPFPaciente.Equals(CPF) &&
+                        c.DataHoraInicial.Equals(DataHora)
+                        select c;
 
-            var consulta = consultaDAO.ListaPorId(id);
+            var consulta = CnsltDAO.ListaPorId(query.First().Id);
 
             Console.WriteLine(consulta);
         }
@@ -65,13 +69,13 @@ namespace Desafio.Controller
 
         public void ListarTodos()
         {
-            var opcao = EntradaDeDados.RetornaOpcaoDeListagemDaAgenda();
-            var consultas = consultaDAO.ListaTodos();
+            var opcao = Input.RetornarOpcaoListAgenda();
+            var consultas = CnsltDAO.ListaTodos();
 
-            if (opcao == 'P')
+            if (opcao == 'P' || opcao == 'p')
             {
-                var dataInicial = EntradaDeDados.RetornaData(2);
-                var dataFinal = EntradaDeDados.RetornaData(3);
+                var dataInicial = Input.RetornaData(TipoDeData.DataInicialPeriodo);
+                var dataFinal = Input.RetornaDataFinal(dataInicial);
 
                 var query = from c in consultas
                             where c.DataHoraInicial.Date >= dataInicial ||
@@ -89,28 +93,17 @@ namespace Desafio.Controller
 
         public void Remove()
         {
-            var CPF = EntradaDeDados.RetornaCPF();
-            var DataHora = EntradaDeDados.RetornaData(1);
-            DataHora += EntradaDeDados.RetornaData(4).TimeOfDay;
-            var id = RetornaID(CPF, DataHora);
+            var CPF = Input.RetornaCPF();
+            var Data = Input.RetornaData(TipoDeData.DataConsulta);
+            var HorarioConsulta = Input.RetornaHoraInicial(TipoDeHora.HoraInicial, Data);
 
-            var consulta = consultaDAO.ListaPorId(id);
-            consultaDAO.Remover(consulta);
-        }
-
-        internal IList<Consulta> ListarPorCPF(long CPF)
-        {
-            return consultaDAO.ListaPorCPF(CPF);
-        }
-
-        private int RetornaID(long CPF, DateTime DataHora)
-        {
-            var query = from c in consultaDAO.ListaTodos()
+            var query = from c in CnsltDAO.ListaTodos()
                         where c.CPFPaciente.Equals(CPF) &&
-                        c.DataHoraInicial.Equals(DataHora)
+                        c.DataHoraInicial.Equals(HorarioConsulta)
                         select c;
 
-            return query.First().Id;
+            var consulta = CnsltDAO.ListaPorId(query.First().Id);
+            CnsltDAO.Remover(consulta);
         }
     }
 }

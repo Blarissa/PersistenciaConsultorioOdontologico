@@ -7,9 +7,15 @@ using System.Threading.Tasks;
 
 namespace Desafio.Data.DAO
 {
-    internal class ConsultaDAO : IComando<Consulta>
+    public class ConsultaDAO : IComando<Consulta>
     {
         ConsultorioContexto contexto;
+
+        #region Documentation
+        /// <summary>   Inicializa uma instância da classe <see cref="ConsultaDAO" />. </summary>
+        ///
+        /// <param name="contexto"> Referente a um objeto do <see cref="ConsultorioContexto" />. </param>
+        #endregion
 
         public ConsultaDAO(ConsultorioContexto contexto)
         {
@@ -18,27 +24,35 @@ namespace Desafio.Data.DAO
 
         public void Adicionar(Consulta tipo)
         {
-            throw new NotImplementedException();
+            contexto.Consultas.Add(tipo);
+            contexto.SaveChanges();
         }
 
         public IList<Consulta> ListaTodos()
         {
-            throw new NotImplementedException();
+            List<Consulta> resposta = contexto.Consultas.ToList();
+
+            foreach(Consulta c in resposta) {
+                c.Paciente = contexto.Pacientes.Find(c.CPFPaciente);
+            }
+
+            return resposta;
         }
 
         public void Remover(Consulta tipo)
         {
-            throw new NotImplementedException();
+            contexto.Consultas.Remove(tipo);
+            contexto.SaveChanges();
         }
 
         internal IList<Consulta> ListaPorCPF(long CPF)
         {
-            throw new NotImplementedException();
+            return contexto.Consultas.Where(cnslt => cnslt.CPFPaciente.Equals(CPF)).ToList();
         }
 
         internal Consulta ListaPorId(int id)
         {
-            throw new NotImplementedException();
+            return contexto.Consultas.Find(id);
         }
     }
 }
