@@ -156,24 +156,7 @@ namespace Desafio.Controller
             return DateTime.Parse(data) < DateTime.Now;
         }
 
-        //Valida data final
-        private bool ValidaDataFinal(string? data)
-        {
-            if (!ValidaDataFormato(data))
-            {
-                Console.WriteLine(MenssagemDeErro.DtInvalidaFormato);
-                return false;
-            }
-
-            if (DateTime.Parse(data) >= DateTime.Now)
-            {
-                Console.WriteLine(MenssagemDeErro.DtInvalidaFinal);
-                return false;
-            }
-
-            return true;
-        }
-
+        
         //Valida da data de nascimento
         private bool ValidaDataNascimento(string? data)
         {
@@ -201,6 +184,23 @@ namespace Desafio.Controller
                         return false;
                     }
             }
+        }
+
+        //Valida data final
+        public bool ValidaDataFinal(DateTime dataInicial, string data)
+        {
+            if(!ValidaDataFormato(data)) {
+                Console.WriteLine(MenssagemDeErro.DtInvalidaFormato);
+                return false;
+            }
+
+
+            if(DateTime.Parse(data) >= DateTime.Now || DateTime.Parse(data) <= dataInicial) {
+                Console.WriteLine(MenssagemDeErro.DtInvalidaFinal);
+                return false;
+            }
+
+            return true;
         }
 
 
