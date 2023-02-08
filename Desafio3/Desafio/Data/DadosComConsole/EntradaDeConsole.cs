@@ -51,7 +51,7 @@ namespace Desafio.Data.DadosComConsole
         {
             Console.WriteLine("Apresentar a agenda T-Toda ou P-Periodo: ");
             var opcao = Console.ReadLine() ?? "";
-            return opcao;
+            return opcao.ToUpper();
         }
     }
 }

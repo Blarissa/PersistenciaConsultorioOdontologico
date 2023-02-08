@@ -203,10 +203,6 @@ namespace Desafio.Controller
             }
         }
 
-        public bool ValidaDataFinal(TipoDeData tipo, DateTime dtInicial, string dtFinal)
-        {
-            throw new NotImplementedException();
-        }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //===================================================VALIDACOES HORA====================================================
@@ -245,7 +241,7 @@ namespace Desafio.Controller
         //Valida o formato da hora
         private bool ValidaHoraFormato(string? horario)
         {
-            Regex rx = new Regex(@"(^\d{2}:\d{2}$)");
+            Regex rx = new Regex(@"(^\d{4}$)");
             if(!rx.Match(horario).Success) {
                 Console.WriteLine(MenssagemDeErro.HrInvalidaFormato);
                 return false;
@@ -279,7 +275,7 @@ namespace Desafio.Controller
                 return false;
             }
 
-            DateTime tempoCompleto = data + DateTime.ParseExact(hora, "HH:mm", new CultureInfo("pt-BR")).TimeOfDay;
+            DateTime tempoCompleto = data + DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR")).TimeOfDay;
 
             switch(tipo) {
                 case TipoDeHora.HoraInicial: return ValidaHrInicialAux(tempoCompleto);
@@ -294,7 +290,7 @@ namespace Desafio.Controller
                 return false;
             }
 
-            DateTime tempoCompleto = data + DateTime.ParseExact(hora, "HH:mm", new CultureInfo("pt-BR")).TimeOfDay;
+            DateTime tempoCompleto = data + DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR")).TimeOfDay;
 
             return ValidaHrFinalAux(horaInicial, tempoCompleto);
         }
@@ -316,7 +312,7 @@ namespace Desafio.Controller
         //Valida opção de listagem de agenda
         public bool ValidaOpcaoListAgenda(string? opcao)
         {
-            Regex rx = new Regex(@"(^[TPtp])");
+            Regex rx = new Regex(@"(^[TP])");
             if(!rx.Match(opcao.ToUpper()).Success) {
                 Console.WriteLine(MenssagemDeErro.OpcaoInvalida);
                 return false;

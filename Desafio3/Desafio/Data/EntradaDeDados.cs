@@ -88,7 +88,7 @@ namespace Desafio.Data
                 hora = Input.LerHora(tipo);
             } while(!Validador.ValidaHoraInicial(TipoDeHora.HoraInicial, data, hora));
 
-            return data + DateTime.ParseExact(hora, "HH:mm", new CultureInfo("pt-BR")).TimeOfDay;
+            return data + DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR")).TimeOfDay;
         }
 
         public DateTime RetornaHoraFinal(DateTime data, DateTime horaInicial)
@@ -99,7 +99,7 @@ namespace Desafio.Data
                 hora = Input.LerHora(TipoDeHora.HoraFinal);
             } while(!Validador.ValidaHoraFinal(data, horaInicial, hora));
 
-            return data + DateTime.ParseExact(hora, "HH:mm", new CultureInfo("pt-BR")).TimeOfDay;
+            return data + DateTime.ParseExact(hora, "HHmm", new CultureInfo("pt-BR")).TimeOfDay;
         }
 
         //Ler 
