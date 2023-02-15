@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Desafio.Data.DadosComConsole
+namespace Desafio.View
 {
     internal class EntradaDeConsole : IRecebimentoDeDados
     {
