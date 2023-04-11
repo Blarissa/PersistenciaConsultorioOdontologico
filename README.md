@@ -4,7 +4,6 @@
 
 ### Instruções
 - A aplicação deverá ser desenvolvida em dupla.
-- Data limite de entrega: 08/02/2023 (quarta-feira).
 - A aplicação deverá ser versionada e disponibilizada no github.
 
 ### Descrição
