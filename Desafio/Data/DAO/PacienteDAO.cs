@@ -9,7 +9,7 @@ namespace Desafio.Data.DAO
     /// </summary>
     #endregion
 
-    internal class PacienteDAO : IComando<Paciente>
+    public class PacienteDAO : IDAO<Paciente>
     {
         ConsultorioContexto contexto;
 
@@ -76,10 +76,10 @@ namespace Desafio.Data.DAO
         /// </returns>
         #endregion
 
-        public Paciente ListaPorCPF(long cpf)
+        public Paciente? ListaPorCPF(long cpf)
         {
-            return contexto.Pacientes.Find(cpf);
-        }
-
+            return contexto.Pacientes
+                .FirstOrDefault(p => p.CPF == cpf);
+        }       
     }
 }

@@ -1,13 +1,9 @@
 ﻿using Desafio.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Desafio.Data.DAO
 {
-    public class ConsultaDAO : IComando<Consulta>
+    public class ConsultaDAO : IDAO<Consulta>
     {
         ConsultorioContexto contexto;
 
@@ -22,37 +18,39 @@ namespace Desafio.Data.DAO
             this.contexto = contexto;
         }
 
-        public void Adicionar(Consulta tipo)
+        public void Adicionar(Consulta consulta)
         {
-            contexto.Consultas.Add(tipo);
+            contexto.Consultas.Add(consulta);
             contexto.SaveChanges();
+        }
+
+        public Consulta? ListaPorId(int id)
+        {
+            return contexto.Consultas
+                .Include(c => c.Paciente)
+                .FirstOrDefault(c => c.Id == id);
         }
 
         public IList<Consulta> ListaTodos()
-        {
-            List<Consulta> resposta = contexto.Consultas.ToList();
-
-            foreach(Consulta c in resposta) {
-                c.Paciente = contexto.Pacientes.Find(c.CPFPaciente);
-            }
-
-            return resposta;
+        {           
+            return contexto.Consultas
+                .Include(c => c.Paciente)
+                .ToList();
         }
 
-        public void Remover(Consulta tipo)
+        public void Remover(Consulta consulta)
         {
-            contexto.Consultas.Remove(tipo);
+            contexto.Consultas.Remove(consulta);
             contexto.SaveChanges();
         }
 
-        internal IList<Consulta> ListaPorCPF(long CPF)
+        public IList<Consulta> ListaPorCPF(long CPF)
         {
-            return contexto.Consultas.Where(cnslt => cnslt.CPFPaciente.Equals(CPF)).ToList();
+            return contexto.Consultas
+                .Include(c => c.Paciente)
+                .Where(c => c.CPFPaciente.Equals(CPF))
+                .ToList();
         }
-
-        internal Consulta ListaPorId(int id)
-        {
-            return contexto.Consultas.Find(id);
-        }
+        
     }
 }
