@@ -1,4 +1,5 @@
-﻿using Desafio.Model;
+﻿using Desafio.Data.Configuracoes;
+using Desafio.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -51,9 +52,16 @@ namespace Desafio.Data
             var senha = new DBConfig().Senha;
 
             string url = $"Host={host};Username={user};Password={senha};Database={database}";
+
             optionsBuilder
                 .UseNpgsql(@url)
                 .UseSnakeCaseNamingConvention();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {                                
+            modelBuilder.ApplyConfiguration(new PacienteConfiguration());
+            modelBuilder.ApplyConfiguration(new ConsultaConfiguration());
         }
     }
 }
