@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Desafio.Migrations
 {
     [DbContext(typeof(ConsultorioContexto))]
-    [Migration("20230201050200_consultorio")]
-    partial class consultorio
+    [Migration("20230413043045_consultas")]
+    partial class consultas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,12 +39,18 @@ namespace Desafio.Migrations
                         .HasColumnName("cpf_paciente");
 
                     b.Property<DateTime>("DataHoraFinal")
-                        .HasColumnType("timestamp")
+                        .HasColumnType("Timestamp without Time Zone")
                         .HasColumnName("data_hora_final");
 
                     b.Property<DateTime>("DataHoraInicial")
-                        .HasColumnType("timestamp")
+                        .HasColumnType("Timestamp without Time Zone")
                         .HasColumnName("data_hora_inicial");
+
+                    b.Property<TimeSpan>("TempoConsulta")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("Interval")
+                        .HasColumnName("tempo_consulta")
+                        .HasComputedColumnSql("SELECT AGE(data_hora_final, data_hora_inicial)", true);
 
                     b.HasKey("Id")
                         .HasName("pk_consultas");
@@ -61,9 +67,9 @@ namespace Desafio.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("cpf");
 
-                    b.Property<DateTime>("DtNascimento")
-                        .HasColumnType("date")
-                        .HasColumnName("dt_nascimento");
+                    b.Property<DateTime>("DataDeNascimento")
+                        .HasColumnType("Date")
+                        .HasColumnName("data_de_nascimento");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -79,13 +85,18 @@ namespace Desafio.Migrations
             modelBuilder.Entity("Desafio.Model.Consulta", b =>
                 {
                     b.HasOne("Desafio.Model.Paciente", "Paciente")
-                        .WithMany()
+                        .WithMany("Consultas")
                         .HasForeignKey("CPFPaciente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_consultas_pacientes_cpf_paciente");
+                        .HasConstraintName("fk_consultas_pacientes_paciente_temp_id");
 
                     b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("Desafio.Model.Paciente", b =>
+                {
+                    b.Navigation("Consultas");
                 });
 #pragma warning restore 612, 618
         }

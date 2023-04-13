@@ -7,24 +7,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Desafio.Migrations
 {
     /// <inheritdoc />
-    public partial class consultorio : Migration
+    public partial class consultas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "pacientes",
-                columns: table => new
-                {
-                    cpf = table.Column<long>(type: "bigint", nullable: false),
-                    nome = table.Column<string>(type: "text", nullable: false),
-                    dtnascimento = table.Column<DateTime>(name: "dt_nascimento", type: "date", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_pacientes", x => x.cpf);
-                });
-
             migrationBuilder.CreateTable(
                 name: "consultas",
                 columns: table => new
@@ -32,14 +19,15 @@ namespace Desafio.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     cpfpaciente = table.Column<long>(name: "cpf_paciente", type: "bigint", nullable: false),
-                    datahorainicial = table.Column<DateTime>(name: "data_hora_inicial", type: "timestamp", nullable: false),
-                    datahorafinal = table.Column<DateTime>(name: "data_hora_final", type: "timestamp", nullable: false)
+                    datahorainicial = table.Column<DateTime>(name: "data_hora_inicial", type: "Timestamp without Time Zone", nullable: false),
+                    datahorafinal = table.Column<DateTime>(name: "data_hora_final", type: "Timestamp without Time Zone", nullable: false),
+                    tempoconsulta = table.Column<TimeSpan>(name: "tempo_consulta", type: "Interval", nullable: false, computedColumnSql: "AGE(data_hora_final, data_hora_inicial)", stored: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_consultas", x => x.id);
                     table.ForeignKey(
-                        name: "fk_consultas_pacientes_cpf_paciente",
+                        name: "fk_consultas_pacientes_paciente_temp_id",
                         column: x => x.cpfpaciente,
                         principalTable: "pacientes",
                         principalColumn: "cpf",
@@ -57,9 +45,6 @@ namespace Desafio.Migrations
         {
             migrationBuilder.DropTable(
                 name: "consultas");
-
-            migrationBuilder.DropTable(
-                name: "pacientes");
         }
     }
 }
