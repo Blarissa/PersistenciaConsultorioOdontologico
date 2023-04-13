@@ -13,42 +13,32 @@ namespace Desafio.Model
         #region Documentation
         /// <summary>   Recebe um identificador para uma <see cref="Consulta"/>. </summary>
         #endregion
-
-        [Key]
         public int Id { get; set; }
 
         #region Documentation
         /// <summary>   Recebe um identificador do <see cref="Paciente"/>. </summary>
         #endregion
-
-        [ForeignKey("Paciente")]
         public long CPFPaciente { get; set; }
 
         #region Documentation
         /// <summary>   Recebe um <see cref="Paciente"/> para a <see cref="Consulta"/>. </summary>       
         #endregion
-
         public Paciente Paciente { get; set; }
 
         #region Documentation
         /// <summary>   Recebe a data e hora inicial da <see cref="Consulta"/>. </summary>        
         #endregion
-
-        [Column(TypeName = "timestamp")]
         public DateTime DataHoraInicial { get; set; }
 
         #region Documentation
         /// <summary>   Recebe a data e hora final da <see cref="Consulta"/>. </summary>
         #endregion
-
-        [Column(TypeName = "timestamp")]
         public DateTime DataHoraFinal { get; set; }
 
         #region Documentation
         /// <summary>   Retorna o <see langword="tempo"/> da <see cref="Consulta"/>. </summary>        
         #endregion
-
-        private TimeSpan Tempo => DataHoraFinal.Subtract(DataHoraInicial);
+        public TimeSpan TempoConsulta { get; set; }
 
         #region Documentation
         /// <summary>   Realiza a listagem das <paramref name="consultas"/>. </summary>
@@ -61,7 +51,6 @@ namespace Desafio.Model
         ///     Uma <see cref="string"/> com a listagem dos <paramref name="consultas"/> ordenadas por <see cref="DataHoraInicial"/>.
         /// </returns>
         #endregion
-
         public static string Listar(IList<Consulta> consultas)
         {
             string str = Cabecalho();
@@ -76,15 +65,14 @@ namespace Desafio.Model
                 foreach(Consulta c in result)
                     str += $"{c.DataHoraInicial:t} "
                      + $"{c.DataHoraFinal:t} "
-                     + $"{c.Tempo:hh\\:mm} "
+                     + $"{c.TempoConsulta:hh\\:mm} "
                      + $"{c.Paciente.Nome} "
                      + $"".PadRight(26 - c.Paciente.Nome.Length, ' ')
-                     + $"{c.Paciente.Idade():d}\n";
+                     + $"{c.Paciente:d}\n";
             }
 
             return str;
         }
-
 
         private static string Cabecalho()
         {

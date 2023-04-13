@@ -15,33 +15,30 @@ namespace Desafio.Model
         #region Documentation
         /// <summary>   Recebe o CPF do <see cref="Paciente"/>. </summary>
         #endregion
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long CPF { get; set; }
 
         #region Documentation
         /// <summary>   Recebe o nome do <see cref="Paciente"/>. </summary>
         #endregion
-
-        [MinLength(5, ErrorMessage = "Nome do paciente deve ter no mínimo 5 letras!")]
         public string Nome { get; set; }
 
         #region Documentation
         /// <summary>   Recebe a Data de nascimento do <see cref="Paciente"/>. </summary>
         #endregion
-
-        [Column(TypeName = "date")]
-        public DateTime DtNascimento { get; set; }
+        public DateTime DataDeNascimento { get; set; }
 
         #region Documentation
         /// <summary>   Retorna a <see langword="idade"/> do <see cref="Paciente"/>. </summary>
         #endregion
+        private int Idade { get; set; }
+        
+        public virtual IList<Consulta> Consultas { get; set; }
 
-        public int Idade()
+        public Paciente()
         {
-            return DateTime.Now.Subtract(DtNascimento).Days / 365;
+            Consultas = new List<Consulta>();
         }
+
 
         #region Documentation
         /// <summary>   Realiza a listagem dos <paramref name="pacientes"/>. </summary>        
@@ -54,7 +51,6 @@ namespace Desafio.Model
         ///     paciente</see> tiver consultas futuras agendadas elas também serão mostradas.
         /// </returns>
         #endregion
-
         public static string Listar(IList<Paciente> pacientes)
         {
             string str = Cabecalho();
@@ -78,8 +74,7 @@ namespace Desafio.Model
 
         public string Listar()
         {
-            string str = Cabecalho() + ToString();
-            return str;
+            return Cabecalho() + ToString(); 
         }
 
         #region Documentation
@@ -92,26 +87,10 @@ namespace Desafio.Model
 
         public override string ToString()
         {
-            string str = $"{CPF,-11:00000000000} "
-                       + $"{Nome,-33} "
-                       + $"{DtNascimento:d} "
-                       + $"{Idade()}\n";
-
-            //Remover lógica de Consulta do model de paciente
-
-            //var consultas = new ConsultaController().ListarPorCPF(CPF);
-
-            //var query = from c in consultas
-            //            where c.DataHoraInicial >= DateTime.Now
-            //            select c;
-
-            //if (query.HasItems())
-            //    consultas.ForEach(c =>
-            //        str += $"{"",-11} "
-            //             + $"Agendado para: {c.DataHoraInicial.Date:d}\n"
-            //             + $"{"",-11} {c.DataHoraInicial:t} às {c.DataHoraFinal:t}\n");
-
-            return str;
+            return $"{CPF,-11:00000000000} "
+                 + $"{Nome,-33} "
+                 + $"{DataDeNascimento:d} "
+                 + $"{Idade}\n"; ;
         }
 
         #region Documentation
@@ -125,8 +104,8 @@ namespace Desafio.Model
         private static string Cabecalho()
         {
             return "".PadRight(60, '-') + "\n"
-                       + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
-                       + "".PadRight(60, '-') + "\n";
+                 + $"{"CPF",-11} {"Nome",-33} {"Dt.Nasc."} {"Idade"}\n"
+                 + "".PadRight(60, '-') + "\n";
         }
 
         #region Documentation
